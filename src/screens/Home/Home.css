@@ -1,0 +1,8 @@
+.home-component{
+    width: 100%;
+    height: auto;
+    margin: 30px 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

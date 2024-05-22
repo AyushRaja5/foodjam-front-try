@@ -1,0 +1,286 @@
+.profile-component {
+    width: 100%;
+    height: auto;
+    margin: 30px 40px;
+    display: flex;
+    justify-content: center;
+    align-items: start;
+}
+
+.profileInfo {
+    width: 25%;
+    /* height: 500px;  */
+    margin: 0 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); 
+    /* background-color: rgb(183, 117, 117); */
+}
+.profile-pic-name-info{
+    display: flex;
+    gap:5px;
+    justify-content: center;
+    align-items: center;
+    min-height: 100px;
+    opacity: 0.7;
+    margin: 10px;
+}
+ 
+.withdraw-balance-text{
+    font-size: 20px;
+    font-weight: 400;
+    margin-left: 20px;
+}
+.wallet-warning{
+    font-size: 14px;
+}
+.css-1f773le-MuiButtonBase-root-MuiAccordionSummary-root.Mui-expanded{
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);
+}
+.css-ahj2mt-MuiTypography-root{
+    gap: 8px;
+    display: flex;
+    align-items: center;
+}
+.how-to-earn{
+    width: 42px;
+    height: 30px;
+}
+.profile-pic-div{
+    width: 110px;
+    height: 110px;
+    border-radius: 50%;
+    border: 3px solid #f8a003;;
+}
+.profile-tags {
+    display: flex;
+    gap: 7px;
+    font-size: 14px;
+}
+.profile-tags :first-child{
+    background-color: #f8a003;
+    color: white;
+    border-radius: 5px;
+    padding: 2px 4px;
+    cursor: pointer;
+}
+.profile-tags span:nth-child(2) {
+    border: 1px solid #f8a003;
+    border-radius: 5px;
+    padding: 2px 4px;
+    cursor: pointer;
+}
+.profile-tags span:last-child{
+    color: blue;
+    padding: 2px 0;
+    cursor: pointer;
+    text-decoration: underline;
+}
+.username{
+    font-size: 20px;
+    margin-top: 15px;
+    font-weight: 700;
+}
+.fullname{
+    margin-top: 15px;
+    font-size: 14px;
+}
+.follow-div{
+    height: 70px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    opacity: 0.7;
+    margin: 10px;
+}
+.follow-div span{
+    width: 100px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-size: 20px;
+    font-weight: 600;
+    p{
+        font-size: 14px;
+        font-weight: 300;
+    }
+}
+
+.follow-div span:not(:last-child) {
+    border-right: 1px solid #000;
+    height: 60px;
+    /* box-shadow: 1px 0px 0px rgba(0, 0, 0, 0.5); */
+  }
+  
+.follow-div span:nth-child(2) {
+    border-right:1px solid #000; /* Remove border from second span to make it appear in the middle */
+}
+.buttons-div{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    opacity: 0.7;
+    margin: 10px;
+}
+.buttons-div button {
+    cursor: pointer;
+    width: 45%;
+    font-size: 14px;
+    padding: 5px 0;
+    border-radius: 5px;
+    border: none;
+    background-color: white;
+    border: 1px solid #000;
+}
+.buttons-div button:nth-child(2) {
+    color: #f8a003;
+    border: 1px solid #f8a003;
+}
+.dashboardInfo {
+    width: 75%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.tab-icon{
+    width: 25px;
+    height: 25px;
+}
+.css-ahj2mt-MuiTypography-root{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+}
+.dashboard-card{
+    width: 180px;
+    height: 120px;
+    margin: 10px 5px;
+    padding: 10px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); 
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    align-items: center;
+}
+.dashboard-top{
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    font-size: 18px;
+}
+.dashboard-top h2{
+    line-height: normal;
+}
+.dashboard-card p{
+    position: relative;
+    bottom: 0px;
+    display: flex;
+    justify-content: center;
+    font-size: 14px;
+}
+.dashboard-card img{
+    width: 40px;
+    height: 40px;
+}
+.dashboard-card .dashboard4{
+    height: 30px;
+    width: 40px;
+}
+.dashboard-card .dashboard3{
+    height: 35px;
+    width: 40px;
+}
+@media screen and (max-width: 1250px){
+    .profile-pic-name-info{
+        display: flex;
+        flex-direction: column;
+    }
+    .profile-name-div{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+    .username, .fullname{
+        margin-top: 5px;
+    }
+}
+@media screen and (min-width: 550px) and (max-width: 950px) {
+    .profile-component{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+    .profileInfo{
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+    }
+    .profile-pic-name-info {
+        width: 30%;
+        height: auto;
+        justify-content: start;
+        padding: 20px 0;
+    }
+    .follow-div{
+        width: 60%;;
+    }
+    /* .buttons-div{
+        display: none;
+    } */
+    .share-card-span{
+        display: flex;
+        flex-direction: row-reverse;
+    }
+    .share-card-span .buttons-div{
+        display: flex;
+        flex-direction: column;
+        justify-content: space-evenly;
+        align-items: center;
+    }
+    .share-card-span .buttons-div button{
+        width: 200px;
+    }
+}
+@media screen and (max-width: 550px){
+    .profile-component{
+        display: flex;
+        flex-direction: column;
+    }
+    .profileInfo{
+        width: 100%;
+        flex-wrap: wrap;
+    }
+    .profile-pic-name-info{
+        display: flex;
+        flex-direction: row;
+    }
+    .profile-name-div{
+        align-items: start;
+    }
+    .profile-tags{
+        gap: 7px;
+    }
+    .dashboardInfo{
+        width: 100%;
+    }
+    .dashboard-card{
+        width: 150px;
+        height: 100px;
+        margin: 5px 0;
+        padding: 0 2px;
+        border-radius: 5px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+        gap: 5px;
+    }
+    .dashboard-top {
+        display: flex;
+        gap: 10px;
+        align-items: center;
+        font-size: 14px;
+    }
+}
