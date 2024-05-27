@@ -1,0 +1,132 @@
+.yourAddress{
+  width: 100%;
+}
+.address-section{
+  width: 100%;
+  display: flex;
+}
+.yourAddress ul{
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.address-grid {
+  display: flex;
+  flex-wrap: wrap;
+  /* gap: 10px; */
+  margin: 0 20px;
+  justify-content: space-between;
+}
+.address-card {
+  flex: 1 1 calc(50% - 20px); /* Two cards per row with a 20px gap */
+  background: #fff;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  padding: 15px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+  max-width: calc(50% - 20px);
+  box-sizing: border-box;
+  margin: 10px;
+}
+.address-row {
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+  }
+  
+  .row {
+    display: flex;
+  }
+  .row:nth-child(1){
+    justify-content: space-between;
+  }
+  
+  .left {
+    flex: 1;
+  }
+  .left img{
+    height: 20px;
+    width: 15px;
+  }
+  
+  .right {
+   display: flex;
+   gap: 20px;
+  }
+  .right img{
+    height: 20px;
+    width: 20px;
+    cursor: pointer;
+  }
+  
+  .row:nth-child(2) {
+    margin-top: 5px;
+    font-size: 0.9rem;
+    color: #666;
+    display: flex;
+    flex-direction: column;
+  }
+  .add-address-div{
+    width: 100%;
+    /* background-color: red; */
+  }
+  .add-address-div {
+    width: 100%;
+    text-align: center;
+    margin-top: 20px;
+  }
+  
+  .add-address-button {
+    display: block;
+    width: calc(100% - 40px); 
+    max-width: 600px;
+    padding: 10px;
+    background-color: transparent;
+    color: #f8a003;
+    border: 1px solid #f8a003;
+    border-radius: 5px;
+    font-weight: 600;
+    cursor: pointer;
+    margin: 0 auto;
+  }
+  
+  .add-address-button:hover {
+    background-color: #f8a003;
+    color: white;
+  }
+  @media (max-width: 750px) {
+    .mobile-content{
+      margin-bottom: 20px;
+    }
+    .address-card {
+      flex: 1 1 100%; /* Single card per row on smaller screens */
+      max-width: 100%;
+      box-shadow: none;
+      border: none;
+      padding: 20px 0;
+      margin: 0;
+    }
+    .address-row{
+      padding: 0;
+    }
+    .address-card::after {
+      content: '';
+      display: block;
+      width: 100%;
+      height: 1px;
+      background-color: #ccc;
+      position: relative;
+      bottom: -20px; 
+      left: 0;
+    }
+    /* .address-card:not(:first-child)::after {
+      content: '';
+      display: none;
+      width: 100%;
+      height: 1px;
+      background-color: #ccc;
+      position: absolute;
+      bottom: -10px;
+      left: 0;
+    } */
+  }

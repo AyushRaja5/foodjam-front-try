@@ -1,0 +1,84 @@
+.yourPreferences {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  padding: 20px 0;
+  background-color: #f37421;
+  color:white
+}
+.css-19kzrtu{
+  padding: 0 40px;
+}
+.preference-header{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.preference-header h2 {
+  font-size: 28px;
+  margin: 10px 20px;
+}
+.preference-header span {
+  color: white;
+  margin: 10px 20px;
+}
+.items{
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  margin: 20px 0;
+}
+
+.item{
+  margin: 5px;
+  padding: 5px 10px;
+  border: 1.5px solid #ddd;
+  border-radius: 35px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: background-color 0.2s, color 0.3s;
+}
+.item.selected {
+  background-color: white;
+  color: #f37421;
+}
+.item label {
+  display: flex;
+  align-items: center;
+}
+
+.item input {
+  margin-right: 5px;
+}
+
+.preference-btn{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+}
+.yourPreferences button {
+  background-color: transparent;
+  color: white;
+  width: 80%;
+  margin-top: 40px;
+  padding: 10px 20px;
+  border: 1px solid white;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+@media (max-width: 750px) {
+  .preference-header{
+    align-items: start;
+  }
+  .yourPreferences .items{
+    gap: 5px;
+  }
+  .yourPreferences .item{
+    font-size: 15px;
+  }
+}

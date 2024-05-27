@@ -4,6 +4,10 @@ import * as postByIdActions from './postByIdActions'
 import * as savedPostsProductsActions from './savedPostsProductsActions'
 import * as storeProductsActions from './storeProductsActions'
 import * as userProfileByAccountIdActions from './userProfileByAccountIdActions'
+import * as userOrderActions from './userOrderActions'
+import * as userAddressActions from './userAddressActions'
+import * as userPreferencesActions from './userPreferencesActions'
+import * as userNotificationActions from './userNotificationActions'
 // Export all action creators
 export {
   authActions,
@@ -11,5 +15,9 @@ export {
   postByIdActions,
   savedPostsProductsActions,
   storeProductsActions,
-  userProfileByAccountIdActions
+  userProfileByAccountIdActions,
+  userOrderActions,
+  userAddressActions,
+  userPreferencesActions,
+  userNotificationActions
 };

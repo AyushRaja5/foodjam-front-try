@@ -15,6 +15,7 @@ import Typography from '@mui/material/Typography';
 import howToEarn from '../../assets/imagespng/howToEarn.png';
 import './Profile.css';
 import profile from '../../assets/imagessvg/profile.svg';
+import profilePlaceholder from '../../assets/imagespng/placeholder.png'
 import addToWallet from '../../assets/imagespng/addToWallet.png';
 import dashboard from '../../assets/imagespng/dashBoard_selected@3x.png'
 import channel from '../../assets/imagespng/channelIcon.png'
@@ -41,12 +42,12 @@ import campaignLite from '../../assets/imagespng/campLite.png'
 import workshopLite from '../../assets/imagespng/workshopLite.png'
 import exclusiveLite from '../../assets/imagespng/ecLite.png'
 import menuLite from '../../assets/imagespng/sellingLite.png'
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate, useParams } from 'react-router-dom';
 
 
 const CustomTabPanel = ({ children, value, index }) => {
   return (
-    <div role="tabpanel" hidden={value !== index} style={{ width:'100%'}}>
+    <div role="tabpanel" hidden={value !== index} style={{ width: '100%' }}>
       {value === index && (
         <Box sx={{ p: 3 }}>
           <Typography>{children}</Typography>
@@ -85,16 +86,14 @@ const Profile = () => {
   const dispatch = useDispatch();
   const location = useLocation();
   const navigate = useNavigate();
-
+  const { id, tab } = useParams();
   const initialTab = () => {
-    if (location.pathname.includes('/profile/stats')) return 0;
-    if (location.pathname.includes('/profile/channel')) return 1;
-    if (location.pathname.includes('/profile/store')) return 2;
-    if (location.pathname.includes('/profile/saved')) return 3;
-    return 0;
+    const tabIndex = parseInt(tab, 10);
+    return isNaN(tabIndex) ? 1 : tabIndex;
   };
+
   const cdnBaseURL = 'https://cdn.commeat.com/'
-  const userData = JSON.parse(localStorage.getItem('foodjam-user'));
+  // const userProfileData = JSON.parse(localStorage.getItem('foodjam-user'));
   const [currentPage, setCurrentPage] = useState(1);
   const [currentStoreMyProductsPage, setCurrentStoreMyProductsPage] = useState(1);
   const [value, setValue] = React.useState(initialTab());
@@ -112,13 +111,9 @@ const Profile = () => {
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
-    let path = '/profile';
-    if (newValue === 0) path = `/profile/stats/${userData?.account_id}`;
-    if (newValue === 1) path = `/profile/channel/${userData?.account_id}`;
-    if (newValue === 2) path = `/profile/store/${userData?.account_id}`;
-    if (newValue === 3) path = `/profile/saved/${userData?.account_id}`;
-    navigate(path);
+    navigate(`/profile/${id}/${newValue}`);
   };
+
   const handleChannelChange = (event, newValue) => {
     setChannelTabValue(newValue);
   };
@@ -126,34 +121,38 @@ const Profile = () => {
   const handleChannelPagination = (event, page) => {
     setCurrentPage(page);
     const offset = page;
-    dispatch(fetchPostByIdRequest(userData.account_id, limit, offset));
+    dispatch(fetchPostByIdRequest(id, limit, offset));
   };
   const handleStoreMyProductsPagination = (event, page) => {
     setCurrentStoreMyProductsPage(page);
     const offset = page;
-    dispatch(fetchStoreProductRequest(userData.account_id, limit, offset));
+    dispatch(fetchStoreProductRequest(id, limit, offset));
   };
 
   useEffect(() => {
     // Update the tab value when the path changes
     setValue(initialTab());
   }, [location]);
+  useEffect(() => {
+    console.log(`Fetching data for user ID: ${id} and tab: ${tab}`);
+    dispatch(fetchUserProfileByAccountIdRequest(id));
+  }, [dispatch, id]);
 
   useEffect(() => {
-    dispatch(fetchUserProfileByAccountIdRequest(userData.account_id));
-    if (value === 0) {
+    // dispatch(fetchUserProfileByAccountIdRequest(id));
+    if (value === 1) {
       dispatch(fetchStatsRequest());
     }
-    if (value === 1) {
-      dispatch(fetchPostByIdRequest(userData.account_id, limit, 1));
-    }
     if (value === 2) {
-      dispatch(fetchStoreProductRequest(userData.account_id, limit, 1));
+      dispatch(fetchPostByIdRequest(id, limit, 1));
     }
     if (value === 3) {
+      dispatch(fetchStoreProductRequest(id, limit, 1));
+    }
+    if (value === 4) {
       dispatch(fetchSavedPostsRequest(limit, 1));
     }
-  }, [dispatch, value, userData.account_id]);
+  }, [dispatch, value, id, tab]);
 
   const [openPopularityDialogBox, setOpenPopularityDialogBox] = React.useState(false);
 
@@ -171,30 +170,30 @@ const Profile = () => {
     <div className='profile-component'>
       <div>
         <div className='profileInfo'>
-        <div className='profile-pic-name-info'>
-          <img src={userData.profile_picture ? cdnBaseURL + userData.profile_picture : profile}
-            alt='profile' className='profile-pic-div' />
-          <div className='profile-name-div'>
-            <div className='profile-tags'>
-              <span>Creators</span>
-              <span>Beginner</span>
-              <span onClick={handleClickOpenPopularityDialogBox}>Popularity</span>
+          <div className='profile-pic-name-info'>
+            <img src={userProfileData?.profile_picture ? cdnBaseURL + userProfileData?.profile_picture : profile}
+              alt='profile' className='profile-pic-div' />
+            <div className='profile-name-div'>
+              <div className='profile-tags'>
+                <span>{userProfileData?.user_type}</span>
+                <span>{userProfileData?.user_sub_type}</span>
+                <span onClick={handleClickOpenPopularityDialogBox}>Popularity</span>
+              </div>
+              <p className='username'>{userProfileData?.username ? userProfileData?.username : "Ayush"}</p>
+              <p className='fullname'>{userProfileData?.first_name} {userProfileData?.middle_name} {userProfileData?.last_name}</p>
             </div>
-            <p className='username'>{userData.username ? userData.username : "Ayush"}</p>
-            <p className='fullname'>{userData.first_name} {userData.middle_name} {userData.last_name}</p>
           </div>
-        </div>
-        <div className='follow-div'>
-          <span>{userProfileData?.total_followers}<p>Followers</p></span>
-          <span>{userProfileData?.total_following}<p>Following</p></span>
-          <span>{userProfileData?.points}<p>Candies</p></span>
-        </div>
-        <span className='share-card-span'>
-          <div className='buttons-div'>
-            <button>Share Profile</button>
-            <button>Edit Profile</button>
+          <div className='follow-div'>
+            <span>{userProfileData?.followers}<p>Followers</p></span>
+            <span>{userProfileData?.following}<p>Following</p></span>
+            <span>{userProfileData?.points}<p>Candies</p></span>
           </div>
-        </span>
+          <span className='share-card-span'>
+            <div className='buttons-div'>
+              <button>Share Profile</button>
+              <button>Edit Profile</button>
+            </div>
+          </span>
         </div>
 
         <div className='tabs-web'>
@@ -208,13 +207,13 @@ const Profile = () => {
             centered
             sx={{ width: '100%', display: 'flex', padding: '0 20px', paddingTop: '10px' }}
           >
-            <CustomTab icon={<img src={dashboard} alt="Dashboard" className='tab-icon' />} label="Dashboard" />
-            <CustomTab icon={<img src={channel} alt="Channel" className='tab-icon' />} label="Channel" />
-            <CustomTab icon={<img src={cartHome} alt="Store" className='tab-icon' />} label="Store" />
-            <CustomTab icon={<img src={bookmarkSelect} alt="Save" className='tab-icon' />} label="Save" />
+            <CustomTab value={1} icon={<img src={dashboard} alt="Dashboard" className='tab-icon' />} label="Dashboard" />
+            <CustomTab value={2} icon={<img src={channel} alt="Channel" className='tab-icon' />} label="Channel" />
+            <CustomTab value={3} icon={<img src={cartHome} alt="Store" className='tab-icon' />} label="Store" />
+            <CustomTab value={4} icon={<img src={bookmarkSelect} alt="Save" className='tab-icon' />} label="Save" />
           </Tabs>
         </div>
-        </div>
+      </div>
       <BootstrapDialog
         onClose={handleClosePopularityDialogBox}
         aria-labelledby="customized-dialog-title"
@@ -237,13 +236,13 @@ const Profile = () => {
         </IconButton>
         <DialogContent dividers>
           <Typography gutterBottom>
-            <strong>Youtube</strong>: <span>{userData?.youtube_followers || 0}</span>
+            <strong>Youtube</strong>: <span>{userProfileData?.youtube_followers || 0}</span>
           </Typography>
           <Typography gutterBottom>
-            <strong>Instagram</strong>: <span>{userData?.instagram_followers || 0}</span>
+            <strong>Instagram</strong>: <span>{userProfileData?.instagram_followers || 0}</span>
           </Typography>
           <Typography gutterBottom>
-            <strong>facebook</strong>: <span>{userData?.facebook_followers || 0}</span>
+            <strong>facebook</strong>: <span>{userProfileData?.facebook_followers || 0}</span>
           </Typography>
         </DialogContent>
       </BootstrapDialog>
@@ -268,14 +267,14 @@ const Profile = () => {
                 , boxShadow: '0 0 10px rgba(0, 0, 0, 0.2)', paddingTop: '10px', borderRadius: '25px 25px 0 0'
               }}
             >
-              <Tab icon={<img src={dashboard} alt="Dashboard" className='tab-icon' />} label="Dashboard" />
-              <Tab icon={<img src={channel} alt="Channel" className='tab-icon' />} label="Channel" />
-              <Tab icon={<img src={cartHome} alt="Store" className='tab-icon' />} label="Store" />
-              <Tab icon={<img src={bookmarkSelect} alt="Save" className='tab-icon' />} label="Save" />
+              <Tab value={1} icon={<img src={dashboard} alt="Dashboard" className='tab-icon' />} label="Dashboard" />
+              <Tab value={2} icon={<img src={channel} alt="Channel" className='tab-icon' />} label="Channel" />
+              <Tab value={3} icon={<img src={cartHome} alt="Store" className='tab-icon' />} label="Store" />
+              <Tab value={4} icon={<img src={bookmarkSelect} alt="Save" className='tab-icon' />} label="Save" />
             </Tabs>
           </div>
 
-          <CustomTabPanel value={value} index={0} >
+          <CustomTabPanel value={value} index={1} >
             <div className='dashboard-first'>
               <div className='dashboard-card'>
                 <div className='dashboard-top'>
@@ -325,7 +324,7 @@ const Profile = () => {
               </div>
               <div className='dashboard-second-box light-gradient-orange'>
                 <div className='dashboard-second-box-first-part'>
-                  <div className='dashboard-second-box-image-icons'><img src={creatingVideo} alt='CC'/></div>
+                  <div className='dashboard-second-box-image-icons'><img src={creatingVideo} alt='CC' /></div>
                   <div>
                     <p>From Creating Content</p>
                     <p>{`Create Content >`}</p>
@@ -335,7 +334,7 @@ const Profile = () => {
               </div>
               <div className='dashboard-second-box light-gradient-skyblue'>
                 <div className='dashboard-second-box-first-part'>
-                <div className='dashboard-second-box-image-icons'><img src={shopLite} alt='CC'/></div>
+                  <div className='dashboard-second-box-image-icons'><img src={shopLite} alt='CC' /></div>
                   <div>
                     <p>From Sales (Shop)</p>
                     <p>{`Create Shop >`} </p>
@@ -345,7 +344,7 @@ const Profile = () => {
               </div>
               <div className='dashboard-second-box light-gradient-green'>
                 <div className='dashboard-second-box-first-part'>
-                  <div className='dashboard-second-box-image-icons'><img src={workshopLite} alt='CC'/></div>
+                  <div className='dashboard-second-box-image-icons'><img src={workshopLite} alt='CC' /></div>
                   <div>
                     <p>From workshop</p>
                     <p>{`Create Workshop >`}</p>
@@ -355,7 +354,7 @@ const Profile = () => {
               </div>
               <div className='dashboard-second-box light-gradient-purple'>
                 <div className='dashboard-second-box-first-part'>
-                  <div className='dashboard-second-box-image-icons'><img src={campaignLite} alt='CC'/></div>
+                  <div className='dashboard-second-box-image-icons'><img src={campaignLite} alt='CC' /></div>
                   <div>
                     <p>From campaign</p>
                     <p>{`Create Campaign >`}</p>
@@ -365,7 +364,7 @@ const Profile = () => {
               </div>
               <div className='dashboard-second-box light-gradient-blue'>
                 <div className='dashboard-second-box-first-part'>
-                  <div className='dashboard-second-box-image-icons'><img src={exclusiveLite} alt='CC'/></div>
+                  <div className='dashboard-second-box-image-icons'><img src={exclusiveLite} alt='CC' /></div>
                   <div>
                     <p>From Exclusive Content</p>
                     <p>{`Create Content >`}</p>
@@ -375,7 +374,7 @@ const Profile = () => {
               </div>
               <div className='dashboard-second-box light-gradient-pink'>
                 <div className='dashboard-second-box-first-part'>
-                  <div className='dashboard-second-box-image-icons'><img src={menuLite} alt='CC'/></div>
+                  <div className='dashboard-second-box-image-icons'><img src={menuLite} alt='CC' /></div>
                   <div>
                     <p>From Menu Selling</p>
                     <p>{`Create from Menu >`}</p>
@@ -417,7 +416,7 @@ const Profile = () => {
             </div>
           </CustomTabPanel>
 
-          <CustomTabPanel value={value} index={1}>
+          <CustomTabPanel value={value} index={2}>
             {userPosts &&
               < ChannelCustomTabPanel channelTabValue={channelTabValue}
                 handleChannelChange={handleChannelChange}
@@ -428,14 +427,14 @@ const Profile = () => {
             }
           </CustomTabPanel>
 
-          <CustomTabPanel value={value} index={2}>
+          <CustomTabPanel value={value} index={3}>
             <StoreCustomTabPanel storeMyProducts={storeMyProducts}
               currentStoreMyProductsPage={currentStoreMyProductsPage}
               handleStoreMyProductsPagination={handleStoreMyProductsPagination}
               limit={limit}
             />
           </CustomTabPanel>
-          <CustomTabPanel value={value} index={3}>
+          <CustomTabPanel value={value} index={4}>
             <SavedCustomTabPanel
               userSavedPosts={userSavedPosts}
             />
@@ -450,53 +449,53 @@ export default Profile;
 
 const ChannelCustomTabPanel = ({ channelTabValue, handleChannelChange, userPosts, currentPage, handleChannelPagination, limit }) => {
   return (
-      <Box >
-        <Tabs value={channelTabValue} onChange={handleChannelChange}
-          variant="scrollable"
-          scrollButtons={false}
-          sx={{ width: '100%', display: 'flex', paddingTop: '10px', borderBottom: 1, borderColor: 'skyblue' }}
-        >
-          <Tab label={`Videos (${userPosts?.metadata?.total_posts})`} value="1" />
-          <Tab label="Live (0)" value="2" />
-        </Tabs>
-        <CustomTabPanel value={channelTabValue} index="1">
-            <div style={{
-             width:'100%',
-             display:'flex',
-             flexWrap:'wrap',
-             gap:'10px',
-            //  justifyContent:'start'
-            }}>
-              {userPosts?.data?.map((post) => (
-                <VideoCard post={post} key={post.id} />
-              ))}
-            </div>
-            {userPosts && (
-              <Stack spacing={2} className="pagination-stack" style={{ marginTop: 'auto' }}>
-                <Pagination
-                  count={Math.ceil(userPosts?.metadata?.total_posts / limit)}
-                  page={currentPage}
-                  onChange={handleChannelPagination}
-                  size="small"
-                />
-              </Stack>
-            )}
-        </CustomTabPanel>
+    <Box >
+      <Tabs value={channelTabValue} onChange={handleChannelChange}
+        variant="scrollable"
+        scrollButtons={false}
+        sx={{ width: '100%', display: 'flex', paddingTop: '10px', borderBottom: 1, borderColor: 'skyblue' }}
+      >
+        <Tab label={`Videos (${userPosts?.metadata?.total_posts})`} value="1" />
+        <Tab label="Live (0)" value="2" />
+      </Tabs>
+      <CustomTabPanel value={channelTabValue} index="1">
+        <div style={{
+          width: '100%',
+          display: 'flex',
+          flexWrap: 'wrap',
+          gap: '10px',
+          //  justifyContent:'start'
+        }}>
+          {userPosts?.data?.map((post) => (
+            <VideoCard post={post} key={post.id} />
+          ))}
+        </div>
+        {userPosts && (
+          <Stack spacing={2} className="pagination-stack" style={{ marginTop: 'auto' }}>
+            <Pagination
+              count={Math.ceil(userPosts?.metadata?.total_posts / limit)}
+              page={currentPage}
+              onChange={handleChannelPagination}
+              size="small"
+            />
+          </Stack>
+        )}
+      </CustomTabPanel>
 
-        <CustomTabPanel value={channelTabValue} index="2">
-          <div
-            style={{
-              width:'100%',
-              display:'flex',
-              flexWrap:'wrap',
-              backgroundColor:'red',
-              gap:'10px',
-              justifyContent:'start'
-             }}>
-            <h2>COMING SOON</h2>
-          </div>
-        </CustomTabPanel>
-      </Box>
+      <CustomTabPanel value={channelTabValue} index="2">
+        <div
+          style={{
+            width: '100%',
+            display: 'flex',
+            flexWrap: 'wrap',
+            backgroundColor: 'red',
+            gap: '10px',
+            justifyContent: 'start'
+          }}>
+          <h2>COMING SOON</h2>
+        </div>
+      </CustomTabPanel>
+    </Box>
   )
 }
 
@@ -520,27 +519,27 @@ const StoreCustomTabPanel = ({ storeMyProducts, currentStoreMyProductsPage, hand
           <Tab label="Exclusive Content (0)" value="3" />
         </Tabs>
         <CustomTabPanel value={storeTabValue} index="1">
-            <div
-              style={{
-                width:'100%',
-                display:'flex',
-                flexWrap:'wrap',
-                gap:'10px',
-                // justifyContent:'start'
-              }}
-            >
-              {storeMyProducts?.storeProducts?.data?.map((product) => (
-                <StoreMyProductCard myProduct={product} key={product.product_id} />
-              ))}
-            </div>
-            <Stack spacing={2} className="pagination-stack" style={{ marginTop: 'auto' }}>
-              <Pagination
-                count={Math.ceil(storeMyProducts?.metadata?.total_posts / limit)}
-                page={currentStoreMyProductsPage}
-                onChange={handleStoreMyProductsPagination}
-                size="small"
-              />
-            </Stack>
+          <div
+            style={{
+              width: '100%',
+              display: 'flex',
+              flexWrap: 'wrap',
+              gap: '10px',
+              // justifyContent:'start'
+            }}
+          >
+            {storeMyProducts?.storeProducts?.data?.map((product) => (
+              <StoreMyProductCard myProduct={product} key={product.product_id} />
+            ))}
+          </div>
+          <Stack spacing={2} className="pagination-stack" style={{ marginTop: 'auto' }}>
+            <Pagination
+              count={Math.ceil(storeMyProducts?.metadata?.total_posts / limit)}
+              page={currentStoreMyProductsPage}
+              onChange={handleStoreMyProductsPagination}
+              size="small"
+            />
+          </Stack>
         </CustomTabPanel>
 
         <CustomTabPanel value={storeTabValue} index="2">

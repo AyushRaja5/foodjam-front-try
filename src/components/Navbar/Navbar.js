@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useRef } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
-import { List, ListItem, ListItemText, Popover } from '@mui/material';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { List, ListItem, ListItemText, Popover, DialogActions, DialogContent, DialogContentText, DialogTitle, Button, Dialog } from '@mui/material';
 import './Navbar.css';
 import FJLogo from '../../assets/imagessvg/foodjamLogo.svg';
 import FJ from '../../assets/imagessvg/fj.svg';
@@ -17,7 +17,10 @@ import { toast } from 'react-toastify';
 import Person from '@mui/icons-material/Person';
 import Settings from '@mui/icons-material/Settings';
 import Logout from '@mui/icons-material/Logout';
-
+import LoaderOverlay from '../ConditionalLoader/LoaderOverlay';
+import notificationimg from '../../assets/imagespng/notification.png'
+import settingsimg from '../../assets/imagespng/setting.png'
+import { NotificationsActive } from '@mui/icons-material';
 const Navbar = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(!!localStorage.getItem('foodjam-user'));
   const [loginOrSignUp, setLoginOrSignUp] = useState('Login');
@@ -31,15 +34,18 @@ const Navbar = () => {
   const otpRecievedFromAPI = useSelector(state => state.authUser);
   const signUpResponse = useSelector(state => state.signUpUser);
   const [loggedUser, setLoggedUser] = useState(null);
+  const [loading, setLoading] = useState(true);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const profileRef = useRef(null);
-  const optionsRef = useRef(null);
+  const location = useLocation();
+  // const optionsRef = useRef(null);
   const [anchorEl, setAnchorEl] = useState(null);
-
+  const [logoutDialogOpen, setLogoutDialogOpen] = useState(false);
   useEffect(() => {
     const token = localStorage.getItem('foodjam-user');
-    setLoggedUser(JSON.parse(token));
+    if (token) setLoggedUser(JSON.parse(token));
+    setLoading(false);
     setIsLoggedIn(!!token);
   }, []);
   // console.log(loggedUser)
@@ -49,6 +55,7 @@ const Navbar = () => {
       setShowOTPForm(false);
       setShowSignInMenu(false);
       setotpText('');
+      setLoginNumber('')
       toast.success("Login Successful");
       setIsLoggedIn(true);
     } else if (otpRecievedFromAPI.error) {
@@ -80,13 +87,20 @@ const Navbar = () => {
   };
 
   const handleSignOut = () => {
+    setLogoutDialogOpen(true);
+  };
+  const handleLogoutConfirm = () => {
     toast.success("Logged Out Successfully")
     dispatch(clearAuthToken());
     localStorage.removeItem('foodjam-user');
     setIsLoggedIn(false);
     navigate('/');
+    setLogoutDialogOpen(false);
   };
 
+  const handleLogoutCancel = () => {
+    setLogoutDialogOpen(false);
+  };
   const handleLoginSubmit = (event) => {
     event.preventDefault();
     const login_type = 'phone';
@@ -120,8 +134,22 @@ const Navbar = () => {
     }
   }, [signUpResponse]);
 
+  const getPageName = () => {
+    const path = location.pathname;
+    if (path === '/') return 'Home';
+    if (path.includes('/explore')) return 'Explore';
+    if (path.includes('/foodjamstore')) return 'Shop';
+    if (path.includes('/profile')) return 'Profile';
+    if (path.includes('/notifications')) return 'Notification';
+    if (path.includes('/setting')) return 'Settings';
+    if (path.includes('/my_orders')) return 'My Orders';
+    if (path.includes('/addresses')) return 'Addresses';
+    if (path.includes('/preferences')) return 'Preferences';
+    return '';
+  };
   return (
     <div className='nav-bar-container'>
+      {loading && <LoaderOverlay />}
       <nav className="dashboard_navbar_web">
         <Link to='/' className="navbar-brand">
           <img src={FJLogo} alt="Logo" />
@@ -178,11 +206,14 @@ const Navbar = () => {
                   }}
                 >
                   <List>
-                    <ListItem button component={Link} to={`/profile/stats/${loggedUser?.account_id}`}>
-                      <Person /> <ListItemText primary="My Profile" />
+                    <ListItem button component={Link} to={`/profile/${loggedUser?.account_id}/1`} onClick={handleClose}>
+                      <Person /> <ListItemText primary="Dashboard" />
                     </ListItem>
-                    <ListItem button >
+                    <ListItem button component={Link} to={`/setting`} onClick={handleClose}>
                       <Settings /> <ListItemText primary="Settings" />
+                    </ListItem>
+                    <ListItem button component={Link} to={`/notifications`} onClick={handleClose}>
+                      <NotificationsActive /> <ListItemText primary="Notifications" />
                     </ListItem>
                     <ListItem button onClick={() => { handleSignOut(); handleClose(); }}>
                       <Logout /> <ListItemText primary="Logout" />
@@ -196,6 +227,29 @@ const Navbar = () => {
           </ul>
         </div>
       </nav>
+
+      <div className="mobile-header">
+        <div className="page-name">{getPageName()}</div>
+        <div className="mobile-icons">
+          <img src={SearchIcon} alt='search' />
+          <Link to={`/notifications`}><img src={notificationimg} alt='bell' /></Link>
+          <Link to='/setting'><img src={settingsimg} alt='settings' /></Link>
+        </div>
+      </div>
+
+      <Dialog
+        open={logoutDialogOpen}
+        onClose={handleLogoutCancel}
+      >
+        <DialogTitle>Confirm Logout</DialogTitle>
+        <DialogContent>
+          <DialogContentText>Are you sure you want to log out?</DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleLogoutCancel} color="primary">Cancel</Button>
+          <Button onClick={handleLogoutConfirm} color="primary">Logout</Button>
+        </DialogActions>
+      </Dialog>
 
       <div className={`signin-menu ${showSignInMenu ? 'show-signin-menu' : ''}`}>
         <img src={Cross} alt='cross' onClick={() => setShowSignInMenu(false)} />
@@ -222,7 +276,6 @@ const Navbar = () => {
               </div>
               <button type="submit">Submit OTP</button>
               <Link className='otp-page-backlink' onClick={() => setShowOTPForm(false)}>Go back to Login</Link>
-              {/* <button type="button" onClick={handleResendOTP}>Resend OTP</button> */}
             </form>
           )
         ) : (
@@ -256,9 +309,9 @@ const Navbar = () => {
           <span>Cart</span>
         </Link>
         {isLoggedIn ? (
-          <li><Link to={`/profile/stats/${loggedUser?.account_id}`}><img src={Profile} alt="Profile" />Profile</Link></li>
+          <Link to={`/profile/${loggedUser?.account_id}/1`}><img src={Profile} alt="Profile" />Profile</Link>
         ) : (
-          <li><Link onClick={() => setShowSignInMenu(true)}><img src={Profile} alt='home' />SignIn</Link></li>
+          <Link onClick={() => setShowSignInMenu(true)}><img src={Profile} alt='home' />SignIn</Link>
         )}
       </div>
     </div>

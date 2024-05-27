@@ -6,6 +6,10 @@ import postByIdSaga from './postByIdSaga';
 import savedPostsProductsSaga from './savedPostsProductsSaga';
 import storeProductsSaga from './storeProductsSaga';
 import userProfileByAccountIdSaga from './userProfileByAccountIdSaga';
+import userOrderSaga from './userOrderSaga';
+import userAddressSaga from './userAddressSaga';
+import userNotificationSaga from './userNotificationSaga';
+import userPreferencesSaga from './userPreferencesSaga';
 export default function* rootSaga() {
   yield all([
     authSaga(),
@@ -13,6 +17,10 @@ export default function* rootSaga() {
     postByIdSaga(),
     savedPostsProductsSaga(),
     storeProductsSaga(),
-    userProfileByAccountIdSaga()
+    userProfileByAccountIdSaga(),
+    userOrderSaga(),
+    userNotificationSaga(),
+    userAddressSaga(),
+    userPreferencesSaga()
   ]);
 }

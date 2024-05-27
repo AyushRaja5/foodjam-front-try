@@ -21,7 +21,7 @@ export const GetDashboardStatesService = async (token, accountId)  => {
     const { account_id} = userparams;
     try {
       const response = await axios.get(
-        `users/v2/user?account_id=${account_id}`,
+        `users/v2/user/profile?account_id=${account_id}`,
         {
           headers: {
             'x-access-token': token,
