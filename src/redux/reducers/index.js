@@ -11,6 +11,8 @@ import userOrderReducer from './userOrderReducer'
 import userAddressReducer from './userAddressReducer';
 import userPreferencesReducer from './userPreferencesReducer';
 import userNotificationReducer from './userNotificationReducer'
+import cartReducer from './cartReducer'
+import bankDetailsReducer from './bankDetailsReducer'
 
 const rootReducer = combineReducers({
   authUser : authReducer,
@@ -23,7 +25,9 @@ const rootReducer = combineReducers({
   userOrder : userOrderReducer,
   userAddress : userAddressReducer,
   userPreferences : userPreferencesReducer,
-  userNotification : userNotificationReducer
+  userNotification : userNotificationReducer,
+  cartProducts : cartReducer,
+  bankDetails : bankDetailsReducer
   // Add other reducers here if needed
 });
 

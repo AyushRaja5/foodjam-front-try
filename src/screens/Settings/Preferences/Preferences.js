@@ -24,16 +24,16 @@ const Preferences = () => {
     setSelectedItems(initiallySelectedItems);
   }, [preferences]);
 
-  useEffect(() => {
-    if (response) {
-      if(response.success)
-          toast.success("Preferences Updates")
-      // toast.success(response.message);
-    }
-    if (error) {
-      toast.error(error.message);
-    }
-  }, [response, error]);
+  // useEffect(() => {
+  //   if (response) {
+  //     if(response.success)
+  //         toast.success("Preferences Updates")
+  //     // toast.success(response.message);
+  //   }
+  //   if (error) {
+  //     toast.error(error.message);
+  //   }
+  // }, [response, error]);
 
   const toggleItem = (item) => {
     setSelectedItems((prevState) => {
@@ -56,6 +56,14 @@ const Preferences = () => {
       return;
     }
     dispatch(addUserPreferenceRequest(preferenceData));
+    if (response) {
+      if(response.success)
+          toast.success("Preferences Updates")
+      // toast.success(response.message);
+    }
+    if (error) {
+      toast.error(error.message);
+    }
   };
 
   if (loading) return (

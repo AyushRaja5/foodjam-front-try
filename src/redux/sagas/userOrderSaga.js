@@ -4,9 +4,12 @@ import { call, put, takeLatest } from 'redux-saga/effects';
 import {
   FETCH_USER_ORDERS_REQUEST,
   fetchUserOrdersSuccess,
-  fetchUserOrdersFailure
+  fetchUserOrdersFailure,
+  FETCH_USER_ORDER_BY_ID_REQUEST,
+  fetchUserOrderByIdSuccess,
+  fetchUserOrderByIdFailure
 } from '../actions/userOrderActions';
-import { getUserOrders } from '../../services/Profile/UserOrders';
+import { getUserOrders, getOrdersByOrderID } from '../../services/Profile/UserOrders';
 
 function* fetchUserOrdersSaga(action) {
   try {
@@ -21,8 +24,20 @@ function* fetchUserOrdersSaga(action) {
   }
 }
 
+function* fetchUserOrderByIdSaga(action) {
+  try {
+    const orderId = action.payload;
+    const token = JSON.parse(localStorage.getItem('foodjam-user')).sessionToken;
+    const accountId = JSON.parse(localStorage.getItem('foodjam-user')).account_id;
+    const response = yield call(getOrdersByOrderID, token, accountId, orderId);
+    yield put(fetchUserOrderByIdSuccess(response.data));
+  } catch (error) {
+    yield put(fetchUserOrderByIdFailure(error?.response?.data?.message || error?.message));
+  }
+}
 function* userOrderSaga() {
     yield takeLatest(FETCH_USER_ORDERS_REQUEST, fetchUserOrdersSaga);
+    yield takeLatest(FETCH_USER_ORDER_BY_ID_REQUEST, fetchUserOrderByIdSaga);
 }
   
 export default userOrderSaga;

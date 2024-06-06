@@ -21,7 +21,11 @@ const VideoCard = ({ post }) => {
         </span>
         <span className='bottom-center-text'>
           <div className='pp-username'>
-            <img src={`${cdnBaseURL}${post.profile_picture}`} className='video-card-profile-pic' />
+            <img 
+            src={ post.profile_picture?.startsWith('https://')
+                ? post.profile_picture
+                : cdnBaseURL + post.profile_picture} 
+            className='video-card-profile-pic' />
             {post.username}
           </div>
           <div>{truncateText(post.text, 50)}</div>

@@ -1,3 +1,6 @@
+.setting-container .profile-component{
+  gap: 0;
+}
 .tabs-mobile ul {
     list-style: none;
     padding: 0;
@@ -41,9 +44,64 @@
     height: 100%;
     margin: 0 10px;
   }
+.setting-botton{
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+}
+.setting-botton button{
+  height: 50px;
+  border-radius: 35px;
+  background-color: transparent;
+  width: 90%;
+  font-size: 20px;
+  font-weight: 600;
+  cursor: pointer;
+}
+.invite-frnds-div{
+  width: 90%;
+  background-color: rgb(244 ,244 ,244);
+  border-radius: 35px;
+  justify-content: space-between;
+  align-items: center;
+  display: flex;
+  padding: 20px 15px;
+  margin-top: 10px;
+  margin-bottom: 40px;
+}
+.invite-frnds-left img{
+  width: 90px;
+  height: 25px;
+  margin-top: 15px;
+}
+.invite-frnds-left{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  color: #232323;
+  line-height: 1.3;
+  font-size: 18px;
+}
+.invite-frnds-right{
+  height: 100%;
+  width: 50%;
+}
+.css-ubh62n-MuiButtonBase-root-MuiTab-root{
+  min-height: 60px !important;
+}
 
-  @media screen and (max-width: 950px) {
+.css-ubh62n-MuiButtonBase-root-MuiTab-root.Mui-selected{
+  background-color: #f2f2f2 !important;
+  border-radius: 10px 0 0 10px;
+}
+  @media screen and (max-width: 1024px) {
     /* .mobile-content{
       display: none;
     } */
+    .setting-botton-hide{
+      display: none;
+    }
   }

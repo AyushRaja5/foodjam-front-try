@@ -19,8 +19,10 @@ import Settings from '@mui/icons-material/Settings';
 import Logout from '@mui/icons-material/Logout';
 import LoaderOverlay from '../ConditionalLoader/LoaderOverlay';
 import notificationimg from '../../assets/imagespng/notification.png'
+import cartimg from '../../assets/imagespng/cart.png'
 import settingsimg from '../../assets/imagespng/setting.png'
-import { NotificationsActive } from '@mui/icons-material';
+import Cartimg from '../../assets/imagespng/cart.png'
+import { NotificationsActive, ShoppingCart } from '@mui/icons-material';
 const Navbar = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(!!localStorage.getItem('foodjam-user'));
   const [loginOrSignUp, setLoginOrSignUp] = useState('Login');
@@ -34,7 +36,10 @@ const Navbar = () => {
   const otpRecievedFromAPI = useSelector(state => state.authUser);
   const signUpResponse = useSelector(state => state.signUpUser);
   const [loggedUser, setLoggedUser] = useState(null);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
+  const [timer, setTimer] = useState(90);
+  const [showResendLink, setShowResendLink] = useState(false);
+
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const profileRef = useRef(null);
@@ -48,7 +53,7 @@ const Navbar = () => {
     setLoading(false);
     setIsLoggedIn(!!token);
   }, []);
-  // console.log(loggedUser)
+  // console.log(loggedUser,'logged user')
   useEffect(() => {
     if (otpRecievedFromAPI.token && !isLoggedIn) {
       navigate('/');
@@ -57,6 +62,8 @@ const Navbar = () => {
       setotpText('');
       setLoginNumber('')
       toast.success("Login Successful");
+      setLoggedUser(JSON.parse(localStorage.getItem('foodjam-user')))
+      // console.log(loggedUser,"inside useEffect");
       setIsLoggedIn(true);
     } else if (otpRecievedFromAPI.error) {
       toast.error(otpRecievedFromAPI.error);
@@ -134,6 +141,18 @@ const Navbar = () => {
     }
   }, [signUpResponse]);
 
+  useEffect(() => {
+    let countdown;
+    if (showOTPForm && timer > 0) {
+      countdown = setInterval(() => {
+        setTimer(prevTimer => prevTimer - 1);
+      }, 1000);
+    } else if (timer === 0) {
+      setShowResendLink(true);
+    }
+    return () => clearInterval(countdown);
+  }, [showOTPForm, timer]);
+
   const getPageName = () => {
     const path = location.pathname;
     if (path === '/') return 'Home';
@@ -161,9 +180,9 @@ const Navbar = () => {
         <div className="navbar-collapse">
           <ul className="navMenu">
             <li><Link to="/"><img src={FJ} alt='home' />Home</Link></li>
-            <li><Link to="/event"><img src={Explorer} alt='event' />Event</Link></li>
+            <li><Link to="https://event.foodjam.in/" target='blank'><img src={Explorer} alt='event' />Event</Link></li>
             <li><Link to="/explore"><img src={Explorer} alt='explorer' />Explore</Link></li>
-            <li><Link to="/foodjamstore"><img src={Bag} alt='Cart' />Cart</Link></li>
+            <li><Link to="/foodjamstore"><img src={Bag} alt='Store' />Store</Link></li>
             {isLoggedIn ? (
               <li ref={profileRef}>
                 <Link onClick={handleClick} ><img src={Profile} alt="Profile" /> Profile</Link>
@@ -209,6 +228,9 @@ const Navbar = () => {
                     <ListItem button component={Link} to={`/profile/${loggedUser?.account_id}/1`} onClick={handleClose}>
                       <Person /> <ListItemText primary="Dashboard" />
                     </ListItem>
+                    <ListItem button component={Link} to={`/cart`} onClick={handleClose}>
+                      <ShoppingCart /> <ListItemText primary="My Cart" />
+                    </ListItem>
                     <ListItem button component={Link} to={`/setting`} onClick={handleClose}>
                       <Settings /> <ListItemText primary="Settings" />
                     </ListItem>
@@ -233,7 +255,13 @@ const Navbar = () => {
         <div className="mobile-icons">
           <img src={SearchIcon} alt='search' />
           <Link to={`/notifications`}><img src={notificationimg} alt='bell' /></Link>
-          <Link to='/setting'><img src={settingsimg} alt='settings' /></Link>
+          {
+            location.pathname.includes('/profile') || location.pathname.includes('/setting') ? (
+              <Link to='/setting'><img src={settingsimg} alt='settings' /></Link>
+            ) : (
+              <Link to='/cart'><img src={cartimg} alt='cart' /></Link>
+            )
+          }
         </div>
       </div>
 
@@ -276,6 +304,15 @@ const Navbar = () => {
               </div>
               <button type="submit">Submit OTP</button>
               <Link className='otp-page-backlink' onClick={() => setShowOTPForm(false)}>Go back to Login</Link>
+              <br />
+              <br/>
+               {showResendLink ? (
+                <div className='resend-otp'>
+                  <Link className='resend-otp-link'  onClick={handleLoginSubmit}>Resend OTP</Link>
+                </div>
+              ) : (
+                <div className='resend-otp'>Resend OTP in : 00:{timer < 10 ? `0${timer}` : timer} Sec</div>
+              )}
             </form>
           )
         ) : (
@@ -308,7 +345,7 @@ const Navbar = () => {
           <img src={Bag} alt='Cart' />
           <span>Cart</span>
         </Link>
-        {isLoggedIn ? (
+        {loggedUser ? (
           <Link to={`/profile/${loggedUser?.account_id}/1`}><img src={Profile} alt="Profile" />Profile</Link>
         ) : (
           <Link onClick={() => setShowSignInMenu(true)}><img src={Profile} alt='home' />SignIn</Link>

@@ -43,13 +43,14 @@ import workshopLite from '../../assets/imagespng/workshopLite.png'
 import exclusiveLite from '../../assets/imagespng/ecLite.png'
 import menuLite from '../../assets/imagespng/sellingLite.png'
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
+import { Divider, Skeleton } from '@mui/material';
 
 
 const CustomTabPanel = ({ children, value, index }) => {
   return (
     <div role="tabpanel" hidden={value !== index} style={{ width: '100%' }}>
       {value === index && (
-        <Box sx={{ p: 3 }}>
+        <Box sx={{ p: 3, my: '5px' }}>
           <Typography>{children}</Typography>
         </Box>
       )}
@@ -93,16 +94,20 @@ const Profile = () => {
   };
 
   const cdnBaseURL = 'https://cdn.commeat.com/'
-  // const userProfileData = JSON.parse(localStorage.getItem('foodjam-user'));
+  const loggedInAccountId = JSON.parse(localStorage.getItem('foodjam-user'))?.account_id;
+  const isOwnProfile = id === loggedInAccountId;
   const [currentPage, setCurrentPage] = useState(1);
   const [currentStoreMyProductsPage, setCurrentStoreMyProductsPage] = useState(1);
   const [value, setValue] = React.useState(initialTab());
   const [channelTabValue, setChannelTabValue] = React.useState('1');
-  const stats = useSelector((state) => state.dashboardState.stats);
-  const userProfileData = useSelector((userProfile) => userProfile.userProfile.userProfileInfo);
-  const userPosts = useSelector((userPost) => userPost.postById.post);
-  const userSavedPosts = useSelector((userSavedPost) => userSavedPost.savedPosts);
-  const storeMyProducts = useSelector((userStoreMyProducts) => userStoreMyProducts.storeProducts);
+  const myStore = useSelector((state) => state)
+  const { stats, loading: statsLoading, error: statsError } = useSelector((state) => state.dashboardState);
+  const { userProfileInfo, loading: userProfileInfoLoading, error: userProfileInfoError } = useSelector((state) => state.userProfile);
+  const { post: userPosts, loading: userPostsInfoLoading, error: userPostsInfoError } = useSelector((state) => state.postById);
+  const { savedPosts, loading: savedPostsLoading, error: savedPostsError } = useSelector((state) => state.savedPosts);
+  const { storeProducts, loading: storeProductsLoading, error: storeProductsError } = useSelector((state) => state.storeProducts);
+  // console.log(userPosts)
+
   const limit = 8;
   const handleLogout = () => {
     localStorage.removeItem('foodjam-user');
@@ -165,37 +170,47 @@ const Profile = () => {
   };
   // console.log(stats, 'dashboard profile stats')
   // console.log(userPosts, 'user posts if account id')
-  // console.log(userProfileData, 'user profile Data')
+  // console.log(userProfileInfo, 'user profile Data')
   return (
     <div className='profile-component'>
       <div>
-        <div className='profileInfo'>
-          <div className='profile-pic-name-info'>
-            <img src={userProfileData?.profile_picture ? cdnBaseURL + userProfileData?.profile_picture : profile}
-              alt='profile' className='profile-pic-div' />
-            <div className='profile-name-div'>
-              <div className='profile-tags'>
-                <span>{userProfileData?.user_type}</span>
-                <span>{userProfileData?.user_sub_type}</span>
-                <span onClick={handleClickOpenPopularityDialogBox}>Popularity</span>
+        {userProfileInfoLoading && (
+          <Stack spacing={1}>
+            <Skeleton variant="rounded" sx={{ fontSize: '1rem' }} width={'100%'} height={280} />
+          </Stack>
+        )}
+        {!userProfileInfoLoading &&
+          <div className='profileInfo'>
+            <div className='profile-pic-name-info'>
+              <img src={
+                  userProfileInfo?.profile_picture?.startsWith('https://')
+                    ? userProfileInfo.profile_picture
+                    : cdnBaseURL + userProfileInfo?.profile_picture
+                }
+                alt='profile' className='profile-pic-div' />
+              <div className='profile-name-div'>
+                <div className='profile-tags'>
+                  <span>{userProfileInfo?.user_type}</span>
+                  <span>{userProfileInfo?.user_sub_type}</span>
+                  <span onClick={handleClickOpenPopularityDialogBox}>Popularity</span>
+                </div>
+                <p className='username'>{userProfileInfo?.username ? userProfileInfo?.username : "Ayush"}</p>
+                <p className='fullname'>{userProfileInfo?.first_name} {userProfileInfo?.middle_name} {userProfileInfo?.last_name}</p>
               </div>
-              <p className='username'>{userProfileData?.username ? userProfileData?.username : "Ayush"}</p>
-              <p className='fullname'>{userProfileData?.first_name} {userProfileData?.middle_name} {userProfileData?.last_name}</p>
             </div>
-          </div>
-          <div className='follow-div'>
-            <span>{userProfileData?.followers}<p>Followers</p></span>
-            <span>{userProfileData?.following}<p>Following</p></span>
-            <span>{userProfileData?.points}<p>Candies</p></span>
-          </div>
-          <span className='share-card-span'>
-            <div className='buttons-div'>
-              <button>Share Profile</button>
-              <button>Edit Profile</button>
+            <div className='follow-div'>
+              <span>{userProfileInfo?.followers}<p>Followers</p></span>
+              <span>{userProfileInfo?.following}<p>Following</p></span>
+              <span>{userProfileInfo?.points}<p>Candies</p></span>
             </div>
-          </span>
-        </div>
-
+            <span className='share-card-span'>
+              <div className='buttons-div'>
+                <button>Share Profile</button>
+                <button>Edit Profile</button>
+              </div>
+            </span>
+          </div>
+        }
         <div className='tabs-web'>
           <Tabs
             value={value}
@@ -207,10 +222,10 @@ const Profile = () => {
             centered
             sx={{ width: '100%', display: 'flex', padding: '0 20px', paddingTop: '10px' }}
           >
-            <CustomTab value={1} icon={<img src={dashboard} alt="Dashboard" className='tab-icon' />} label="Dashboard" />
+            {isOwnProfile && <CustomTab value={1} icon={<img src={dashboard} alt="Dashboard" className='tab-icon' />} label="Dashboard" />}
             <CustomTab value={2} icon={<img src={channel} alt="Channel" className='tab-icon' />} label="Channel" />
             <CustomTab value={3} icon={<img src={cartHome} alt="Store" className='tab-icon' />} label="Store" />
-            <CustomTab value={4} icon={<img src={bookmarkSelect} alt="Save" className='tab-icon' />} label="Save" />
+            {isOwnProfile && <CustomTab value={4} icon={<img src={bookmarkSelect} alt="Save" className='tab-icon' />} label="Save" />}
           </Tabs>
         </div>
       </div>
@@ -236,16 +251,17 @@ const Profile = () => {
         </IconButton>
         <DialogContent dividers>
           <Typography gutterBottom>
-            <strong>Youtube</strong>: <span>{userProfileData?.youtube_followers || 0}</span>
+            <strong>Youtube</strong>: <span>{userProfileInfo?.youtube_followers || 0}</span>
           </Typography>
           <Typography gutterBottom>
-            <strong>Instagram</strong>: <span>{userProfileData?.instagram_followers || 0}</span>
+            <strong>Instagram</strong>: <span>{userProfileInfo?.instagram_followers || 0}</span>
           </Typography>
           <Typography gutterBottom>
-            <strong>facebook</strong>: <span>{userProfileData?.facebook_followers || 0}</span>
+            <strong>facebook</strong>: <span>{userProfileInfo?.facebook_followers || 0}</span>
           </Typography>
         </DialogContent>
       </BootstrapDialog>
+      <Divider sx={{ marginLeft: '20px', borderWidth:'1px', color:'red' }} orientation="vertical" variant="fullWidth" flexItem />
       <div className='dashboardInfo'>
         <Box sx={{ width: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
           <div className='tabs-mobile'>
@@ -259,7 +275,8 @@ const Profile = () => {
               sx={{
                 width: '100%', display: 'flex', '.MuiTabs-scroller': {
                   display: 'flex',
-                  justifyContent: 'center'
+                  justifyContent: 'center',
+                  paddingLeft: '30px'
                 },
                 '.MuiTabs-flexContainer': {
                   justifyContent: 'center'
@@ -275,160 +292,173 @@ const Profile = () => {
           </div>
 
           <CustomTabPanel value={value} index={1} >
-            <div className='dashboard-first'>
-              <div className='dashboard-card'>
-                <div className='dashboard-top'>
-                  <div><img src={dashboard1} alt='dashboard1' className='dashboard1' /></div>
-                  <div>
-                    <h2>{stats?.total_uploaded_videos}</h2>
-                    <div>Total Videos Uploaded</div>
+            {statsLoading && (
+              <div className='yourOrders'>
+                <Stack spacing={1}>
+                  <Skeleton variant="rounded" sx={{ fontSize: '1rem' }} width={'100%'} height={100} />
+                  <Skeleton variant="rounded" sx={{ fontSize: '1rem' }} width={'100%'} height={300} />
+                </Stack>
+              </div>
+            )}
+            {!statsLoading && (
+              <>
+                <div className='dashboard-first'>
+                  <div className='dashboard-card'>
+                    <div className='dashboard-top'>
+                      <div><img src={dashboard1} alt='dashboard1' className='dashboard1' /></div>
+                      <div>
+                        <h2>{stats?.total_uploaded_videos}</h2>
+                        <div>Total Videos Uploaded</div>
+                      </div>
+                    </div>
+                    <p>{stats?.total_uploaded_videos === 0 && 'Uploaded Videos >'}</p>
+                  </div>
+                  <div className='dashboard-card'>
+                    <div className='dashboard-top'>
+                      <div><img src={dashboard2} alt='dashboard2' className='dashboard2' /></div>
+                      <div>
+                        <h2>{stats?.total_uploaded_workshop || 0}</h2>
+                        <div>Total Workshops</div>
+                      </div>
+                    </div>
+                    <p>{stats?.total_uploaded_workshop === 0 && 'Create Workshop >'}</p>
+                  </div>
+                  <div className='dashboard-card'>
+                    <div className='dashboard-top'>
+                      <div><img src={dashboard3} alt='dashboard3' className='dashboard3' /></div>
+                      <div>
+                        <h2>{stats?.total_likes}</h2>
+                        <div>Total Videos Likes</div>
+                      </div>
+                    </div>
+                    <p>{stats?.total_likes === 0 && 'Explore Content >'}</p>
+                  </div>
+                  <div className='dashboard-card'>
+                    <div className='dashboard-top'>
+                      <div><img src={dashboard4} alt='dashboard4' className='dashboard4' /></div>
+                      <div>
+                        <h2>{stats?.total_views}</h2>
+                        <div>Total Videos Views</div>
+                      </div>
+                    </div>
+                    <p>{stats?.total_views === 0 && 'Explore Content >'}</p>
                   </div>
                 </div>
-                <p>{stats?.total_uploaded_videos === 0 && 'Uploaded Videos >'}</p>
-              </div>
-              <div className='dashboard-card'>
-                <div className='dashboard-top'>
-                  <div><img src={dashboard2} alt='dashboard2' className='dashboard2' /></div>
-                  <div>
-                    <h2>{stats?.total_uploaded_workshop || 0}</h2>
-                    <div>Total Workshops</div>
+                <div className='dashboard-second'>
+                  <div className='total-earning'>
+                    Total Lifetime Earnings
+                    <h2>&#8377; {stats?.you_earned}</h2>
                   </div>
-                </div>
-                <p>{stats?.total_uploaded_workshop === 0 && 'Create Workshop >'}</p>
-              </div>
-              <div className='dashboard-card'>
-                <div className='dashboard-top'>
-                  <div><img src={dashboard3} alt='dashboard3' className='dashboard3' /></div>
-                  <div>
-                    <h2>{stats?.total_likes}</h2>
-                    <div>Total Videos Likes</div>
+                  <div className='dashboard-second-box light-gradient-orange'>
+                    <div className='dashboard-second-box-first-part'>
+                      <div className='dashboard-second-box-image-icons'><img src={creatingVideo} alt='CC' /></div>
+                      <div>
+                        <p>From Creating Content</p>
+                        <p>{`Create Content >`}</p>
+                      </div>
+                    </div>
+                    <div className='dashboard-second-box-second-part'>&#8377; {`${stats?.from_creating} >`} </div>
                   </div>
-                </div>
-                <p>{stats?.total_likes === 0 && 'Explore Content >'}</p>
-              </div>
-              <div className='dashboard-card'>
-                <div className='dashboard-top'>
-                  <div><img src={dashboard4} alt='dashboard4' className='dashboard4' /></div>
-                  <div>
-                    <h2>{stats?.total_views}</h2>
-                    <div>Total Videos Views</div>
+                  <div className='dashboard-second-box light-gradient-skyblue'>
+                    <div className='dashboard-second-box-first-part'>
+                      <div className='dashboard-second-box-image-icons'><img src={shopLite} alt='CC' /></div>
+                      <div>
+                        <p>From Sales (Shop)</p>
+                        <p>{`Create Shop >`} </p>
+                      </div>
+                    </div>
+                    <div className='dashboard-second-box-second-part'>&#8377; {`${stats?.from_shop} >`}</div>
                   </div>
-                </div>
-                <p>{stats?.total_views === 0 && 'Explore Content >'}</p>
-              </div>
-            </div>
-            <div className='dashboard-second'>
-              <div className='total-earning'>
-                Total Lifetime Earnings
-                <h2>&#8377; {stats?.total}</h2>
-              </div>
-              <div className='dashboard-second-box light-gradient-orange'>
-                <div className='dashboard-second-box-first-part'>
-                  <div className='dashboard-second-box-image-icons'><img src={creatingVideo} alt='CC' /></div>
-                  <div>
-                    <p>From Creating Content</p>
-                    <p>{`Create Content >`}</p>
+                  <div className='dashboard-second-box light-gradient-green'>
+                    <div className='dashboard-second-box-first-part'>
+                      <div className='dashboard-second-box-image-icons'><img src={workshopLite} alt='CC' /></div>
+                      <div>
+                        <p>From workshop</p>
+                        <p>{`Create Workshop >`}</p>
+                      </div>
+                    </div>
+                    <div className='dashboard-second-box-second-part'>&#8377; {`${stats?.from_workshop} >`}</div>
                   </div>
-                </div>
-                <div className='dashboard-second-box-second-part'>&#8377; {`${stats?.create_content} >`} </div>
-              </div>
-              <div className='dashboard-second-box light-gradient-skyblue'>
-                <div className='dashboard-second-box-first-part'>
-                  <div className='dashboard-second-box-image-icons'><img src={shopLite} alt='CC' /></div>
-                  <div>
-                    <p>From Sales (Shop)</p>
-                    <p>{`Create Shop >`} </p>
+                  <div className='dashboard-second-box light-gradient-purple'>
+                    <div className='dashboard-second-box-first-part'>
+                      <div className='dashboard-second-box-image-icons'><img src={campaignLite} alt='CC' /></div>
+                      <div>
+                        <p>From campaign</p>
+                        <p>{`Create Campaign >`}</p>
+                      </div>
+                    </div>
+                    <div className='dashboard-second-box-second-part'>&#8377; {`${stats?.create_campaign} >`}</div>
                   </div>
-                </div>
-                <div className='dashboard-second-box-second-part'>&#8377; {`${stats?.from_shop} >`}</div>
-              </div>
-              <div className='dashboard-second-box light-gradient-green'>
-                <div className='dashboard-second-box-first-part'>
-                  <div className='dashboard-second-box-image-icons'><img src={workshopLite} alt='CC' /></div>
-                  <div>
-                    <p>From workshop</p>
-                    <p>{`Create Workshop >`}</p>
+                  <div className='dashboard-second-box light-gradient-blue'>
+                    <div className='dashboard-second-box-first-part'>
+                      <div className='dashboard-second-box-image-icons'><img src={exclusiveLite} alt='CC' /></div>
+                      <div>
+                        <p>From Exclusive Content</p>
+                        <p>{`Create Content >`}</p>
+                      </div>
+                    </div>
+                    <div className='dashboard-second-box-second-part'>&#8377; {`${stats?.create_content} >`}</div>
                   </div>
-                </div>
-                <div className='dashboard-second-box-second-part'>&#8377; {`${stats?.from_workshop} >`}</div>
-              </div>
-              <div className='dashboard-second-box light-gradient-purple'>
-                <div className='dashboard-second-box-first-part'>
-                  <div className='dashboard-second-box-image-icons'><img src={campaignLite} alt='CC' /></div>
-                  <div>
-                    <p>From campaign</p>
-                    <p>{`Create Campaign >`}</p>
+                  <div className='dashboard-second-box light-gradient-pink'>
+                    <div className='dashboard-second-box-first-part'>
+                      <div className='dashboard-second-box-image-icons'><img src={menuLite} alt='CC' /></div>
+                      <div>
+                        <p>From Menu Selling</p>
+                        <p>{`Create from Menu >`}</p>
+                      </div>
+                    </div>
+                    <div className='dashboard-second-box-second-part'>&#8377; {`${stats?.create_from_menu} >`}</div>
                   </div>
-                </div>
-                <div className='dashboard-second-box-second-part'>&#8377; {`${stats?.create_campaign} >`}</div>
-              </div>
-              <div className='dashboard-second-box light-gradient-blue'>
-                <div className='dashboard-second-box-first-part'>
-                  <div className='dashboard-second-box-image-icons'><img src={exclusiveLite} alt='CC' /></div>
-                  <div>
-                    <p>From Exclusive Content</p>
-                    <p>{`Create Content >`}</p>
-                  </div>
-                </div>
-                <div className='dashboard-second-box-second-part'>&#8377; {`${stats?.from_creating} >`}</div>
-              </div>
-              <div className='dashboard-second-box light-gradient-pink'>
-                <div className='dashboard-second-box-first-part'>
-                  <div className='dashboard-second-box-image-icons'><img src={menuLite} alt='CC' /></div>
-                  <div>
-                    <p>From Menu Selling</p>
-                    <p>{`Create from Menu >`}</p>
-                  </div>
-                </div>
-                <div className='dashboard-second-box-second-part'>&#8377; {`${stats?.create_from_menu} >`}</div>
-              </div>
 
-              <div className='view-insights'>{`View insights >`}</div>
-            </div>
-            <div className='dashboard-third'>
-              <div className='card-balance'>
-                <div className='withdraw-balance-text'>Withdraw Balance</div>
-                <div className='middle-withdraw-balance'>
-                  <div className='middle-withdraw-balance-left'>
-                    &#8377;0
-                    <button disabled={!stats?.is_withdrawal_enable}>Withdraw </button>
-                  </div>
-                  <img src={addToWallet} alt='addToWallet' className='addToWallet' />
+                  <div className='view-insights'>{`View insights >`}</div>
                 </div>
-                <div className='wallet-warning'>{stats?.remarks}</div>
-              </div>
-              <div>
-                <Accordion>
-                  <AccordionSummary
-                    expandIcon={<ExpandMoreIcon />}
-                    aria-controls="panel2-content"
-                    id="panel2-header"
-                  >
-                    <Typography sx={{ display: 'flex' }}><img src={howToEarn} className='how-to-earn' /> How to earn</Typography>
-                  </AccordionSummary>
-                  <AccordionDetails>
-                    <Typography>
-                      <div className="terms" dangerouslySetInnerHTML={{ __html: stats?.term_and_conditions }} />
-                    </Typography>
-                  </AccordionDetails>
-                </Accordion>
-              </div>
-            </div>
-          </CustomTabPanel>
-
-          <CustomTabPanel value={value} index={2}>
-            {userPosts &&
-              < ChannelCustomTabPanel channelTabValue={channelTabValue}
-                handleChannelChange={handleChannelChange}
-                userPosts={userPosts}
-                currentPage={currentPage}
-                handleChannelPagination={handleChannelPagination}
-                limit={limit} />
+                <div className='dashboard-third'>
+                  <div className='card-balance'>
+                    <div className='withdraw-balance-text'>Withdraw Balance</div>
+                    <div className='middle-withdraw-balance'>
+                      <div className='middle-withdraw-balance-left'>
+                        &#8377;0
+                        <button disabled={!stats?.is_withdrawal_enable}>Withdraw </button>
+                      </div>
+                      <img src={addToWallet} alt='addToWallet' className='addToWallet' />
+                    </div>
+                    <div className='wallet-warning'>{stats?.remarks}</div>
+                  </div>
+                  <div>
+                    <Accordion>
+                      <AccordionSummary
+                        expandIcon={<ExpandMoreIcon />}
+                        aria-controls="panel2-content"
+                        id="panel2-header"
+                      >
+                        <Typography sx={{ display: 'flex' }}><img src={howToEarn} className='how-to-earn' /> How to earn</Typography>
+                      </AccordionSummary>
+                      <AccordionDetails>
+                        <Typography>
+                          <div className="terms" dangerouslySetInnerHTML={{ __html: stats?.term_and_conditions }} />
+                        </Typography>
+                      </AccordionDetails>
+                    </Accordion>
+                  </div>
+                </div>
+              </>
+            )
             }
           </CustomTabPanel>
 
+          <CustomTabPanel value={value} index={2}>
+            < ChannelCustomTabPanel channelTabValue={channelTabValue}
+              handleChannelChange={handleChannelChange}
+              userPostsInfoLoading={userPostsInfoLoading}
+              userPosts={userPosts}
+              currentPage={currentPage}
+              handleChannelPagination={handleChannelPagination}
+              limit={limit} />
+          </CustomTabPanel>
+
           <CustomTabPanel value={value} index={3}>
-            <StoreCustomTabPanel storeMyProducts={storeMyProducts}
+            <StoreCustomTabPanel storeProducts={storeProducts}
+              storeProductsLoading={storeProductsLoading}
               currentStoreMyProductsPage={currentStoreMyProductsPage}
               handleStoreMyProductsPagination={handleStoreMyProductsPagination}
               limit={limit}
@@ -436,7 +466,10 @@ const Profile = () => {
           </CustomTabPanel>
           <CustomTabPanel value={value} index={4}>
             <SavedCustomTabPanel
-              userSavedPosts={userSavedPosts}
+              savedPosts={savedPosts}
+              handleSavedProductPagination={handleChannelPagination}
+              savedPostsLoading={savedPostsLoading}
+              limit={limit}
             />
           </CustomTabPanel>
         </Box>
@@ -447,7 +480,7 @@ const Profile = () => {
 
 export default Profile;
 
-const ChannelCustomTabPanel = ({ channelTabValue, handleChannelChange, userPosts, currentPage, handleChannelPagination, limit }) => {
+const ChannelCustomTabPanel = ({ channelTabValue, handleChannelChange, userPosts, userPostsInfoLoading, currentPage, handleChannelPagination, limit }) => {
   return (
     <Box >
       <Tabs value={channelTabValue} onChange={handleChannelChange}
@@ -458,30 +491,38 @@ const ChannelCustomTabPanel = ({ channelTabValue, handleChannelChange, userPosts
         <Tab label={`Videos (${userPosts?.metadata?.total_posts})`} value="1" />
         <Tab label="Live (0)" value="2" />
       </Tabs>
-      <CustomTabPanel value={channelTabValue} index="1">
-        <div style={{
-          width: '100%',
-          display: 'flex',
-          flexWrap: 'wrap',
-          gap: '10px',
-          //  justifyContent:'start'
-        }}>
-          {userPosts?.data?.map((post) => (
-            <VideoCard post={post} key={post.id} />
-          ))}
-        </div>
-        {userPosts && (
-          <Stack spacing={2} className="pagination-stack" style={{ marginTop: 'auto' }}>
-            <Pagination
-              count={Math.ceil(userPosts?.metadata?.total_posts / limit)}
-              page={currentPage}
-              onChange={handleChannelPagination}
-              size="small"
-            />
-          </Stack>
-        )}
-      </CustomTabPanel>
-
+      {userPostsInfoLoading && (
+        <Stack spacing={1} sx={{ width: '100%' }}>
+          <Skeleton variant="rounded" sx={{ fontSize: '1rem' }} width={'100%'} height={80} />
+          <Skeleton variant="rounded" sx={{ fontSize: '1rem' }} width={'100%'} height={80} />
+          <Skeleton variant="rounded" sx={{ fontSize: '1rem' }} width={'100%'} height={80} />
+        </Stack>
+      )}
+      {!userPostsInfoLoading && (
+        <CustomTabPanel value={channelTabValue} index="1">
+          <div style={{
+            width: '100%',
+            display: 'flex',
+            flexWrap: 'wrap',
+            gap: '10px',
+            justifyContent: 'space-evenly'
+          }}>
+            {userPosts?.data?.map((post) => (
+              <VideoCard post={post} key={post.id} />
+            ))}
+          </div>
+          {userPosts && (
+            <Stack spacing={2} className="pagination-stack" style={{ marginTop: 'auto' }}>
+              <Pagination
+                count={Math.ceil(userPosts?.metadata?.total_posts / limit)}
+                page={currentPage}
+                onChange={handleChannelPagination}
+                size="small"
+              />
+            </Stack>
+          )}
+        </CustomTabPanel>
+      )}
       <CustomTabPanel value={channelTabValue} index="2">
         <div
           style={{
@@ -499,12 +540,12 @@ const ChannelCustomTabPanel = ({ channelTabValue, handleChannelChange, userPosts
   )
 }
 
-const StoreCustomTabPanel = ({ storeMyProducts, currentStoreMyProductsPage, handleStoreMyProductsPagination, limit }) => {
+const StoreCustomTabPanel = ({ storeProducts, storeProductsLoading, currentStoreMyProductsPage, handleStoreMyProductsPagination, limit }) => {
   const [storeTabValue, setstoreTabValue] = React.useState('1');
   const handleStoreTabChange = (event, newValue) => {
     setstoreTabValue(newValue);
   };
-  // console.log(storeMyProducts, 'store products')
+  console.log(storeProducts, 'store products', storeProductsLoading)
   return (
     <div>
       <Box >
@@ -514,11 +555,18 @@ const StoreCustomTabPanel = ({ storeMyProducts, currentStoreMyProductsPage, hand
           aria-label="scrollable prevent tabs example"
           sx={{ width: '100%', display: 'flex', paddingTop: '10px', borderBottom: 1, borderColor: 'skyblue' }}
         >
-          <Tab label={`My Products (${storeMyProducts?.storeProducts?.metadata?.total_posts || storeMyProducts?.storeProducts?.data?.length})`} value="1" />
+          <Tab label={`My Products (${storeProducts?.metadata?.total_posts || storeProducts?.data?.length})`} value="1" />
           <Tab label="My Workshop (0)" value="2" />
           <Tab label="Exclusive Content (0)" value="3" />
         </Tabs>
-        <CustomTabPanel value={storeTabValue} index="1">
+        {storeProductsLoading && (
+          <Stack spacing={1}>
+            <Skeleton variant="rounded" sx={{ fontSize: '1rem' }} width={'100%'} height={80} />
+            <Skeleton variant="rounded" sx={{ fontSize: '1rem' }} width={'100%'} height={80} />
+            <Skeleton variant="rounded" sx={{ fontSize: '1rem' }} width={'100%'} height={80} />
+          </Stack>
+        )}
+        {!storeProductsLoading && (
           <div
             style={{
               width: '100%',
@@ -528,19 +576,32 @@ const StoreCustomTabPanel = ({ storeMyProducts, currentStoreMyProductsPage, hand
               // justifyContent:'start'
             }}
           >
-            {storeMyProducts?.storeProducts?.data?.map((product) => (
-              <StoreMyProductCard myProduct={product} key={product.product_id} />
-            ))}
+            <CustomTabPanel value={storeTabValue} index="1">
+              <div
+                style={{
+                  width: '100%',
+                  display: 'flex',
+                  flexWrap: 'wrap',
+                  gap: '10px',
+                  // justifyContent:'start'
+                }}
+              >
+                {storeProducts?.data?.map((product) => (
+                  <StoreMyProductCard myProduct={product} key={product.product_id} />
+                ))}
+              </div>
+              <Stack spacing={2} className="pagination-stack" style={{ marginTop: 'auto' }}>
+                <Pagination
+                  count={Math.ceil(storeProducts?.metadata?.total_posts / limit)}
+                  page={currentStoreMyProductsPage}
+                  onChange={handleStoreMyProductsPagination}
+                  size="small"
+                />
+              </Stack>
+            </CustomTabPanel>
           </div>
-          <Stack spacing={2} className="pagination-stack" style={{ marginTop: 'auto' }}>
-            <Pagination
-              count={Math.ceil(storeMyProducts?.metadata?.total_posts / limit)}
-              page={currentStoreMyProductsPage}
-              onChange={handleStoreMyProductsPagination}
-              size="small"
-            />
-          </Stack>
-        </CustomTabPanel>
+        )
+        }
 
         <CustomTabPanel value={storeTabValue} index="2">
           <div
@@ -573,7 +634,7 @@ const StoreCustomTabPanel = ({ storeMyProducts, currentStoreMyProductsPage, hand
   )
 }
 
-const SavedCustomTabPanel = ({ userSavedPosts }) => {
+const SavedCustomTabPanel = ({ savedPosts, savedPostsLoading, limit }) => {
   const [savedTabValue, setsavedTabValue] = React.useState('1');
   // console.log(userSavedPosts.savedPosts, 'saved post')
   const handleSavedTabChange = (event, newValue) => {
@@ -586,19 +647,69 @@ const SavedCustomTabPanel = ({ userSavedPosts }) => {
           aria-label="scrollable prevent tabs example"
           sx={{ width: '100%', display: 'flex', paddingTop: '10px', borderBottom: 1, borderColor: 'skyblue' }}
         >
-          <Tab label={`Products (${userSavedPosts?.savedPosts?.saved?.categories[0].total})`} value="1" />
-          <Tab label={`Videos (${userSavedPosts?.savedPosts?.saved?.categories[1].total})`} value="2" />
+          <Tab label={`Products (${savedPosts?.saved?.categories[0].total})`} value="1" />
+          <Tab label={`Videos (${savedPosts?.saved?.categories[1].total})`} value="2" />
         </Tabs>
-        <CustomTabPanel value={savedTabValue} index="1">
-          {userSavedPosts?.savedPosts.saved?.categoryData[0].videos.map((post) => (
-            <ProductCard product={post} key={post.id} />
-          ))}
-        </CustomTabPanel>
-        <CustomTabPanel value={savedTabValue} index="2">
-          {userSavedPosts?.savedPosts.saved?.categoryData[1].videos.map((post) => (
-            <VideoCard post={post} key={post.id} />
-          ))}
-        </CustomTabPanel>
+        {savedPostsLoading && (
+          <Stack spacing={1} sx={{ width: '100%' }}>
+            <Skeleton variant="rounded" sx={{ fontSize: '1rem' }} width={'100%'} height={80} />
+            <Skeleton variant="rounded" sx={{ fontSize: '1rem' }} width={'100%'} height={80} />
+            <Skeleton variant="rounded" sx={{ fontSize: '1rem' }} width={'100%'} height={80} />
+          </Stack>
+        )}
+
+        {!savedPostsLoading && (
+          <CustomTabPanel value={savedTabValue} index="1" sx={{ width: '100%', backgroundColor: 'green' }}>
+            <div
+              style={{
+                width: '100%',
+                display: 'flex',
+                flexWrap: 'wrap',
+                gap: '10px',
+                justifyContent: 'center'
+              }}
+            >
+              {savedPosts.saved?.categoryData[0].videos.map((post) => (
+                <ProductCard product={post} key={post.id} />
+              ))}
+            </div>
+            <Stack spacing={2} className="pagination-stack" style={{ marginTop: 'auto' }}>
+              <Pagination
+                count={Math.ceil(savedPosts?.metadata?.total_posts / limit) || 2}
+                page={1}
+                // onChange={handleStoreMyProductsPagination}
+                size="small"
+              />
+            </Stack>
+          </CustomTabPanel>
+        )
+        }
+
+        {!savedPostsLoading && (
+          <CustomTabPanel value={savedTabValue} index="2" sx={{ width: '100%', backgroundColor: 'green' }}>
+            <div
+              style={{
+                width: '100%',
+                display: 'flex',
+                flexWrap: 'wrap',
+                gap: '10px',
+                justifyContent: 'center'
+              }}
+            >
+              {savedPosts.saved?.categoryData[1].videos.map((post) => (
+                <VideoCard post={post} key={post.id} />
+              ))}
+            </div>
+            <Stack spacing={2} className="pagination-stack" style={{ marginTop: 'auto' }}>
+              <Pagination
+                count={Math.ceil(savedPosts?.metadata?.total_posts / limit) || 3}
+                page={1}
+                // onChange={handleStoreMyProductsPagination}
+                size="small"
+              />
+            </Stack>
+          </CustomTabPanel>
+        )}
       </Box>
     </div>
   )

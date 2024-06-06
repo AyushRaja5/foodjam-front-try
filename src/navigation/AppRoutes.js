@@ -11,6 +11,9 @@ import Profile from '../screens/Profile/Profile'
 // import Event from '../screens/Event/Event'
 import Settings from '../screens/Settings/Settings';
 import Notification from '../screens/Notification/Notification';
+import YourOrderDetail from '../screens/Settings/Yourorders/YourOrderDetail';
+import Cart from '../screens/Cart/Cart';
+import WithdrawBalance from '../screens/Settings/Withdrawal/WithdrawBalance';
 const AppRoutes = () => {
   return (
     <Router>
@@ -28,7 +31,12 @@ const AppRoutes = () => {
         <Route path="/addresses" element={<Settings/>} />
         <Route path="/preferences" element={<Settings/>} />
         <Route path="/payment" element={<Settings/>} />
+        <Route path="/withdraw" element={<Settings/>} />
+        <Route path="/withdraw/tobewithdraw" element={<WithdrawBalance/>} />
         <Route path="/notifications" element={<Notification/>}  />
+        <Route path="/my_orders/:orderId" element={<YourOrderDetail/>} />
+        <Route path="/cart" element={<Cart/>}  />
+
         <Route path="*" element={<Home />} />
       </Routes>
     </Router>

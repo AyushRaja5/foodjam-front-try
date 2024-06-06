@@ -10,7 +10,7 @@ const Notification = () => {
   const notifications = useSelector(state => state.userNotification.usernotification);
   const loading = useSelector(state => state.userNotification.loading);
   const error = useSelector(state => state.userNotification.error);
-
+  const cdnBaseURL = 'https://cdn.commeat.com/';
   useEffect(() => {
     dispatch(fetchUserNotificationsRequest(10, 1));
   }, [dispatch]);
@@ -44,13 +44,14 @@ const Notification = () => {
         <Link to={`/profile/${notice?.account_id}/2`} className='linkuserNotificationToDoor'>
         <div className="notification" >
         <div className="profile-picture">
-          <img src={notice.profile_picture || placeholderprofile} alt={`${notice.first_name}'s profile`} />
+          <img src={notice.profile_picture ? `${cdnBaseURL}${notice.profile_picture }` : placeholderprofile} alt={`${notice.first_name}'s profile`} />
         </div>
         <div className="message">
           {notice.text}
         </div>
         <div className="date">
             {getTimeDifference(notice.created_at)}
+            <div><strong>{notice.first_name}</strong></div>
         </div>
       </div>
       </Link>

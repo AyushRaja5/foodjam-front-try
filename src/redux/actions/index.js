@@ -8,6 +8,8 @@ import * as userOrderActions from './userOrderActions'
 import * as userAddressActions from './userAddressActions'
 import * as userPreferencesActions from './userPreferencesActions'
 import * as userNotificationActions from './userNotificationActions'
+import * as cartActions from './cartActions'
+import * as bankDetailActions from './bankDetailsActions'
 // Export all action creators
 export {
   authActions,
@@ -19,5 +21,7 @@ export {
   userOrderActions,
   userAddressActions,
   userPreferencesActions,
-  userNotificationActions
+  userNotificationActions,
+  cartActions,
+  bankDetailActions
 };

@@ -18,3 +18,20 @@ export const getUserOrders = async (token, accountId, postparams) => {
       throw error;
     }
 };
+
+export const getOrdersByOrderID = async (token, accountId, orderId) => {
+    try {
+      const response = await axios.get(
+        `orders/v1/order/${orderId}`,
+        {
+          headers: {
+            'x-access-token': token,
+            'x-access-user': accountId,
+          },
+        }
+      );
+      return response.data;
+    } catch (error) {
+      throw error;
+    }
+};

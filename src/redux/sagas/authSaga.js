@@ -11,7 +11,7 @@ function* loginUser(action) {
 
     const userData = response.data;
     yield put(loginSuccess(userData));
-    console.log(userData, 'data from response authSaga')
+    // console.log(userData, 'data from response authSaga')
     // Store user information in localStorage
     yield call([localStorage, 'setItem'], 'foodjam-user',  JSON.stringify(userData));
     // yield call([localStorage, 'setItem'], 'account_id', userData.account_id);

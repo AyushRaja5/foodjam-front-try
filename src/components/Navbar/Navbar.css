@@ -105,7 +105,7 @@
   top: 0;
   right: 0;
   height: 100%;
-  /* width: 450px; */
+  width: 400px;
   background-color: #fff;
   z-index: 1000;
   transition: transform 0.3s ease-in-out; 
@@ -187,10 +187,18 @@ form button{
   cursor: pointer;
   background-color: #f8a003;
   border: none;
+  margin-bottom: 10px;
 }
 .otp-page-backlink{
   color: #f8a003;
   font-size: 16px;
+}
+.resend-otp{
+  display: flex;
+  justify-content: center;
+}
+.resend-otp-link{
+  color: black;
 }
 .mobile-header {
   display: none;
@@ -235,6 +243,9 @@ form button{
 }
 
 @media screen and (max-width: 750px) {
+  .signin-menu {
+    width: 350px;
+  }
   .nav-bar-container{
     height: 60px;
   }

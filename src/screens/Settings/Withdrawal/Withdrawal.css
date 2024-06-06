@@ -1,0 +1,148 @@
+.withdrawal-detail {
+    display: flex;
+    justify-content: space-between;
+    padding: 20px;
+  }
+  
+.withdrawal-detail .withdrawal-detail-left {
+    flex: 0 0 65%;
+    display: flex;
+    flex-direction: column;
+    padding: 0 20px;
+}
+
+.withdrawal-detail-right {
+    flex: 0 0 35%;
+    display: flex;
+    flex-direction: column;
+    margin-left: 20px;
+  }
+
+.withdrawal-summary{
+    /* min-width: 300px; */
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    padding: 15px;
+}
+.withdrawal-summary-bottom{
+    margin-top: 15px;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+.withdrawal-summary-remark{
+    font-size: 12px !important;
+    text-align: justify;
+}
+.typography{
+    display: flex;
+    justify-content: space-between;
+    padding: 3px 0;
+}
+.withdrawal-table-header {
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+}
+.filter-on-date, .withdraw-text{
+    display: flex;
+    align-items: center;
+    color: #f8ad33;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.css-j204z7-MuiFormControlLabel-root .MuiFormControlLabel-label{
+    display: contents !important;
+}
+
+@media (max-width: 768px) {
+    .withdrawal-summary{
+        min-width: 0;
+    }
+    .withdrawal-detail {
+      flex-direction: column-reverse;
+      padding: 10px;
+    }
+    .withdrawal-detail-right{
+        margin: 0;
+    }
+    .withdrawal-detail .withdrawal-detail-left{
+        margin-top: 20px;
+        padding: 0;
+    }
+    .typography span{
+        font-size: 12px;
+    }
+    .table-container th, td{
+        padding: 0px !important;
+        font-size: 12px !important;
+    }
+    .withdrawal-table-header {
+        margin-bottom: 5px;
+    }
+}
+
+
+
+/* ---------------------------------------------- */
+
+.withdraw-balance-container {
+    padding: 20px 60px
+}
+.withdraw-balance-container .bank-detail-card {
+    flex: 1 1 calc(35% - 20px); 
+    max-width: calc(35% - 20px);
+}
+.withdraw_balance{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 40px;
+}
+.withdraw_balance-text{
+    font-size: 32px;
+    font-weight: 700;
+    margin-top: 15px;
+}
+.withdraw-balance-submit{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 20px;
+}
+.withdraw-balance-submit button{
+    background-color: #f8ad33;
+    color: white;
+    width: 30%;
+}
+.withdraw-balance-submit button:hover{
+    background-color: #f8ad33;
+    color: white;
+    width: 30%;
+}
+@media (max-width: 750px) {
+    .withdraw-balance-container {
+        padding: 0 10px;
+    }
+    .withdraw-balance-container .bank-detail-card {
+        flex: 1 1 100%;
+      max-width: 100%;
+    }
+
+    .withdraw-balance-submit{
+        width: 100%;
+        min-height: 30px;
+        display: flex;
+        position: absolute;
+        bottom: 12%;
+        left: 0;
+    }
+    .withdraw-balance-submit button, .withdraw-balance-submit button:hover{
+        background-color: #f8ad33;
+        color: white;
+        width: 85%;
+    }
+}

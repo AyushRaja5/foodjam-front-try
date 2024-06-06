@@ -1,5 +1,5 @@
 .userNotification{
-    margin: 15px;
+    margin: 15px 60px;
     height: 100%;
 }
 .notification {
@@ -40,6 +40,9 @@
   
   
   @media screen and (max-width: 750px) {
+    .userNotification{
+      margin: 15px;
+    }
     .date {
       min-width:60px ;
       align-self: flex-start;
