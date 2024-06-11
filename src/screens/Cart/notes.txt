@@ -1,0 +1,13 @@
+
+
+
+1. OTP dashboard
+5  Rate us & Send feedback remove from navvigation
+8. preference bg colore remove & button should be small
+2. profile page route undefined.
+3. All tabs not showing loading add loading
+6. Menu border right Side.
+7. Address Button small on large screen on right side.
+9. Profile margin and colores to active tab
+4. otp timer and loader in singn in and sign up
+10. if not availabe data show pictures.

@@ -1,0 +1,123 @@
+.top-list-main-view {
+    width: 100%;
+    background-color: #fff7e8;
+    margin-top: 10px;
+    padding: 20px;
+    border-radius: 10px;
+  }
+  
+  .top-list-title {
+    font-family: 'Poppins-SemiBold', sans-serif;
+    font-size: 16px;
+    font-weight: 600;
+    color: #262626;
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+  .list-style {
+    display: flex;
+    justify-content: center;
+    gap: 60px;
+    overflow-x: auto;
+    padding: 0 10px;
+  }
+  
+  .user-btn {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    cursor: pointer;
+  }
+  
+  .users-profile-btn {
+    width: 95.8px;
+    height: 131.5px;
+    border-radius: 12.8px;
+    background-size: cover;
+    background-position: center;
+    position: relative;
+    background-color: #cecece;
+  }
+  
+  .sub-img {
+    width: 78.2px;
+    height: 107.5px;
+    margin-top: 25px;
+  }
+  
+  .first-img {
+    width: 78.2px;
+    height: 100px;
+    margin-top: 32px;
+  }
+  
+  .users-profile-label {
+    width: 60.8px;
+    height: 14px;
+    background-color: #f9aa1d;
+    position: absolute;
+    top: 0;
+    left: 0;
+    border-top-left-radius: 18px;
+    border-bottom-right-radius: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .users-profile-label-txt {
+    font-family: 'Poppins-SemiBold', sans-serif;
+    font-size: 7px;
+    font-weight: 600;
+    color: #ffffff;
+  }
+  
+  .user-name {
+    font-family: 'Poppins-Medium', sans-serif;
+    font-size: 8px;
+    font-weight: 500;
+    color: #212020;
+    margin-top: 9.4px;
+    text-align: center;
+    max-width: 100px;
+  }
+  
+  .user-follow-btn {
+    width: 66px;
+    height: 27px;
+    border-radius: 9px;
+    background-color: #ffffff;
+    border: 1px solid #fab760;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 9.4px;
+    font-family: 'Poppins-SemiBold', sans-serif;
+    font-size: 9px;
+    font-weight: 600;
+    color: #555555;
+    cursor: pointer;
+  }
+  
+  .bottom-see-all-txt {
+    text-align: center;
+    font-family: 'Poppins-SemiBold', sans-serif;
+    font-size: 10px;
+    font-weight: 600;
+    color: #000000;
+    text-decoration: underline;
+    cursor: pointer;
+    margin-top: 20px;
+  }
+  
+  
+@media (max-width: 750px) {
+    .top-list-main-view{
+        padding: 10px 0;
+    }
+    .list-style {
+        justify-content: space-between;
+        gap: 0px;
+    }
+}

@@ -189,12 +189,25 @@ const BankDetails = ({ onDefaultBankChange }) => {
 
   const handleDefaultChange = (event) => {
     const defaultDetail = event.target.value;
-    let selectedBankDetail = {detail : bankUpiDetails?.bank_details?.find(detail => detail?.id === defaultDetail), type:'bank'};
-    selectedBankDetail = {detail : bankUpiDetails?.upi_details?.find(detail => detail?.id === defaultDetail), type : 'upi'};
+    console.log(defaultDetail, 'default details');
+    
+    let selectedBankDetail = bankUpiDetails?.bank_details?.find(detail => detail?.id === defaultDetail);
+    
+    if (selectedBankDetail) {
+      selectedBankDetail = { detail: selectedBankDetail, type: 'bank' };
+    } else {
+      selectedBankDetail = bankUpiDetails?.upi_details?.find(detail => detail?.id === defaultDetail);
+      if (selectedBankDetail) {
+        selectedBankDetail = { detail: selectedBankDetail, type: 'upi' };
+      }
+    }
     setDefaultBankDetail(defaultDetail);
-    onDefaultBankChange(selectedBankDetail); 
-  console.log(selectedBankDetail,'bank details')
+    if (onDefaultBankChange) {
+      onDefaultBankChange(selectedBankDetail);
+    }
+    console.log(selectedBankDetail, 'bank details');
   };
+  
 
   if (bankUpiDetailsLoading)
     return (

@@ -1,0 +1,18 @@
+.videos-conatiner{
+    display: flex;
+    gap: 20px;
+    justify-content: flex-start;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+}
+/* .video-section-container{
+    width: 100%;
+    display: flex;
+    justify-content: flex-start;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+} */
+
+.video-section-container::-webkit-scrollbar {
+    display: none;
+  }

@@ -97,19 +97,19 @@ export const getBankDetailsService = async ( token, accountId )  => {
 
   export const withdrawFromBankService = async ( token, accountId, withdrawBankDetail )  => {
     console.log(withdrawBankDetail, 'bank call service')
-    // try {
-    //   const response = await axios.post(
-    //     `users/v1/users/bank/payout`,
-    //     withdrawBankDetail,
-    //     {
-    //       headers: {
-    //         'x-access-token': token,
-    //         'x-access-user': accountId,
-    //       },
-    //     }
-    //   );
-    //   return response.data;
-    // } catch (error) {
-    //   throw error;
-    // }
+    try {
+      const response = await axios.post(
+        `users/v1/users/bank/payout`,
+        withdrawBankDetail,
+        {
+          headers: {
+            'x-access-token': token,
+            'x-access-user': accountId,
+          },
+        }
+      );
+      return response.data;
+    } catch (error) {
+      throw error;
+    }
   }

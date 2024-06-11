@@ -1,21 +1,21 @@
 .withdrawal-detail {
     display: flex;
     justify-content: space-between;
-    padding: 20px;
+    /* padding: 20px; */
   }
   
 .withdrawal-detail .withdrawal-detail-left {
     flex: 0 0 65%;
     display: flex;
     flex-direction: column;
-    padding: 0 20px;
+    padding-right: 20px;
 }
 
 .withdrawal-detail-right {
     flex: 0 0 35%;
     display: flex;
     flex-direction: column;
-    margin-left: 20px;
+    padding-left: 20px;
   }
 
 .withdrawal-summary{
@@ -63,10 +63,11 @@
     }
     .withdrawal-detail {
       flex-direction: column-reverse;
-      padding: 10px;
+      padding: 5px;
     }
     .withdrawal-detail-right{
-        margin: 0;
+        margin-bottom: 20px;
+        padding: 0;
     }
     .withdrawal-detail .withdrawal-detail-left{
         margin-top: 20px;
@@ -76,7 +77,7 @@
         font-size: 12px;
     }
     .table-container th, td{
-        padding: 0px !important;
+        padding: 5px !important;
         font-size: 12px !important;
     }
     .withdrawal-table-header {
@@ -92,8 +93,17 @@
     padding: 20px 60px
 }
 .withdraw-balance-container .bank-detail-card {
-    flex: 1 1 calc(35% - 20px); 
-    max-width: calc(35% - 20px);
+    flex: 1 1 calc(30% - 20px); 
+    max-width: calc(30% - 20px);
+}
+.withdraw-balance-container .row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.withdraw-balance-container .row .right img{
+    width: 20px;
+    height: 20px;
 }
 .withdraw_balance{
     display: flex;
@@ -125,20 +135,22 @@
 }
 @media (max-width: 750px) {
     .withdraw-balance-container {
-        padding: 0 10px;
+        padding: 10px;
+        margin-bottom: 60px;
     }
     .withdraw-balance-container .bank-detail-card {
         flex: 1 1 100%;
-      max-width: 100%;
+        max-width: 100%;
     }
 
     .withdraw-balance-submit{
         width: 100%;
         min-height: 30px;
-        display: flex;
+        margin-top: 10px;
+        /* display: flex;
         position: absolute;
         bottom: 12%;
-        left: 0;
+        left: 0; */
     }
     .withdraw-balance-submit button, .withdraw-balance-submit button:hover{
         background-color: #f8ad33;

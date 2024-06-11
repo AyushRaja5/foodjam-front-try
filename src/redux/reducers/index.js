@@ -13,6 +13,7 @@ import userPreferencesReducer from './userPreferencesReducer';
 import userNotificationReducer from './userNotificationReducer'
 import cartReducer from './cartReducer'
 import bankDetailsReducer from './bankDetailsReducer'
+import exploreReducer from './ExploreReducer'
 
 const rootReducer = combineReducers({
   authUser : authReducer,
@@ -27,7 +28,8 @@ const rootReducer = combineReducers({
   userPreferences : userPreferencesReducer,
   userNotification : userNotificationReducer,
   cartProducts : cartReducer,
-  bankDetails : bankDetailsReducer
+  bankDetails : bankDetailsReducer,
+  exploreData : exploreReducer
   // Add other reducers here if needed
 });
 

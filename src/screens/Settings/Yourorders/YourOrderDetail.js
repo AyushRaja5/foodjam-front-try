@@ -71,7 +71,7 @@ const YourOrderDetail = () => {
                 </div>
               </div>
               {index !== order_details.products.length - 1 && (
-            <Divider sx={{ marginLeft: '20px', borderWidth: '1px', color: 'red' }} variant="fullWidth" flexItem />
+            <Divider sx={{ borderWidth: '1px', color: 'red' }} variant="fullWidth" flexItem />
             )}
            </>
           ))}

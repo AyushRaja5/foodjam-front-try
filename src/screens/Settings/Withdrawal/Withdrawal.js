@@ -67,7 +67,7 @@ const Withdrawal = () => {
 
     const formattedStartDate = startDate ? startDate : null; // If startDate is not defined, set it to null
     const formattedEndDate = endDate ? (typeof endDate === 'string' ? endDate : endDate.toISOString().split('T')[0]) : null; // If endDate is not defined, set it to null
-    console.log(formattedEndDate, 'end')
+    // console.log(formattedEndDate, 'end')
     dispatch(fetchPayoutHistoryRequest(10, formattedEndDate, 1)); // Dispatch action with selected parameters
     setOpenWithdrawalFilterDialog(false);  // Close the dialog after submitting
   };

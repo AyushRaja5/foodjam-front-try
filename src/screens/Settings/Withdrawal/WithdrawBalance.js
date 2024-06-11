@@ -24,7 +24,19 @@ const WithdrawBalance = () => {
   // console.log(payoutHistory?.payout_details)
   const handleWithdrawSubmit = () => {
 
-    const withdrawDetail = {
+    const withdrawBankDetail = {
+      beneficiary_id: defaultBankDetail?.detail?.bank_beneficiary_id,
+      type: defaultBankDetail?.detail?.bank_details?.type,
+      name: defaultBankDetail?.detail?.bank_details?.account_holder_name,
+      email: defaultBankDetail?.detail?.bank_details?.email,
+      phone: defaultBankDetail?.detail?.bank_details?.phone,
+      amount: payoutHistory?.withdrawalable_balance,
+      mode : 'imps',
+      user_bank_name: defaultBankDetail?.detail?.bank_details?.bank_name,
+      ifsc: defaultBankDetail?.detail?.bank_details?.ifsc_code,
+      account_number: defaultBankDetail?.detail?.bank_details?.account_number,
+    }
+    const withdrawUPIDetail = {
       beneficiary_id: defaultBankDetail?.detail?.upi_bank_beneficiary_id,
       name: defaultBankDetail?.detail?.upi_details?.account_holder_name,
       email: defaultBankDetail?.detail?.upi_details?.email,
@@ -33,8 +45,11 @@ const WithdrawBalance = () => {
       mode: defaultBankDetail?.detail?.upi_details?.type,
       upi_id: defaultBankDetail?.detail?.upi_details?.upi_id,
     }
-    // console.log(withdrawDetail)
-    dispatch(withdrawRequest(withdrawDetail)); 
+
+    if(defaultBankDetail.type=='bank')
+      dispatch(withdrawRequest(withdrawBankDetail)); 
+    else
+      dispatch(withdrawRequest(withdrawUPIDetail)); 
   };
 
   useEffect(() => {
@@ -52,7 +67,7 @@ const WithdrawBalance = () => {
 
 
   console.log(responseMessage, 'response from server')
-  console.log(state, 'state')
+  // console.log(state, 'state')
   return (
     <div className='withdraw-balance-container'>
       <div className='withdraw_balance'>

@@ -272,7 +272,7 @@
 .card-balance {
     background-color: #f8a003;
     width: 100%;
-    min-width: 350px;
+    min-width: 300px; 
     height: 180px;
     border-radius: 8px;
     padding: 10px 20px;

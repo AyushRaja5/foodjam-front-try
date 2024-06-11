@@ -12,6 +12,7 @@ import userNotificationSaga from './userNotificationSaga';
 import userPreferencesSaga from './userPreferencesSaga';
 import cartSaga from './cartSaga';
 import bankUpiSaga from './bankDetailsSaga';
+import exploreDataSaga from './exploreSaga';
 export default function* rootSaga() {
   yield all([
     authSaga(),
@@ -25,6 +26,7 @@ export default function* rootSaga() {
     userAddressSaga(),
     userPreferencesSaga(),
     cartSaga(),
-    bankUpiSaga()
+    bankUpiSaga(),
+    exploreDataSaga()
   ]);
 }

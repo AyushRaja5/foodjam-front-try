@@ -106,9 +106,9 @@ const AddressBook = () => {
           </div>
         ))}
       </div>
-      {/* <div className='add-address-div'>
-        <button className="add-address-button"  onClick={handleAdd}>Add Address</button>
-      </div> */}
+      <div className='add-address-div bottom-address-btn'>
+        <button className="bottom-add-address-button"  onClick={handleAdd}>Add Address</button>
+      </div>
       <AddressDialogBox
         open={dialogOpen}
         onClose={handleClose}

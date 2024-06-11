@@ -1,0 +1,90 @@
+/* ExploreUser.css */
+.explore-user-section{
+    width: 100%;
+    padding: 0 40px;
+    margin: 20px 0;
+}
+.explore-user-heading {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    font-size: 24px;
+    margin-bottom: 20px;
+  }
+  .topCreators-img{
+    padding: 7px;
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.4);
+  }
+
+  .user-card {
+    cursor: pointer;
+    display: flex;
+    height: 230px;
+    width: 180px;
+    align-items: center;
+    flex-direction: column;
+    justify-content: space-around;
+    padding: 20px;
+    text-align: center;
+    border-radius: 15px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.4);
+  }
+  
+  .user-img {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+    border-radius: 50%;
+  }
+ 
+  .user-text {
+    font-size: 22px;
+  }
+  .user-follow-btn{
+    border: 1px solid #f8a003;
+    padding: 7px 15px;
+    color: black;
+    font-size: 13px;
+    border-radius: 10px;
+  }
+  
+@media (max-width: 750px) {
+  .explore-user-section{
+    padding: 0;
+    margin-top: 0;
+    margin-bottom: 15px;
+  }
+  .explore-user-heading{
+    font-size: 16px;
+    gap: 10px;
+    margin-bottom: 10px;
+  }
+  .topCreators-img{
+    height: 30px;
+    width: 30px;
+  }
+  .user-card {
+    height: 150px;
+    width: 100px;
+    padding: 5px 0;
+  }
+  .user-img {
+    width: 70px;
+    height: 70px;
+    margin: 0;
+    padding: 0;
+  }
+  .user-text {
+    font-size: 14px;
+    padding: 0;
+    margin: 0;
+  }
+  .user-follow-btn{
+    padding: 5px 10px;
+    font-size: 8px;
+  }
+}

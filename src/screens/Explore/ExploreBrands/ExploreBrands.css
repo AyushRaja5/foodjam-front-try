@@ -1,0 +1,55 @@
+.explore-brands{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.view-btn{
+    width: 150px;
+    height: 45px;
+    border: 1px solid #f8a003;
+    padding: 5px 10px;
+}
+
+@media (max-width: 750px) {
+    .view-btn{
+        width: 100px;
+        height: 25px;
+        padding: 5px;
+        font-size: 10px;
+    }
+    .explore-user-section{
+      padding: 0;
+      margin-top: 0;
+      margin-bottom: 15px;
+    }
+    .explore-user-heading{
+      font-size: 16px;
+      gap: 10px;
+      margin-bottom: 10px;
+    }
+    .topCreators-img{
+      height: 30px;
+      width: 30px;
+    }
+    .user-card {
+      height: 150px;
+      min-width: 100px;
+      padding: 5px 0;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+    .user-img {
+      width: 70px;
+      height: 70px;
+      margin: 0;
+      padding: 0;
+    }
+    .explore-brands-text {
+      font-size: 10px;
+      display: flex;
+      flex-wrap: wrap;
+      overflow: auto;
+      padding: 0;
+      margin: 0;
+    }
+  }

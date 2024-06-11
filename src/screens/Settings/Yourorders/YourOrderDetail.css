@@ -121,9 +121,9 @@
   .order-detail {
     flex-direction: column;
   }
-  .order-detail-left {
+  .order-detail .order-detail-left {
     flex: 1 1 auto;
-    padding: 10px;
+    padding: 0px;
   }
   .order-detail-right{
     padding: 10px;
@@ -149,6 +149,7 @@
   }
   .product-info {
     font-size: 12px;
+    margin-right: 10px;
   }
   .product-price {
     font-size: 12px;

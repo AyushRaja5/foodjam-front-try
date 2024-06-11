@@ -1,44 +1,67 @@
 // navigation/AppRoutes.js
 
-import React from 'react';
+import React, { Suspense, lazy } from 'react';
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import Home from '../screens/Home/Home';
-import Explore from '../screens/Explore/Explore';
-import FoodamStore from '../screens/FoodjamStore/FoodjamStore'
-import Login from '../screens/Login/Login';
 import Navbar from '../components/Navbar/Navbar';
-import Profile from '../screens/Profile/Profile'
-// import Event from '../screens/Event/Event'
-import Settings from '../screens/Settings/Settings';
-import Notification from '../screens/Notification/Notification';
-import YourOrderDetail from '../screens/Settings/Yourorders/YourOrderDetail';
-import Cart from '../screens/Cart/Cart';
-import WithdrawBalance from '../screens/Settings/Withdrawal/WithdrawBalance';
+
+const Home = lazy(() => import('../screens/Home/Home'));
+const Explore = lazy(() => import('../screens/Explore/Explore'));
+const FoodamStore = lazy(() => import('../screens/FoodjamStore/FoodjamStore'));
+const Login = lazy(() => import('../screens/Login/Login'));
+const Profile = lazy(() => import('../screens/Profile/Profile'));
+const Settings = lazy(() => import('../screens/Settings/Settings'));
+const Notification = lazy(() => import('../screens/Notification/Notification'));
+const YourOrderDetail = lazy(() => import('../screens/Settings/Yourorders/YourOrderDetail'));
+const Cart = lazy(() => import('../screens/Cart/Cart'));
+const WithdrawBalance = lazy(() => import('../screens/Settings/Withdrawal/WithdrawBalance'));
+// const NotFound = lazy(() => import('../screens/NotFound/NotFound'));
+const TopFoodJammers = lazy(() => import('../screens/TopFoodJammers/TopFoodJammers'));
+const BrandDetails = lazy(() => import('../screens/BrandDetails/BrandDetails'));
+const Contests = lazy(() => import('../screens/Contests/Contests'));
+const Rewards = lazy(() => import('../screens/Rewards/Rewards'));
+const Workshops = lazy(() => import('../screens/Workshops/Workshops'));
+const Campaigns = lazy(() => import('../screens/Campaigns/Campaigns'));
+
 const AppRoutes = () => {
   return (
     <Router>
-      <Navbar/>
-      <Routes>
-        <Route exact="true" path="/" element={<Home/>} />
-        {/* <Route path="/event" element={<Event/>} /> */}
-        <Route path="/explore" element={<Explore/>} />
-        <Route path="/foodjamstore" element={<FoodamStore/>} />
-        <Route path="/login" element={<Login/>} />
-        {/* <Route path="/profile" element={<Profile/>} /> */}
-        <Route path="/profile/:id/:tab" element={<Profile/>}  />
-        <Route path="/setting" element={<Settings/>} />
-        <Route path="/my_orders" element={<Settings/>} />
-        <Route path="/addresses" element={<Settings/>} />
-        <Route path="/preferences" element={<Settings/>} />
-        <Route path="/payment" element={<Settings/>} />
-        <Route path="/withdraw" element={<Settings/>} />
-        <Route path="/withdraw/tobewithdraw" element={<WithdrawBalance/>} />
-        <Route path="/notifications" element={<Notification/>}  />
-        <Route path="/my_orders/:orderId" element={<YourOrderDetail/>} />
-        <Route path="/cart" element={<Cart/>}  />
+      <Navbar />
+      <Suspense fallback={<div>Loading...</div>}>
+        <Routes>
+          <Route exact="true" path="/" element={<Home />} />
+          {/* <Route path="/event" element={<Event/>} /> */}
+          <Route path="/explore" element={<Explore />} />
+          <Route path="/foodjamstore" element={<FoodamStore />} />
+          <Route path="/login" element={<Login />} />
+          {/* <Route path="/profile" element={<Profile/>} /> */}
+          <Route path="/profile/:id/:tab" element={<Profile />} />
+          <Route path="/setting" element={<Settings />} />
+          <Route path="/my_orders" element={<Settings />} />
+          <Route path="/addresses" element={<Settings />} />
+          <Route path="/preferences" element={<Settings />} />
+          <Route path="/bank_details" element={<Settings />} />
+          <Route path="/withdraw" element={<Settings />} />
+          <Route path="/withdraw/tobewithdraw" element={<WithdrawBalance />} />
+          <Route path="/notifications" element={<Notification />} />
+          <Route path="/my_orders/:orderId" element={<YourOrderDetail />} />
+          <Route path="/cart" element={<Cart />} />
 
-        <Route path="*" element={<Home />} />
-      </Routes>
+          <Route path="/top_foodjammers" element={<TopFoodJammers/>} />
+          <Route path="/brand/:brandId" element={<BrandDetails/>} />
+
+          <Route path="/contests" element={<Contests />} />
+          <Route path="/contest_details/:contestId" element={<Contests />} />
+
+          <Route path="/rewards" element={<Rewards />} />
+          <Route path="/rewardsInfo/:rewardId" element={<Rewards />} />
+          <Route path="/workshops" element={<Workshops />} />
+
+          <Route path="/campaigns" element={<Campaigns />} />
+          <Route path="/campaign_details/:campaignId" element={<Campaigns />} />
+
+          <Route path="*" element={<Home />} />
+        </Routes>
+      </Suspense>
     </Router>
   );
 };

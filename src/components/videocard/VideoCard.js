@@ -1,6 +1,7 @@
 import React from 'react';
 import './VideoCard.css';
 import eye from '../../assets/imagessvg/eye.svg'
+import { Link } from 'react-router-dom';
 const VideoCard = ({ post }) => {
   const cdnBaseURL = 'https://cdn.commeat.com/';
   const truncateText = (text, maxLength) => {
@@ -20,6 +21,7 @@ const VideoCard = ({ post }) => {
           </span>
         </span>
         <span className='bottom-center-text'>
+        <Link to={`/profile/${post?.account_id}/2`} className='link-user-profile'>
           <div className='pp-username'>
             <img 
             src={ post.profile_picture?.startsWith('https://')
@@ -28,6 +30,7 @@ const VideoCard = ({ post }) => {
             className='video-card-profile-pic' />
             {post.username}
           </div>
+          </Link>
           <div>{truncateText(post.text, 50)}</div>
         </span>
       </div>

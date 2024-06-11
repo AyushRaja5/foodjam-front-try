@@ -10,6 +10,7 @@ import * as userPreferencesActions from './userPreferencesActions'
 import * as userNotificationActions from './userNotificationActions'
 import * as cartActions from './cartActions'
 import * as bankDetailActions from './bankDetailsActions'
+import * as ExploreActions from './ExploreActions'
 // Export all action creators
 export {
   authActions,
@@ -23,5 +24,6 @@ export {
   userPreferencesActions,
   userNotificationActions,
   cartActions,
-  bankDetailActions
+  bankDetailActions,
+  ExploreActions
 };
