@@ -4,6 +4,7 @@
     justify-content: flex-start;
     flex-wrap: nowrap;
     overflow-x: auto;
+    padding: 5px;
 }
 /* .video-section-container{
     width: 100%;
@@ -13,6 +14,6 @@
     overflow-x: auto;
 } */
 
-.video-section-container::-webkit-scrollbar {
+.videos-conatiner::-webkit-scrollbar {
     display: none;
   }

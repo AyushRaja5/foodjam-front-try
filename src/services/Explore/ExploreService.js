@@ -1,6 +1,7 @@
 import axios from 'axios';
 
 export const getExploreSequenceService = async (token, accountId) => {
+  console.log(token, accountId,'ayush cjeck')
   try {
     if (!token && !accountId) {
       const response = await axios.get(`dynamic/v2/discovery`);

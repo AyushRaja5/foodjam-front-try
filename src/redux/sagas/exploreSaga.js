@@ -9,8 +9,8 @@ import {getExploreSequenceService, getLeaderBoardService} from '../../services/E
 function* fetchExploreData() {
   try {
     // const params = action.payload;
-    const token = JSON.parse(localStorage.getItem('foodjam-user')).sessionToken;
-    const accountId = JSON.parse(localStorage.getItem('foodjam-user')).account_id;
+    const token = JSON.parse(localStorage.getItem('foodjam-user'))?.sessionToken;
+    const accountId = JSON.parse(localStorage.getItem('foodjam-user'))?.account_id;
     const response = yield call(getExploreSequenceService, token, accountId);
     yield put(fetchExploreSuccess(response.data));
   } catch (error) {

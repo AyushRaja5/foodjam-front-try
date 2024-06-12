@@ -1,0 +1,128 @@
+.leaderboard-skeleton{
+  margin:  0 10px;
+}
+.leaderboard-section {
+    padding: 20px;
+    margin: 0 10%;
+  }
+  .lps-date-box{
+    display: flex;
+    justify-content: space-between;
+  }
+  .lps-link{
+    text-align: left;
+    text-decoration: underline;
+  }
+  .list-leaderboard-header {
+    display: flex;
+    background-color: #EFF1F4;
+    justify-content: space-between;
+    align-items: center;
+    color: #828A94;
+    margin-bottom: 20px;
+    padding: 10px 70px;
+    border-radius: 20px 20px 0 0;
+  }
+  .list-leaderboard-header .list-head{
+    text-align: end;
+  }
+  .list-item-leaderboard{
+    /* background-color: red; */
+    display: flex;
+    align-items: center;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+  }
+  .leader-forward-icon{
+    height: 70px;
+    width: 70px;
+    padding: 0;
+    display: flex;
+  }
+  .leaderboard-info {
+    margin-top: 20px;
+  }
+  
+  .leaderboard-list {
+    margin-top: 20px;
+  }
+  
+  .leaderboard-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    margin-bottom: 10px;
+    cursor: pointer;
+  }
+  
+  .profile-section {
+    display: flex;
+    align-items: center;
+  }
+  
+  .profile-section img {
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    margin-right: 10px;
+  }
+  
+  .points-section {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 75px;
+    height: 35px;
+    background-color: #ffeed9;
+    border-radius: 20px;
+    color: #ffa734;
+  }
+  
+  .modal {
+    padding: 20px;
+  }
+  
+  @media screen and (max-width: 750px) {
+    .leaderboard-section {
+      padding: 10px 0;
+      margin: 0 20px;
+      margin-bottom: 50px;
+    }
+    .leaderboard-summary{
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .leader-forward-icon{
+      height: 50px;
+      width: 50px;
+    }
+  }
+  @media screen and (max-width: 450px) {
+    .lps-date-box{
+      flex-direction: column;
+      gap: 10px;
+    }
+    .list-leaderboard-header{
+      padding: 10px 45px;
+    }
+    .list-item-leaderboard{
+      padding: 5px;
+    }
+    .date-select-leaderboard{
+      width: 50%;
+    }
+    .lps-link{
+      font-size: 12px;
+      display: flex;
+      justify-content: start;
+      text-align: left;
+      padding: 0;
+    }
+    .points-section{
+      width: 65px;
+    }
+  }

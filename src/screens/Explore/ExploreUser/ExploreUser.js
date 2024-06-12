@@ -12,7 +12,7 @@ const ExploreUser = ({ variant, columns, dataSource, heading, limit }) => {
           {heading}
         </div>
       )}
-      <Grid>
+      <div className="videos-conatiner">
         {columns.slice(0, limit).map((data, index) => (
           <Grid item key={index}>
             <Link to={`/profile/${data?.account_id}/2`} className='link-user-profile'>
@@ -38,7 +38,7 @@ const ExploreUser = ({ variant, columns, dataSource, heading, limit }) => {
             </Link>
           </Grid>
         ))}
-      </Grid>
+      </div>
     </div>
   );
 };

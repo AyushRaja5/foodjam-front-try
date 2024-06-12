@@ -164,6 +164,8 @@ const Navbar = () => {
     if (path.includes('/my_orders')) return 'My Orders';
     if (path.includes('/addresses')) return 'Addresses';
     if (path.includes('/preferences')) return 'Preferences';
+    if (path.includes('/cart')) return 'Cart';
+    if (path.includes('/top_foodjammers')) return 'Top Foodjammers';
     return '';
   };
   return (

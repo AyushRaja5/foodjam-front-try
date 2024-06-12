@@ -35,10 +35,10 @@ const Explore = () => {
   if (exploreLoading) return (
     <div className='water'>
       <Stack spacing={1} sx={{width:'100%', display:'flex', alignItems:'center'}}>
-        <Skeleton variant="rounded" sx={{ fontSize: '1rem' }} width={'80%'} height={100} />
-        <Skeleton variant="rounded" sx={{ fontSize: '1rem' }} width={'80%'} height={100} />
-        <Skeleton variant="rounded" sx={{ fontSize: '1rem' }} width={'80%'} height={100} />
-        <Skeleton variant="rounded" sx={{ fontSize: '1rem' }} width={'80%'} height={100} />
+        <Skeleton variant="rounded" sx={{ fontSize: '1rem' }} width={'90%'} height={100} />
+        <Skeleton variant="rounded" sx={{ fontSize: '1rem' }} width={'90%'} height={100} />
+        <Skeleton variant="rounded" sx={{ fontSize: '1rem' }} width={'90%'} height={100} />
+        <Skeleton variant="rounded" sx={{ fontSize: '1rem' }} width={'90%'} height={100} />
       </Stack>
     </div>
   );

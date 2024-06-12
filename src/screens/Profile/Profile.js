@@ -190,8 +190,8 @@ const Profile = () => {
                 alt='profile' className='profile-pic-div' />
               <div className='profile-name-div'>
                 <div className='profile-tags'>
-                  <span>{userProfileInfo?.user_type}</span>
-                  <span>{userProfileInfo?.user_sub_type}</span>
+                  {userProfileInfo?.user_type && <span>{userProfileInfo?.user_type}</span>}
+                  {userProfileInfo?.user_sub_type && <span>{userProfileInfo?.user_sub_type}</span>}
                   <span onClick={handleClickOpenPopularityDialogBox}>Popularity</span>
                 </div>
                 <p className='username'>{userProfileInfo?.username ? userProfileInfo?.username : "Ayush"}</p>
@@ -284,10 +284,10 @@ const Profile = () => {
                 , boxShadow: '0 0 10px rgba(0, 0, 0, 0.2)', paddingTop: '10px', borderRadius: '25px 25px 0 0'
               }}
             >
-              <Tab value={1} icon={<img src={dashboard} alt="Dashboard" className='tab-icon' />} label="Dashboard" />
+              {isOwnProfile && <Tab value={1} icon={<img src={dashboard} alt="Dashboard" className='tab-icon' />} label="Dashboard" />}
               <Tab value={2} icon={<img src={channel} alt="Channel" className='tab-icon' />} label="Channel" />
               <Tab value={3} icon={<img src={cartHome} alt="Store" className='tab-icon' />} label="Store" />
-              <Tab value={4} icon={<img src={bookmarkSelect} alt="Save" className='tab-icon' />} label="Save" />
+              {isOwnProfile && <Tab value={4} icon={<img src={bookmarkSelect} alt="Save" className='tab-icon' />} label="Save" />}
             </Tabs>
           </div>
 
