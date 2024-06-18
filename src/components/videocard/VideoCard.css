@@ -24,10 +24,6 @@
   border-radius: 15px;
   background-color: rgba(0, 0, 0, 0.5);
 }
-.link-user-profile{
-  text-decoration: none;
-    color: inherit;
-}
 .top-right-text {
   align-self: flex-end;
   color: white;

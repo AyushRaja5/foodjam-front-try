@@ -2,8 +2,9 @@ import React from 'react';
 import './Leaderboard.css';
 import userPlaceholder from '../../../assets/imagespng/user.png'; // Import the default user image
 import { Link } from 'react-router-dom';
+import { Button } from '@mui/material';
 
-const Leaderboard = ({ heading, columns }) => {
+const Leaderboard = ({ heading, columns, handleFollow }) => {
   const media = 'https://cdn.commeat.com/';
 
   const sortarr = [];
@@ -28,9 +29,14 @@ const Leaderboard = ({ heading, columns }) => {
               </div>
             </div>
             <p className="user-name">{item?.username}</p>
-            <button className="user-follow-btn">
-              {item?.isfollow ? 'Following' : 'Follow'}
-            </button>
+            <Button className="user-follow-btn"
+              onClick={(e) => {
+                e.preventDefault();
+                handleFollow(item.account_id);
+              }}
+            >
+              {item?.isfollow ? 'Following' : '+ Follow'}
+            </Button>
           </div>
         ))}
       </div>

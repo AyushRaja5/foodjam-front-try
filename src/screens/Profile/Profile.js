@@ -32,6 +32,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { fetchStatsRequest } from '../../redux/actions/dashboardStateActions'
 import { fetchUserProfileByAccountIdRequest } from '../../redux/actions/userProfileByAccountIdActions'
 import { fetchPostByIdRequest } from '../../redux/actions/postByIdActions'
+import { followUserRequest } from '../../redux/actions/ExploreActions'
 import { fetchSavedPostsRequest } from '../../redux/actions/savedPostsProductsActions';
 import VideoCard from '../../components/videocard/VideoCard'
 import { ProductCard, StoreMyProductCard } from '../../components/ProductCard/ProductCard';
@@ -43,7 +44,8 @@ import workshopLite from '../../assets/imagespng/workshopLite.png'
 import exclusiveLite from '../../assets/imagespng/ecLite.png'
 import menuLite from '../../assets/imagespng/sellingLite.png'
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
-import { Divider, Skeleton } from '@mui/material';
+import { Button, Divider, Skeleton } from '@mui/material';
+import { toast } from 'react-toastify';
 
 
 const CustomTabPanel = ({ children, value, index }) => {
@@ -106,6 +108,8 @@ const Profile = () => {
   const { post: userPosts, loading: userPostsInfoLoading, error: userPostsInfoError } = useSelector((state) => state.postById);
   const { savedPosts, loading: savedPostsLoading, error: savedPostsError } = useSelector((state) => state.savedPosts);
   const { storeProducts, loading: storeProductsLoading, error: storeProductsError } = useSelector((state) => state.storeProducts);
+  const { loading: exploreLoading, error: exploreError, successMessage } = useSelector(state => state.exploreData);
+
   // console.log(userPosts)
 
   const limit = 8;
@@ -138,10 +142,11 @@ const Profile = () => {
     // Update the tab value when the path changes
     setValue(initialTab());
   }, [location]);
+
   useEffect(() => {
     console.log(`Fetching data for user ID: ${id} and tab: ${tab}`);
     dispatch(fetchUserProfileByAccountIdRequest(id));
-  }, [dispatch, id]);
+  }, [dispatch, id, successMessage]);
 
   useEffect(() => {
     // dispatch(fetchUserProfileByAccountIdRequest(id));
@@ -168,6 +173,20 @@ const Profile = () => {
   const handleClosePopularityDialogBox = () => {
     setOpenPopularityDialogBox(false);
   };
+
+  useEffect(() => {
+    if (successMessage?.success) {
+      toast.success(successMessage?.message);
+    }
+    if (exploreError) {
+      toast.error(exploreError);
+    }
+  }, [successMessage, exploreError]);
+
+  const handleFollow = (accountToFollow) => {
+    console.log(accountToFollow);
+    dispatch(followUserRequest(accountToFollow));
+  };
   // console.log(stats, 'dashboard profile stats')
   // console.log(userPosts, 'user posts if account id')
   // console.log(userProfileInfo, 'user profile Data')
@@ -183,10 +202,10 @@ const Profile = () => {
           <div className='profileInfo'>
             <div className='profile-pic-name-info'>
               <img src={
-                  userProfileInfo?.profile_picture?.startsWith('https://')
-                    ? userProfileInfo.profile_picture
-                    : cdnBaseURL + userProfileInfo?.profile_picture
-                }
+                userProfileInfo?.profile_picture?.startsWith('https://')
+                  ? userProfileInfo.profile_picture
+                  : cdnBaseURL + userProfileInfo?.profile_picture
+              }
                 alt='profile' className='profile-pic-div' />
               <div className='profile-name-div'>
                 <div className='profile-tags'>
@@ -194,8 +213,8 @@ const Profile = () => {
                   {userProfileInfo?.user_sub_type && <span>{userProfileInfo?.user_sub_type}</span>}
                   <span onClick={handleClickOpenPopularityDialogBox}>Popularity</span>
                 </div>
+                <p className='fullname'>{userProfileInfo?.first_name} {userProfileInfo?.last_name}</p>
                 <p className='username'>{userProfileInfo?.username ? userProfileInfo?.username : "Ayush"}</p>
-                <p className='fullname'>{userProfileInfo?.first_name} {userProfileInfo?.middle_name} {userProfileInfo?.last_name}</p>
               </div>
             </div>
             <div className='follow-div'>
@@ -220,13 +239,20 @@ const Profile = () => {
             orientation="vertical"
             aria-label="scrollable prevent tabs example"
             centered
-            sx={{ width: '100%', display: 'flex', padding: '0 20px', paddingTop: '10px' }}
+            sx={{ width: '100%', display: 'flex', padding: '0 20px', paddingTop: '10px', }}
           >
             {isOwnProfile && <CustomTab value={1} icon={<img src={dashboard} alt="Dashboard" className='tab-icon' />} label="Dashboard" />}
             <CustomTab value={2} icon={<img src={channel} alt="Channel" className='tab-icon' />} label="Channel" />
             <CustomTab value={3} icon={<img src={cartHome} alt="Store" className='tab-icon' />} label="Store" />
             {isOwnProfile && <CustomTab value={4} icon={<img src={bookmarkSelect} alt="Save" className='tab-icon' />} label="Save" />}
           </Tabs>
+          <Button sx={{ bgcolor: 'black', color: 'white', width: '70%' }}
+            onClick={(e) => {
+              e.preventDefault();
+              handleFollow(userProfileInfo?.account_id);
+            }}
+            className='follow-btn-profile'
+          >{(userProfileInfo?.is_following) ? 'Following' : '+ Follow'}</Button>
         </div>
       </div>
       <BootstrapDialog
@@ -261,7 +287,7 @@ const Profile = () => {
           </Typography>
         </DialogContent>
       </BootstrapDialog>
-      <Divider sx={{ marginLeft: '20px', borderWidth:'1px', color:'red' }} orientation="vertical" variant="fullWidth" flexItem />
+      <Divider sx={{ marginLeft: '20px', borderWidth: '1px', color: 'red' }} orientation="vertical" variant="fullWidth" flexItem />
       <div className='dashboardInfo'>
         <Box sx={{ width: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
           <div className='tabs-mobile'>
@@ -276,12 +302,10 @@ const Profile = () => {
                 width: '100%', display: 'flex', '.MuiTabs-scroller': {
                   display: 'flex',
                   justifyContent: 'center',
-                  paddingLeft: '30px'
                 },
                 '.MuiTabs-flexContainer': {
                   justifyContent: 'center'
                 }
-                , boxShadow: '0 0 10px rgba(0, 0, 0, 0.2)', paddingTop: '10px', borderRadius: '25px 25px 0 0'
               }}
             >
               {isOwnProfile && <Tab value={1} icon={<img src={dashboard} alt="Dashboard" className='tab-icon' />} label="Dashboard" />}
@@ -289,6 +313,14 @@ const Profile = () => {
               <Tab value={3} icon={<img src={cartHome} alt="Store" className='tab-icon' />} label="Store" />
               {isOwnProfile && <Tab value={4} icon={<img src={bookmarkSelect} alt="Save" className='tab-icon' />} label="Save" />}
             </Tabs>
+            
+            <Button sx={{ bgcolor: 'black', color: 'white', width:'130px', height:'40px' }}
+                onClick={(e) => {
+                  e.preventDefault();
+                  handleFollow(userProfileInfo?.account_id);
+                }}
+                className='follow-btn-profile'
+              >{(userProfileInfo?.is_following) ? 'Following' : '+ Follow'}</Button>          
           </div>
 
           <CustomTabPanel value={value} index={1} >

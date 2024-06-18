@@ -13,6 +13,7 @@ import userPreferencesSaga from './userPreferencesSaga';
 import cartSaga from './cartSaga';
 import bankUpiSaga from './bankDetailsSaga';
 import exploreDataSaga from './exploreSaga';
+import contestSaga from './contestSaga';
 export default function* rootSaga() {
   yield all([
     authSaga(),
@@ -27,6 +28,7 @@ export default function* rootSaga() {
     userPreferencesSaga(),
     cartSaga(),
     bankUpiSaga(),
-    exploreDataSaga()
+    exploreDataSaga(),
+    contestSaga()
   ]);
 }

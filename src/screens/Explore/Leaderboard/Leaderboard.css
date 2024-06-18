@@ -84,7 +84,7 @@
   }
   
   .user-follow-btn {
-    width: 66px;
+    /* width: 100px; */
     height: 27px;
     border-radius: 9px;
     background-color: #ffffff;

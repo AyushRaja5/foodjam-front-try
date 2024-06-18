@@ -18,6 +18,7 @@ const WithdrawBalance = lazy(() => import('../screens/Settings/Withdrawal/Withdr
 const TopFoodJammers = lazy(() => import('../screens/TopFoodJammers/TopFoodJammers'));
 const BrandDetails = lazy(() => import('../screens/BrandDetails/BrandDetails'));
 const Contests = lazy(() => import('../screens/Contests/Contests'));
+const ContestDetail = lazy(() => import('../components/ContestDetail/ContestDetail'));
 const Rewards = lazy(() => import('../screens/Rewards/Rewards'));
 const Workshops = lazy(() => import('../screens/Workshops/Workshops'));
 const Campaigns = lazy(() => import('../screens/Campaigns/Campaigns'));
@@ -50,7 +51,7 @@ const AppRoutes = () => {
           <Route path="/brand/:brandId" element={<BrandDetails/>} />
 
           <Route path="/contests" element={<Contests />} />
-          <Route path="/contest_details/:contestId" element={<Contests />} />
+          <Route path="/contest_details/:contestId" element={<ContestDetail />} />
 
           <Route path="/rewards" element={<Rewards />} />
           <Route path="/rewardsInfo/:rewardId" element={<Rewards />} />

@@ -1,40 +1,52 @@
 import React, { useEffect } from 'react';
-import './Explore.css'
+import './Explore.css';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchExploreRequest } from '../../redux/actions/ExploreActions';
+import { fetchExploreRequest, followUserRequest } from '../../redux/actions/ExploreActions';
 import { Skeleton, Stack } from '@mui/material';
 import Banner from './Banner/Banner';
 import ExploreUser from './ExploreUser/ExploreUser';
 import Curation from './Curation/Curation';
 import ExploreBrands from './ExploreBrands/ExploreBrands';
 import Blog from './Blog/Blog';
-import Brand from './Brand/Brand'
+import Brand from './Brand/Brand';
 import ExploreVideos from './ExploreVideos/ExploreVideos';
 import Affliate from './Affliate/Affliate';
 import Leaderboard from './Leaderboard/Leaderboard';
 import ButtonsCard from './Buttons/Buttons';
+import { toast } from 'react-toastify';
 
 const Explore = () => {
   const dispatch = useDispatch();
-  const {exploredata, loading: exploreLoading, error:exploreError} = useSelector(state => state.exploreData);
-  // const loading = useSelector(state => state.data.loading);
-  // const error = useSelector(state => state.data.error);
- 
+  const { exploredata, loading: exploreLoading, error: exploreError, successMessage } = useSelector(state => state.exploreData);
+
   useEffect(() => {
     dispatch(fetchExploreRequest());
-  }, [dispatch]);
+  }, [dispatch, successMessage]);
 
-  console.log(exploredata,'Ayush')
   useEffect(() => {
     if (exploredata && exploredata.rows) {
       exploredata.rows.sort((a, b) => a.sequence - b.sequence);
     }
   }, [exploredata]);
 
+  useEffect(() => {
+    if (successMessage?.success) {
+      toast.success(successMessage?.message);
+    }
+    if (exploreError) {
+      toast.error(exploreError);
+    }
+  }, [successMessage, exploreError]);
+
+  const handleFollow = (accountToFollow) => {
+    if(!accountToFollow)
+      toast.error("User Id invalid")
+    dispatch(followUserRequest(accountToFollow));
+  };
 
   if (exploreLoading) return (
     <div className='water'>
-      <Stack spacing={1} sx={{width:'100%', display:'flex', alignItems:'center'}}>
+      <Stack spacing={1} sx={{ width: '100%', display: 'flex', alignItems: 'center' }}>
         <Skeleton variant="rounded" sx={{ fontSize: '1rem' }} width={'90%'} height={100} />
         <Skeleton variant="rounded" sx={{ fontSize: '1rem' }} width={'90%'} height={100} />
         <Skeleton variant="rounded" sx={{ fontSize: '1rem' }} width={'90%'} height={100} />
@@ -44,26 +56,28 @@ const Explore = () => {
   );
 
   if (exploreError) return <div>Error: {exploreError}</div>;
+
   const sortedRows = exploredata?.rows?.slice().sort((a, b) => a.sequence - b.sequence);
 
   return (
     <div className='explore-component'>
       {sortedRows?.map((exploreItem, index) => (
-        <RenderFunction key={index} data={exploreItem} />
+        <RenderFunction key={index} data={exploreItem} handleFollow={handleFollow} />
       ))}
     </div>
   );
-}
-const RenderFunction = ({ data }) => {
+};
+
+const RenderFunction = ({ data, handleFollow }) => {
   if (!data.is_visible || !data.columns || data.columns.length === 0) {
     return null;
   }
-  
+
   switch (data.type) {
     case "banner":
       return <Banner {...data} />;
     case "users":
-      return <ExploreUser {...data} />;
+      return <ExploreUser {...data} handleFollow={handleFollow} />;
     case "curation":
       return <Curation {...data} />;
     case "explore_brands":
@@ -74,20 +88,15 @@ const RenderFunction = ({ data }) => {
       return <Brand {...data} />;
     case "videos":
       return <ExploreVideos {...data} />;
-    // case "single_banner":
-    //   return <SingleBanner {...data} />;
     case "explore_food_links":
       return <Affliate {...data} />;
-    // case "Foodjam Studio":
-    //   return <Studio {...data} />;
     case "leaderboard":
-      return <Leaderboard {...data} />;
+      return <Leaderboard {...data} handleFollow={handleFollow} />;
     case "buttons":
       return <ButtonsCard {...data} />;
-    // case "Foodjam_Studio":
-    //   return <Studio {...data} />;
     default:
       return null;
   }
 };
-export default Explore
+
+export default Explore;

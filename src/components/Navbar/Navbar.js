@@ -166,6 +166,7 @@ const Navbar = () => {
     if (path.includes('/preferences')) return 'Preferences';
     if (path.includes('/cart')) return 'Cart';
     if (path.includes('/top_foodjammers')) return 'Top Foodjammers';
+    if (path.includes('/contests')) return 'Contests';
     return '';
   };
   return (

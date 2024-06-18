@@ -8,3 +8,7 @@
 body {
   background: white;
 }
+.link-user-profile{
+  text-decoration: none;
+    color: inherit;
+}

@@ -11,6 +11,7 @@ import * as userNotificationActions from './userNotificationActions'
 import * as cartActions from './cartActions'
 import * as bankDetailActions from './bankDetailsActions'
 import * as ExploreActions from './ExploreActions'
+import * as contestActions from './contestActions'
 // Export all action creators
 export {
   authActions,
@@ -25,5 +26,6 @@ export {
   userNotificationActions,
   cartActions,
   bankDetailActions,
-  ExploreActions
+  ExploreActions,
+  contestActions
 };
