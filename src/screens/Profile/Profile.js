@@ -32,7 +32,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { fetchStatsRequest } from '../../redux/actions/dashboardStateActions'
 import { fetchUserProfileByAccountIdRequest } from '../../redux/actions/userProfileByAccountIdActions'
 import { fetchPostByIdRequest } from '../../redux/actions/postByIdActions'
-import { followUserRequest } from '../../redux/actions/ExploreActions'
+import { followUserRequest, resetSuccessMessage } from '../../redux/actions/ExploreActions'
 import { fetchSavedPostsRequest } from '../../redux/actions/savedPostsProductsActions';
 import VideoCard from '../../components/videocard/VideoCard'
 import { ProductCard, StoreMyProductCard } from '../../components/ProductCard/ProductCard';
@@ -43,6 +43,7 @@ import campaignLite from '../../assets/imagespng/campLite.png'
 import workshopLite from '../../assets/imagespng/workshopLite.png'
 import exclusiveLite from '../../assets/imagespng/ecLite.png'
 import menuLite from '../../assets/imagespng/sellingLite.png'
+import userPlaceholder from '../../assets/imagespng/user.png'
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import { Button, Divider, Skeleton } from '@mui/material';
 import { toast } from 'react-toastify';
@@ -53,7 +54,7 @@ const CustomTabPanel = ({ children, value, index }) => {
     <div role="tabpanel" hidden={value !== index} style={{ width: '100%' }}>
       {value === index && (
         <Box sx={{ p: 3, my: '5px' }}>
-          <Typography>{children}</Typography>
+          {children}
         </Box>
       )}
     </div>
@@ -174,14 +175,15 @@ const Profile = () => {
     setOpenPopularityDialogBox(false);
   };
 
-  useEffect(() => {
-    if (successMessage?.success) {
-      toast.success(successMessage?.message);
-    }
-    if (exploreError) {
-      toast.error(exploreError);
-    }
-  }, [successMessage, exploreError]);
+  // useEffect(() => {
+  //   if (successMessage?.success) {
+  //     toast.success(successMessage?.message);
+  //     dispatch(resetSuccessMessage())
+  //   }
+  //   if (exploreError) {
+  //     toast.error(exploreError);
+  //   }
+  // }, [successMessage, exploreError, dispatch]);
 
   const handleFollow = (accountToFollow) => {
     console.log(accountToFollow);
@@ -206,6 +208,11 @@ const Profile = () => {
                   ? userProfileInfo.profile_picture
                   : cdnBaseURL + userProfileInfo?.profile_picture
               }
+                onError={(e) => {
+                  // Fallback to placeholder if image fails to load
+                  e.target.onerror = null; // Prevent infinite loop
+                  e.target.src = userPlaceholder;
+                }}
                 alt='profile' className='profile-pic-div' />
               <div className='profile-name-div'>
                 <div className='profile-tags'>
@@ -246,14 +253,14 @@ const Profile = () => {
             <CustomTab value={3} icon={<img src={cartHome} alt="Store" className='tab-icon' />} label="Store" />
             {isOwnProfile && <CustomTab value={4} icon={<img src={bookmarkSelect} alt="Save" className='tab-icon' />} label="Save" />}
           </Tabs>
-          <Button sx={{ bgcolor: 'black', color: 'white', width: '70%' }}
+          {!isOwnProfile && <Button sx={{ bgcolor: 'black', color: 'white', width: '70%' }}
             onClick={(e) => {
               e.preventDefault();
               handleFollow(userProfileInfo?.account_id);
             }}
             className='follow-btn-profile'
-          >{(userProfileInfo?.is_following) ? 'Following' : '+ Follow'}</Button>
-        </div>
+          >{(userProfileInfo?.following === '1') ? 'Following' : '+ Follow'}</Button>}
+        </div> 
       </div>
       <BootstrapDialog
         onClose={handleClosePopularityDialogBox}
@@ -287,7 +294,7 @@ const Profile = () => {
           </Typography>
         </DialogContent>
       </BootstrapDialog>
-      <Divider sx={{ marginLeft: '20px', borderWidth: '1px', color: 'red' }} orientation="vertical" variant="fullWidth" flexItem />
+      <Divider sx={{ marginLeft: '20px', borderWidth: '1px', color: 'red', height:'90vh' }} orientation="vertical" variant="fullWidth" flexItem />
       <div className='dashboardInfo'>
         <Box sx={{ width: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
           <div className='tabs-mobile'>
@@ -313,14 +320,14 @@ const Profile = () => {
               <Tab value={3} icon={<img src={cartHome} alt="Store" className='tab-icon' />} label="Store" />
               {isOwnProfile && <Tab value={4} icon={<img src={bookmarkSelect} alt="Save" className='tab-icon' />} label="Save" />}
             </Tabs>
-            
-            <Button sx={{ bgcolor: 'black', color: 'white', width:'130px', height:'40px' }}
-                onClick={(e) => {
-                  e.preventDefault();
-                  handleFollow(userProfileInfo?.account_id);
-                }}
-                className='follow-btn-profile'
-              >{(userProfileInfo?.is_following) ? 'Following' : '+ Follow'}</Button>          
+
+            {!isOwnProfile && <Button sx={{ bgcolor: 'black', color: 'white', width: '130px', height: '40px' }}
+              onClick={(e) => {
+                e.preventDefault();
+                handleFollow(userProfileInfo?.account_id);
+              }}
+              className='follow-btn-profile'
+            >{(userProfileInfo?.is_following) ? 'Following' : '+ Follow'}</Button>}
           </div>
 
           <CustomTabPanel value={value} index={1} >
@@ -537,14 +544,14 @@ const ChannelCustomTabPanel = ({ channelTabValue, handleChannelChange, userPosts
             display: 'flex',
             flexWrap: 'wrap',
             gap: '10px',
-            justifyContent: 'space-evenly'
+            justifyContent: 'start'
           }}>
             {userPosts?.data?.map((post) => (
               <VideoCard post={post} key={post.id} />
             ))}
           </div>
           {userPosts && (
-            <Stack spacing={2} className="pagination-stack" style={{ marginTop: 'auto' }}>
+            <Stack spacing={2} className="pagination-stack" >
               <Pagination
                 count={Math.ceil(userPosts?.metadata?.total_posts / limit)}
                 page={currentPage}
@@ -559,11 +566,13 @@ const ChannelCustomTabPanel = ({ channelTabValue, handleChannelChange, userPosts
         <div
           style={{
             width: '100%',
+            minHeight: '350px',
+            height: 'auto',
             display: 'flex',
             flexWrap: 'wrap',
-            backgroundColor: 'red',
             gap: '10px',
-            justifyContent: 'start'
+            alignItems: 'center',
+            justifyContent: 'center'
           }}>
           <h2>COMING SOON</h2>
         </div>
@@ -615,21 +624,36 @@ const StoreCustomTabPanel = ({ storeProducts, storeProductsLoading, currentStore
                   display: 'flex',
                   flexWrap: 'wrap',
                   gap: '10px',
-                  // justifyContent:'start'
+                  justifyContent: 'start'
                 }}
               >
                 {storeProducts?.data?.map((product) => (
                   <StoreMyProductCard myProduct={product} key={product.product_id} />
                 ))}
               </div>
-              <Stack spacing={2} className="pagination-stack" style={{ marginTop: 'auto' }}>
-                <Pagination
-                  count={Math.ceil(storeProducts?.metadata?.total_posts / limit)}
-                  page={currentStoreMyProductsPage}
-                  onChange={handleStoreMyProductsPagination}
-                  size="small"
-                />
-              </Stack>
+              {storeProducts && storeProducts.data && storeProducts.data.length > 0 ? (
+                <Stack spacing={2} className="pagination-stack">
+                  <Pagination
+                    count={Math.ceil(storeProducts.metadata.total_posts / limit)}
+                    page={currentStoreMyProductsPage}
+                    onChange={handleStoreMyProductsPagination}
+                    size="small"
+                  />
+                </Stack>
+                ) : (
+                  <div
+                    style={{
+                      minHeight: '350px',
+                      height: 'auto',
+                      display: 'flex',
+                      flexDirection: 'column',
+                      justifyContent: 'center',
+                      alignItems: 'center'
+                    }}
+                  >
+                    <h2>NO DATA</h2>
+                  </div>
+              )}
             </CustomTabPanel>
           </div>
         )
@@ -643,6 +667,7 @@ const StoreCustomTabPanel = ({ storeProducts, storeProductsLoading, currentStore
               display: 'flex',
               flexDirection: 'column',
               justifyContent: 'center',
+              alignItems:'center'
             }}
           >
             <h2>COMING SOON</h2>
@@ -657,6 +682,7 @@ const StoreCustomTabPanel = ({ storeProducts, storeProductsLoading, currentStore
               display: 'flex',
               flexDirection: 'column',
               justifyContent: 'center',
+              alignItems:'center'
             }}>
             <h2>COMING SOON</h2>
           </div>
@@ -691,21 +717,19 @@ const SavedCustomTabPanel = ({ savedPosts, savedPostsLoading, limit }) => {
         )}
 
         {!savedPostsLoading && (
-          <CustomTabPanel value={savedTabValue} index="1" sx={{ width: '100%', backgroundColor: 'green' }}>
-            <div
-              style={{
-                width: '100%',
-                display: 'flex',
-                flexWrap: 'wrap',
-                gap: '10px',
-                justifyContent: 'center'
-              }}
-            >
+          <CustomTabPanel value={savedTabValue} index="1">
+            <div style={{
+              width: '100%',
+              display: 'flex',
+              flexWrap: 'wrap',
+              gap: '10px',
+              justifyContent: 'start'
+            }}>
               {savedPosts.saved?.categoryData[0].videos.map((post) => (
                 <ProductCard product={post} key={post.id} />
               ))}
             </div>
-            <Stack spacing={2} className="pagination-stack" style={{ marginTop: 'auto' }}>
+            <Stack spacing={2} className="pagination-stack">
               <Pagination
                 count={Math.ceil(savedPosts?.metadata?.total_posts / limit) || 2}
                 page={1}
@@ -718,23 +742,23 @@ const SavedCustomTabPanel = ({ savedPosts, savedPostsLoading, limit }) => {
         }
 
         {!savedPostsLoading && (
-          <CustomTabPanel value={savedTabValue} index="2" sx={{ width: '100%', backgroundColor: 'green' }}>
+          <CustomTabPanel value={savedTabValue} index="2" >
             <div
               style={{
                 width: '100%',
                 display: 'flex',
                 flexWrap: 'wrap',
                 gap: '10px',
-                justifyContent: 'center'
+                justifyContent: 'start'
               }}
             >
               {savedPosts.saved?.categoryData[1].videos.map((post) => (
                 <VideoCard post={post} key={post.id} />
               ))}
             </div>
-            <Stack spacing={2} className="pagination-stack" style={{ marginTop: 'auto' }}>
+            <Stack spacing={2} className="pagination-stack">
               <Pagination
-                count={Math.ceil(savedPosts?.metadata?.total_posts / limit) || 3}
+                count={Math.ceil(savedPosts?.metadata?.total_posts / limit) || 1}
                 page={1}
                 // onChange={handleStoreMyProductsPagination}
                 size="small"

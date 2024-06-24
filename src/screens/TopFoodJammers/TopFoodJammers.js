@@ -153,7 +153,7 @@ const TopFoodJammers = () => {
               <div className='points-section'>{item.points}</div>
             </Box>
 
-            <Link to={`/profile/${item?.account_id}/2`} className='link-user-profile'>
+            <Link to={`/profile/${item?.account_id}/3`} className='link-user-profile'>
               {/* <ArrowForwardIos /> */}
               <img src={forwardIcon} alt='forwardIcon' className='leader-forward-icon'/>
             </Link>

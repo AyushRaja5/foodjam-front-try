@@ -56,7 +56,7 @@
   @media (max-width: 450px) {
     .button-container {
         height: 50px;
-        padding: 5px;
+        padding: 5px 10px;
     }
     .button-text {
         font-family: 'Poppins-SemiBold', sans-serif;

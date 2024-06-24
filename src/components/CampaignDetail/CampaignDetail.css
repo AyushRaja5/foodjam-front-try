@@ -1,0 +1,521 @@
+.campaign-detail-container {
+    padding: 10px 60px;
+  }
+  
+  .campaign-detail-container .share-banner-container {
+    width: 100%;
+    height: 100%;
+  }
+  
+  .campaign-detail-container .banner-img {
+    width: 100%;
+    height: 100%;
+    max-height: 250px;
+    object-fit: contain;
+    position: relative;
+  }
+  
+  .campaign-detail-container .campaign-detail-hashtags {
+    font-size: 20px;
+    font-weight: 600;
+    margin: 20px 0;
+  }
+  
+  .campaign-detail-middle {
+    padding-top: 20px;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .banner-sec {
+    position: relative;
+    height: auto;
+    overflow: hidden;
+    border-radius: 10px;
+  }
+  
+  .campaign-share-banner-container .expired-stripe {
+    position: absolute;
+    height: 60%;
+    width: 30%;
+    top: 0px;
+    left: 0px;
+  }
+  
+  .campaign-share-banner-container {
+    position: relative;
+  }
+  
+  .campaign-share-banner-container .share-img {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    z-index: 1;
+    width: 30px;
+    height: 30px;
+    padding: 5px;
+    border-radius: 50%;
+    background-color: white;
+  }
+  
+  .campaign-detail-middle .details-top-sec {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 30px;
+  }
+  
+  .campaign-detail-middle .left-sec {
+    display: flex;
+    align-items: center;
+  }
+  
+  .campaign-detail-middle .calendar-icon {
+    margin-right: 10px;
+    width: 20px;
+    height: 20px;
+  }
+  
+  .campaign-detail-middle .date-txt {
+    font-size: 13px;
+  }
+  
+  .participant-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-radius: 30px;
+    padding: 10px 20px;
+  }
+  
+  .avatar-group {
+    display: flex;
+    align-items: center;
+    margin-right: 20px;
+  }
+  
+  .avatar {
+    width: 40px;
+    height: 40px;
+    border: 2px solid #ffffff;
+    background-color: #f49445;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    overflow: hidden;
+    margin-left: -10px;
+    font-size: 16px;
+    color: white;
+  }
+  
+  .avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  
+  .participant-text {
+    font-size: 12px;
+  }
+  
+  .participant-container-left {
+    display: flex;
+    align-items: center;
+  }
+  
+  .right-arrow {
+    height: 10px;
+    width: 10px;
+    transform: rotate(-90deg);
+    margin-left: 10px;
+  }
+  
+  
+  .top-winner.first .winner-avatar {
+    border: 2px solid gold;
+  }
+  
+  .winner-avatar {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    border: 2px solid #ddd;
+    object-fit: cover;
+  }
+  
+  .winner-name {
+    margin-top: 10px;
+    font-weight: bold;
+    text-align: center;
+  }
+  
+  .crown-icon {
+    position: absolute;
+    top: -10px;
+    width: 20px;
+  }
+  
+  .campaign-winners h3 {
+    text-align: center;
+  }
+  
+  .campaign-winner {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    margin-top: 10px;
+  }
+  
+  .winner-container {
+    padding: 20px;
+    background-color: #f9f9f9;
+    /* margin-top: 20px; */
+  }
+  
+  .top-winners,
+  .campaign-winners {
+    margin-bottom: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .top-winners-list {
+    display: flex;
+    justify-content: space-around;
+    align-items: flex-end;
+    position: relative;
+    width: 70%;
+    margin-top: 10px;
+  }
+  
+  .winner-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+  }
+  
+  .first {
+    order: 1;
+  }
+  
+  .second {
+    order: 0;
+    transform: translateY(20%);
+  }
+  
+  .third {
+    order: 2;
+    transform: translateY(20%);
+  }
+  
+  .winner-avatar {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    border: 2px solid #ddd;
+    object-fit: cover;
+  }
+  
+  .winner-name {
+    margin-top: 10px;
+    font-weight: bold;
+    text-align: center;
+  }
+  
+  .crown-icon {
+    position: absolute;
+    top: -10px;
+    width: 20px;
+  }
+  
+  .campaign-winners h3 {
+    text-align: center;
+  }
+  
+  .campaign-winner {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    margin-top: 10px;
+  }
+  
+  .winner-info {
+    display: flex;
+    align-items: center;
+  }
+  
+  .winner-info .winner-avatar {
+    width: 40px;
+    height: 40px;
+    margin-right: 10px;
+  }
+  
+  .winner-prize {
+    font-weight: bold;
+  }
+  
+  
+  .joinButton {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    margin-top: 10px;
+    background-color: #1976d2;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  
+  .campaign-detail-container .participants-campaign-videos {
+    height: min-content;
+    padding: 10px;
+    background-color: #ededed;
+    margin: 10px 0 20px;
+  }
+  
+  .campaign-videos-container {
+    display: flex;
+    gap: 20px;
+    justify-content: flex-start;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    padding: 5px;
+  }
+  
+  .campaign-videos-container::-webkit-scrollbar {
+    display: none;
+  }
+  .file-select-link{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #1976d2;
+    gap: 15px;
+    font-size: 16px;
+  }
+  .content-upload-container{
+    height: max-content;
+    margin: 10px 0;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+  }
+  .file-preview-item{
+    display: flex;
+    justify-content: flex-start;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+  }
+  .remove-file-button{
+    display: flex;
+    align-items: start;
+  }
+  .file-preview-image{
+    width: auto;
+    max-height: 100px;
+  }
+  .participantsTitle {
+    /* margin-bottom: 10px; */
+    font-size: 24px;
+  }
+  
+  .participantsList {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+  
+  .participantCard {
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    width: calc(33.333% - 10px);
+  }
+  
+  .participantCard img {
+    border-radius: 50%;
+    margin-right: 10px;
+  }
+  
+  .participantCardText {
+    font-size: 16px;
+    font-weight: 500;
+  }
+  
+  
+  .errorText {
+    color: red;
+  }
+  
+  /* .campaign-detail-long-info {
+    margin-bottom: 30px;
+  } */
+  
+  .winner-list-container {
+    border: 1px solid #00AE88;
+    border-radius: 10px;
+    padding: 20px;
+    padding-top: 40px;
+    background-color: #fff;
+    position: relative;
+  }
+  
+  .winner-list-header {
+    background-color: #00AE88;
+    padding: 7px 14px;
+    font-size: 16px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    color: white;
+    width: 70%;
+    border-radius: 40px;
+    position: absolute;
+    width: max-content;
+    top: -8%;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 1;
+  }
+  
+  .winner-row {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    border-top: 1px solid #e0e0e0;
+  }
+  
+  .cup-image {
+    width: 40px;
+    height: 40px;
+    margin-right: 10px;
+  }
+  
+  .profile-image {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    margin-right: 10px;
+  }
+  
+  .winner-name {
+    flex: 1;
+    font-size: 16px;
+    font-weight: 500;
+  }
+  
+  .winner-prize {
+    font-size: 16px;
+    font-weight: 500;
+    color: #007BFF;
+  }
+  
+  .campaign-detail-join-btn{
+    background-color: #f49445;
+    height: 40px;
+    width: 100%;
+    border : none;
+    border-radius: 10px;
+    margin: 10px 0;
+    color: white;
+    cursor: pointer;
+  }
+  .disabled {
+    background-color: lightgray;
+    cursor: not-allowed;
+  }
+  .campaign-type {
+    width: fit-content;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 5px;
+    padding: 1px 7px;
+    gap: 5px;
+    margin-bottom: 7px;
+  }
+  
+  .type-icon {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background-color: white;
+  }
+  
+  .live {
+    font-size: 14px;
+    background-color: red;
+  }
+  @media (max-width: 750px) {
+    .campaign-detail-container .banner-sec {
+      height: auto;
+    }
+  
+    .campaign-detail-container {
+      padding: 10px 20px;
+      margin-bottom: 60px;
+    }
+    .campaign-detail-middle{
+      padding-top: 10px;
+    }
+  
+    .banner-img {
+      width: 100%;
+      height: 100%;
+      min-height: 0;
+      object-fit: fill;
+      position: relative;
+    }
+  
+    .top-winners-list {
+      width: 100%;
+    }
+  
+    .winner-list-container {
+      padding: 10px;
+      padding-top: 35px;
+    }
+  
+    .winner-row .cup-image {
+      width: 30px;
+      height: 30px;
+      margin-right: 10px;
+    }
+    .profile-image {
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      margin-right: 10px;
+    }
+    .campaign-detail-middle .calendar-icon{
+      width: 15px;
+      height: 15px;
+      margin-right: 5px;
+    }
+    .date-txt {
+      font-size: 0.6em !important;
+    }
+    .live{
+      font-size: 10px;
+      padding: 3px 5px;
+    }
+  }
+  
+  /* @media (max-width: 400px) {
+    
+  } */

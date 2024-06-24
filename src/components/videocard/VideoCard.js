@@ -1,6 +1,8 @@
 import React from 'react';
 import './VideoCard.css';
 import eye from '../../assets/imagessvg/eye.svg'
+import userPlaceholder from '../../assets/imagespng/user.png'
+import PlayImg from '../../assets/imagespng/playHome.png'
 import { Link } from 'react-router-dom';
 const VideoCard = ({ post }) => {
   const cdnBaseURL = 'https://cdn.commeat.com/';
@@ -20,13 +22,18 @@ const VideoCard = ({ post }) => {
             {post.total_views || 0}
           </span>
         </span>
+        <img src={PlayImg} alt='Play Button' className='play-button' />
         <span className='bottom-center-text'>
-        <Link to={`/profile/${post?.account_id}/2`} className='link-user-profile'>
+        <Link to={`/profile/${post?.account_id}/3`} className='link-user-profile'>
           <div className='pp-username'>
             <img 
-            src={ post.profile_picture?.startsWith('https://')
-                ? post.profile_picture
-                : cdnBaseURL + post.profile_picture} 
+            src={
+              post?.profile_picture
+                ? post.profile_picture.includes("https://")
+                  ? post?.profile_picture
+                  : `https://cdn.commeat.com/${post?.profile_picture}`
+                : userPlaceholder
+            }
             className='video-card-profile-pic' />
             {post.username}
           </div>

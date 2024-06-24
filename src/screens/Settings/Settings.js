@@ -229,7 +229,7 @@ const MobileView = ({ tabLabels, tabIcons, handleTabClick, mobileTabIndex }) => 
 
   return (
     <>
-      <div className='tabs-mobile'>
+      <div className='tabs-mobile-setting'>
         <ul className={pathname !== '/setting' ? 'hide' : ''}>
           {tabLabels.map((label, index) => (
             <li key={index} className='mobile-tab' onClick={() => handleTabClick(index)}>

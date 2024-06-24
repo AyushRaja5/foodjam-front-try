@@ -1,0 +1,88 @@
+/* Rewards.css */
+.rewards-container {
+  width: 100%;
+  padding: 0 40px;
+  margin: 20px 0;
+}
+
+.rewards-header {
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.rewards-grid {
+  /* display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: center; */
+
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  justify-items: center;
+  gap: 20px;
+}
+
+.reward-card {
+  position: relative;
+  max-width: 345px;
+  cursor: pointer;
+  height: 250px;
+  width: 100%;
+  border-radius: 15px;
+  overflow: hidden;
+  object-fit: cover;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s;
+}
+
+.reward-card:hover {
+  transform: scale(1.05);
+}
+
+.reward-card img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.reward-card-info {
+  position: absolute;
+  bottom: 10px;
+  width: 90%;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #ffffff;
+  padding: 10px;
+  border-radius: 10px;
+  text-align: left;
+}
+
+.reward-card-title {
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.reward-card-expiry {
+  /* color: #d1d1d1; */
+  margin-top: 5px;
+}
+
+@media (max-width: 550px) {
+  .rewards-container {
+    width: 100%;
+    padding: 0;
+    margin: 0;
+  }
+  .reward-card {
+    position: relative;
+    max-width: none;
+    cursor: pointer;
+    height: 200px;
+    width: 100%;
+    border-radius: 0;
+    overflow: hidden;
+    object-fit: cover;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s;
+  }
+}

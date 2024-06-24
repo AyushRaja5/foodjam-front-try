@@ -29,14 +29,14 @@ const Explore = () => {
     }
   }, [exploredata]);
 
-  useEffect(() => {
-    if (successMessage?.success) {
-      toast.success(successMessage?.message);
-    }
-    if (exploreError) {
-      toast.error(exploreError);
-    }
-  }, [successMessage, exploreError]);
+  // useEffect(() => {
+  //   if (successMessage?.success) {
+  //     toast.success(successMessage?.message);
+  //   }
+  //   if (exploreError) {
+  //     toast.error(exploreError);
+  //   }
+  // }, [successMessage, exploreError]);
 
   const handleFollow = (accountToFollow) => {
     if(!accountToFollow)

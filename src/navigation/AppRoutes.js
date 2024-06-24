@@ -20,9 +20,14 @@ const BrandDetails = lazy(() => import('../screens/BrandDetails/BrandDetails'));
 const Contests = lazy(() => import('../screens/Contests/Contests'));
 const ContestDetail = lazy(() => import('../components/ContestDetail/ContestDetail'));
 const Rewards = lazy(() => import('../screens/Rewards/Rewards'));
+const RewardDetail = lazy(() => import('../components/RewardDetail/RewardDetail'));
 const Workshops = lazy(() => import('../screens/Workshops/Workshops'));
 const Campaigns = lazy(() => import('../screens/Campaigns/Campaigns'));
 
+const CampaignDetail = lazy(() => import('../components/CampaignDetail/CampaignDetail'));
+const ViewAllCreators = lazy(() => import('../components/ViewAllCreators/ViewAllCreators'));
+const ViewAllAffiliates = lazy(() => import('../components/ViewAllAffiliates/ViewAllAffiliates'));
+const ViewAllVideos = lazy(() => import('../components/ViewAllVideos/ViewAllVideos'));
 const AppRoutes = () => {
   return (
     <Router>
@@ -46,7 +51,9 @@ const AppRoutes = () => {
           <Route path="/notifications" element={<Notification />} />
           <Route path="/my_orders/:orderId" element={<YourOrderDetail />} />
           <Route path="/cart" element={<Cart />} />
-
+          <Route path="/view_all_creators" element={<ViewAllCreators />} />
+          <Route path="/view_all_affiliates" element={<ViewAllAffiliates />} />
+          <Route path="/view_all_videos/:title" element={<ViewAllVideos />} />
           <Route path="/top_foodjammers" element={<TopFoodJammers/>} />
           <Route path="/brand/:brandId" element={<BrandDetails/>} />
 
@@ -54,11 +61,12 @@ const AppRoutes = () => {
           <Route path="/contest_details/:contestId" element={<ContestDetail />} />
 
           <Route path="/rewards" element={<Rewards />} />
-          <Route path="/rewardsInfo/:rewardId" element={<Rewards />} />
+          <Route path="/rewardsInfo/:rewardId" element={<RewardDetail />} />
+
           <Route path="/workshops" element={<Workshops />} />
 
           <Route path="/campaigns" element={<Campaigns />} />
-          <Route path="/campaign_details/:campaignId" element={<Campaigns />} />
+          <Route path="/campaign_details/:campaignId" element={<CampaignDetail />} />
 
           <Route path="*" element={<Home />} />
         </Routes>

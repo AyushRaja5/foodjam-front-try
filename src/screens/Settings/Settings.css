@@ -21,13 +21,13 @@
   padding: 0 20px;
 }
 
-.tabs-mobile ul {
+.tabs-mobile-setting ul {
   list-style: none;
   padding: 0;
   margin: 0;
 }
 
-.tabs-mobile li {
+.tabs-mobile-setting li {
   display: flex;
   align-items: center;
   padding: 10px;
@@ -48,13 +48,13 @@
   margin-left: auto;
 }
 
-.tabs-mobile ul {
+.tabs-mobile-setting ul {
   list-style-type: none;
   padding: 0;
   margin: 0;
 }
 
-.tabs-mobile ul.hide {
+.tabs-mobile-setting ul.hide {
   display: none;
 }
 

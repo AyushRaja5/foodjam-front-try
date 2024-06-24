@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useRef } from 'react';
-import { Link, useLocation, useNavigate } from 'react-router-dom';
-import { List, ListItem, ListItemText, Popover, DialogActions, DialogContent, DialogContentText, DialogTitle, Button, Dialog } from '@mui/material';
+import { Link, useLocation, useNavigate, useParams } from 'react-router-dom';
+import { List, ListItem, ListItemText, Popover, DialogActions, DialogContent, DialogContentText, DialogTitle, Button, Dialog, Stack, Skeleton } from '@mui/material';
 import './Navbar.css';
 import FJLogo from '../../assets/imagessvg/foodjamLogo.svg';
 import FJ from '../../assets/imagessvg/fj.svg';
@@ -39,6 +39,7 @@ const Navbar = () => {
   const [loading, setLoading] = useState(false);
   const [timer, setTimer] = useState(90);
   const [showResendLink, setShowResendLink] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -54,23 +55,30 @@ const Navbar = () => {
     setIsLoggedIn(!!token);
   }, []);
   // console.log(loggedUser,'logged user')
-  useEffect(() => {
-    if (otpRecievedFromAPI.token && !isLoggedIn) {
-      navigate('/');
+ useEffect(() => {
+  if (otpRecievedFromAPI.token && !isLoggedIn) {
+    setIsLoading(true);  // Start loading
+
+    const loggedUserFromStorage = JSON.parse(localStorage.getItem('foodjam-user'));
+    setLoggedUser(loggedUserFromStorage);
+    
+    if (loggedUserFromStorage) {
+      navigate(`/profile/${loggedUserFromStorage.account_id}/1`);
       setShowOTPForm(false);
       setShowSignInMenu(false);
       setotpText('');
-      setLoginNumber('')
+      setLoginNumber('');
       toast.success("Login Successful");
-      setLoggedUser(JSON.parse(localStorage.getItem('foodjam-user')))
-      // console.log(loggedUser,"inside useEffect");
       setIsLoggedIn(true);
-    } else if (otpRecievedFromAPI.error) {
-      toast.error(otpRecievedFromAPI.error);
-      setLoginOrSignUp('Sign Up');
-      setsignupNumber(loginNumber);
     }
-  }, [otpRecievedFromAPI, isLoggedIn, navigate, loginNumber]);
+
+    setIsLoading(false);  // Stop loading
+  } else if (otpRecievedFromAPI.error) {
+    toast.error(otpRecievedFromAPI.error);
+    setLoginOrSignUp('Sign Up');
+    setsignupNumber(loginNumber);
+  }
+}, [otpRecievedFromAPI, isLoggedIn, navigate, loginNumber]);
 
   // useEffect(() => {
   //   const handleOutsideClick = (event) => {
@@ -167,8 +175,29 @@ const Navbar = () => {
     if (path.includes('/cart')) return 'Cart';
     if (path.includes('/top_foodjammers')) return 'Top Foodjammers';
     if (path.includes('/contests')) return 'Contests';
+    if (path.includes('/workshop')) return 'Workshop';
+    if (path.includes('/rewards')) return 'Rewards';
+    if (path.includes('/campaigns')) return 'Campaigns';
+
+    if (path.includes('/view_all_creators')) return 'Top Creators';
+    if (path.includes('/view_all_affiliates')) return 'Explore Food Links';
+    if (path.includes('/view_all_videos')) return "Top Videos";
+
     return '';
   };
+
+  if(isLoading)
+    return (
+      <div className='water'>
+      <Stack spacing={1} sx={{ width: '100%', display: 'flex', alignItems: 'center' }}>
+        <Skeleton variant="rounded" sx={{ fontSize: '1rem' }} width={'90%'} height={100} />
+        <Skeleton variant="rounded" sx={{ fontSize: '1rem' }} width={'90%'} height={100} />
+        <Skeleton variant="rounded" sx={{ fontSize: '1rem' }} width={'90%'} height={100} />
+        <Skeleton variant="rounded" sx={{ fontSize: '1rem' }} width={'90%'} height={100} />
+      </Stack>
+    </div>
+    )
+
   return (
     <div className='nav-bar-container'>
       {loading && <LoaderOverlay />}
@@ -177,7 +206,7 @@ const Navbar = () => {
           <img src={FJLogo} alt="Logo" />
         </Link>
         <div className="search_bar">
-          <input type="text" placeholder="Search..." />
+          <input type="text" placeholder="Search..." disabled/>
           <img src={SearchIcon} alt="Search" className="search-icon" />
         </div>
         <div className="navbar-collapse">
@@ -185,7 +214,7 @@ const Navbar = () => {
             <li><Link to="/"><img src={FJ} alt='home' />Home</Link></li>
             <li><Link to="https://event.foodjam.in/" target='blank'><img src={Explorer} alt='event' />Event</Link></li>
             <li><Link to="/explore"><img src={Explorer} alt='explorer' />Explore</Link></li>
-            <li><Link to="/foodjamstore"><img src={Bag} alt='Store' />Store</Link></li>
+            <li><Link to="/foodjamstore"><img src={Bag} alt='Shop' />Shop</Link></li>
             {isLoggedIn ? (
               <li ref={profileRef}>
                 <Link onClick={handleClick} ><img src={Profile} alt="Profile" /> Profile</Link>
@@ -345,8 +374,8 @@ const Navbar = () => {
           <span>Explore</span>
         </Link>
         <Link to="/foodjamstore">
-          <img src={Bag} alt='Cart' />
-          <span>Cart</span>
+          <img src={Bag} alt='Shop' />
+          <span>Shop</span>
         </Link>
         {loggedUser ? (
           <Link to={`/profile/${loggedUser?.account_id}/1`}><img src={Profile} alt="Profile" />Profile</Link>

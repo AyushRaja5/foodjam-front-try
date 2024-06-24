@@ -1,0 +1,15 @@
+.view-all-videos-conatiner{
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 20px;
+  padding: 20px 40px;
+}
+
+@media (max-width: 750px) {
+    .view-all-videos-conatiner{
+      gap: 10px;
+      padding: 10px;
+      margin-top: 0;
+      margin-bottom: 60px;
+    }
+}

@@ -1,7 +1,7 @@
 .video-card-container {
   display: flex;
   height: 260px;
-  width: 160px;
+  width: 190px;
   position: relative;
 }
 
@@ -9,9 +9,10 @@
   width: 100%;
   height: auto;
   border-radius: 15px;
+  object-fit: cover;
 }
 
-.overlay {
+.video-card-container .overlay {
   position: absolute;
   top: 0;
   left: 0;
@@ -22,7 +23,17 @@
   justify-content: space-between;
   padding: 10px;
   border-radius: 15px;
-  background-color: rgba(0, 0, 0, 0.5);
+  background-color: rgba(0, 0, 0, 0.2);
+}
+.play-button {
+  position: absolute;
+  left: 50%;
+  top: 45%;
+  transform: translateY(-50%);
+  transform:translateX(-50%);
+  width: 40px;
+  height: 40px;
+  cursor: pointer;
 }
 .top-right-text {
   align-self: flex-end;
@@ -60,6 +71,14 @@
     height: 200px;
     width: 150px;
     position: relative;
+  }
+  .play-button {
+    position: absolute;
+    left: 50%;
+    top: 42%;
+    transform:translateX(-50%);
+    width: 35px;
+    height: 35px;
   }
   .top-right-text {
    font-size: 10px;

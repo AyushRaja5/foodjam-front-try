@@ -1,9 +1,14 @@
-import React from 'react'
+import React from 'react';
+import './Workshops.css';
 
 const Workshops = () => {
   return (
-    <div>Workshops</div>
-  )
+    <div className="workshops-container">
+      <div className="workshops-content">
+        Workshops
+      </div>
+    </div>
+  );
 }
 
-export default Workshops
+export default Workshops;

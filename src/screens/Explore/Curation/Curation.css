@@ -13,10 +13,15 @@
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.4);
 }
 .curation-conatiner{
-    display: flex;
-    justify-content: space-between;
-    gap: 20px;
-    flex-wrap: wrap;
+  display: flex;
+  gap: 20px;
+  justify-content: flex-start;
+  flex-wrap: nowrap;
+  overflow-x: auto;
+  padding: 5px;
+}
+.curation-conatiner::-webkit-scrollbar {
+  display: none;
 }
 
 .curation-card{

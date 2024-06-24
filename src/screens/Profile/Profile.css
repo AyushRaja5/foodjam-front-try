@@ -9,7 +9,7 @@
 }
 .dashboardInfo {
     width: 100%;
-    height: 540px;
+    height: 100vh;
     overflow:scroll;
     scrollbar-width: none;
     display: flex;
@@ -86,6 +86,9 @@
     display: flex;
     align-items: center;
 }
+/* .css-ahj2mt-MuiTypography-root div{
+    width: 100%;
+} */
 
 .how-to-earn {
     width: 42px;
@@ -120,7 +123,16 @@
     padding: 2px 4px;
     cursor: pointer;
 }
-
+.css-0 {
+    width: 100%;
+}
+.pagination-stack{
+    width: 100%;
+    margin: 20px 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
 .profile-tags span:last-child {
     color: blue;
     padding: 2px 0;

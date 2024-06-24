@@ -284,7 +284,7 @@ const Contests = () => {
                         <p className="sub-txt">{item?.short_info.length > 40 ? `${item?.short_info.slice(0, 40)}.....` : item.short_info}</p>
                         <p className="sub-txt hashtags">{item?.hashtags}</p>
                         {item?.winners?.length > 0 && (
-                          <Link to={`/profile/${item?.winners[0]?.account_id}/2`} className='link-user-profile'>
+                          <Link to={`/profile/${item?.winners[0]?.account_id}/3`} className='link-user-profile'>
                             <div className="winner-view">
                               <div className="left-sec">
                                 <img
@@ -427,9 +427,10 @@ const Contests = () => {
           )}
         </div>
       </TabPanel>
-      <br />
-      <Box display="flex" justifyContent="center">
+
+      <Box display="flex" justifyContent="center" my={2}>
         <Pagination
+          size="small"
           count={Math.ceil(contests?.metadata?.total_contests / limitCnt)}
           page={page}
           onChange={handlePageChange}

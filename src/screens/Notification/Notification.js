@@ -41,7 +41,7 @@ const Notification = () => {
   return (
     <div className='userNotification'>
       {notifications?.map((notice) => (
-        <Link to={`/profile/${notice?.account_id}/2`} className='linkuserNotificationToDoor'>
+        <Link to={`/profile/${notice?.account_id}/3`} className='linkuserNotificationToDoor'>
         <div className="notification" >
         <div className="profile-picture">
           <img src={notice.profile_picture ? `${cdnBaseURL}${notice.profile_picture }` : placeholderprofile} alt={`${notice.first_name}'s profile`} />
