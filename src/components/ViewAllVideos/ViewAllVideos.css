@@ -1,6 +1,6 @@
 .view-all-videos-conatiner{
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(190px, 1fr));
   gap: 20px;
   padding: 20px 40px;
 }
@@ -8,8 +8,12 @@
 @media (max-width: 750px) {
     .view-all-videos-conatiner{
       gap: 10px;
+      grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
       padding: 10px;
       margin-top: 0;
       margin-bottom: 60px;
+    }
+    .video-section-container{
+      justify-self: center;
     }
 }

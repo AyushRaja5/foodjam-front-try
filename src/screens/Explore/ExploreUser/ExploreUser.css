@@ -27,14 +27,23 @@
 }
 
 .videos-container {
-  display: flex;
+  /* display: flex;
   overflow-x: auto;
   overflow-y: hidden; 
   scroll-behavior: smooth;
   scrollbar-width: none; 
   -ms-overflow-style: none;  
   gap: 20px;
-  padding: 5px 0;
+  padding: 5px 0; */
+
+    display: flex;
+    gap: 20px;
+    justify-content: flex-start;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    padding: 5px;
+    scroll-behavior: smooth;
+    scrollbar-width: none; 
 }
 
 .videos-container::-webkit-scrollbar {
@@ -43,7 +52,7 @@
 
 .video-card-container {
   flex: 0 0 auto;
-  margin: 0 10px;
+  /* margin: 0 10px; */
 }
 
 .scroll-btn {

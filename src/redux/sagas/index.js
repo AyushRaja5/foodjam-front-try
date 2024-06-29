@@ -16,6 +16,7 @@ import exploreDataSaga from './exploreSaga';
 import contestSaga from './contestSaga';
 import rewardsSaga from './rewardsSaga';
 import campaignSaga from './campaignSaga';
+import brandSaga from './brandSaga';
 export default function* rootSaga() {
   yield all([
     authSaga(),
@@ -33,6 +34,7 @@ export default function* rootSaga() {
     exploreDataSaga(),
     contestSaga(),
     rewardsSaga(),
-    campaignSaga()
+    campaignSaga(),
+    brandSaga()
   ]);
 }

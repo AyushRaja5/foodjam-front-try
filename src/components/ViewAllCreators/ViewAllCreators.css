@@ -1,5 +1,5 @@
 .view-all-creators-container{
-     display: grid;
+  display: grid;
   grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
   gap: 20px;
   padding: 20px 40px;
@@ -78,11 +78,17 @@
 
 @media (max-width: 750px) {
   .view-all-creators-container{
-    display: flex;
+    /* display: flex;
     flex-wrap: wrap;
     gap: 10px;
     justify-content: flex-start;
     align-items: center;
-    margin: 0 20px 80px;
+    margin: 0 20px 80px; */
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+    gap: 20px;
+    padding: 10px;
+    justify-items: center;
+    margin-bottom: 60px;
 }
 }

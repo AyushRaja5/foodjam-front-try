@@ -166,8 +166,8 @@ const ExpiredContestDetail = ({ singleContest, joinTheContest, BUCKET_URL, setSh
         </div>
       </div>
     )}
-
-    {singleContest?.data?.winners?.length > 0 && <WinnerList winners={singleContest?.data?.winners} />}
+    <WinnerList winners={singleContest?.data?.winners || []} />
+    <WinnerListBox winners={singleContest?.data?.winners || []} />
   </Container>
 );
 
@@ -477,7 +477,7 @@ const WinnerListBox = ({ winners }) => {
   };
   const winnersToShow = winners && winners.length > 0 ? winners.slice(0, 3) : Array.from({ length: 3 });
 
-  // console.log(winners, 'jdjfgf')
+  console.log(winners, 'jdjfgf')
   return (
     <div className="winner-list-container">
       <div className="winner-list-header">

@@ -161,6 +161,11 @@ const Navbar = () => {
     return () => clearInterval(countdown);
   }, [showOTPForm, timer]);
 
+  const getLastSegment = (path) => {
+    const segments = path.split('/');
+    return segments[segments.length - 1];
+  };
+
   const getPageName = () => {
     const path = location.pathname;
     if (path === '/') return 'Home';
@@ -181,7 +186,7 @@ const Navbar = () => {
 
     if (path.includes('/view_all_creators')) return 'Top Creators';
     if (path.includes('/view_all_affiliates')) return 'Explore Food Links';
-    if (path.includes('/view_all_videos')) return "Top Videos";
+    if (path.includes('/view_all_videos')) return `#${getLastSegment(path)}` || "Top Videos";
 
     return '';
   };

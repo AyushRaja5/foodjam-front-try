@@ -362,6 +362,11 @@
   
   .minor-profile-sec {
     background-color: #1890FF;
+    height: 30px;
+    width: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     color: white;
     padding: 5px 7px;
     border-radius: 50%;

@@ -11,8 +11,10 @@ const ButtonsCard = ({ columns, heading }) => {
   return (
     <div className="explore-user-section">
       <div className="explore-curation-heading">
-        <img src={wishlist} alt="wishlist" className="wishlist-img" />
-        {'Explore More'}
+        <div style={{display:'flex', alignItems:'center', gap:'20px', fontWeight:'600'}}>
+          <img src={wishlist} alt="wishlist" className="wishlist-img" />
+          {'Explore More'}
+        </div>
       </div>
 
       <div className="buttons-card-section">

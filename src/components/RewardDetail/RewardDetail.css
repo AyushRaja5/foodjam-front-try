@@ -1,0 +1,81 @@
+.reward-detail-container {
+    width: 100%;
+    max-width: 500px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  .reward-banner {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+    object-fit: cover;
+  }
+  
+  .reward-content {
+    padding: 10px;
+  }
+  
+  .reward-logo {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    margin-top: -150px;
+    margin-left: 3%;
+    background-color: #fff;
+    padding: 5px;
+    border: 2px solid #ccc;
+  }
+  
+  .reward-title {
+    font-size: 24px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+  }
+  
+  .expiry-amount-redeem{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .reward-expiry,
+  .reward-amount {
+    font-size: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+  
+  .redeem-button {
+    margin: 20px 0;
+    background-color: #f57c00;
+    color: #fff;
+  }
+  
+  .reward-description,
+  .reward-terms {
+    margin-top: 20px;
+    color: #888;
+  }
+  
+
+  @media (max-width: 750px) {
+    .reward-detail-container {
+      padding: 10px;
+    }
+    .reward-banner{
+        height: 240px;
+    }
+    .reward-content {
+      padding-bottom: 60px;
+    }
+  
+    .reward-title {
+      font-size: 20px;
+    }
+    
+  }
+  

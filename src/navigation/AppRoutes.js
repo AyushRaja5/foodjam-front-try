@@ -16,7 +16,7 @@ const Cart = lazy(() => import('../screens/Cart/Cart'));
 const WithdrawBalance = lazy(() => import('../screens/Settings/Withdrawal/WithdrawBalance'));
 // const NotFound = lazy(() => import('../screens/NotFound/NotFound'));
 const TopFoodJammers = lazy(() => import('../screens/TopFoodJammers/TopFoodJammers'));
-const BrandDetails = lazy(() => import('../screens/BrandDetails/BrandDetails'));
+const BrandDetails = lazy(() => import('../components/BrandDetails/BrandDetails'));
 const Contests = lazy(() => import('../screens/Contests/Contests'));
 const ContestDetail = lazy(() => import('../components/ContestDetail/ContestDetail'));
 const Rewards = lazy(() => import('../screens/Rewards/Rewards'));
@@ -28,6 +28,8 @@ const CampaignDetail = lazy(() => import('../components/CampaignDetail/CampaignD
 const ViewAllCreators = lazy(() => import('../components/ViewAllCreators/ViewAllCreators'));
 const ViewAllAffiliates = lazy(() => import('../components/ViewAllAffiliates/ViewAllAffiliates'));
 const ViewAllVideos = lazy(() => import('../components/ViewAllVideos/ViewAllVideos'));
+const ViewAllProducts = lazy(() => import('../components/ViewAllProducts/ViewAllProducts'));
+const ViewAllBrands = lazy(() => import('../components/ViewAllBrands/ViewAllBrands'));
 const AppRoutes = () => {
   return (
     <Router>
@@ -51,6 +53,8 @@ const AppRoutes = () => {
           <Route path="/notifications" element={<Notification />} />
           <Route path="/my_orders/:orderId" element={<YourOrderDetail />} />
           <Route path="/cart" element={<Cart />} />
+          <Route path="/view_all_products" element={<ViewAllProducts />} />
+          <Route path="/view_all_brands" element={<ViewAllBrands />} />
           <Route path="/view_all_creators" element={<ViewAllCreators />} />
           <Route path="/view_all_affiliates" element={<ViewAllAffiliates />} />
           <Route path="/view_all_videos/:title" element={<ViewAllVideos />} />

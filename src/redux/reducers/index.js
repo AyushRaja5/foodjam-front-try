@@ -17,6 +17,7 @@ import exploreReducer from './ExploreReducer'
 import contestReducer from './contestReducer'
 import rewardReducer from './rewardsReducer'
 import campaignReducer from './campaignReducer'
+import brandReducer from './brandReducer'
 
 const rootReducer = combineReducers({
   authUser : authReducer,
@@ -35,7 +36,8 @@ const rootReducer = combineReducers({
   exploreData : exploreReducer,
   contestData : contestReducer,
   rewardsData : rewardReducer,
-  campaignData : campaignReducer
+  campaignData : campaignReducer,
+  brandData : brandReducer
   // Add other reducers here if needed
 });
 

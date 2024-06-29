@@ -11,7 +11,7 @@ const ExploreUser = ({ variant, columns, dataSource, heading, limit, handleFollo
   const containerRef = useRef(null);
 
   const handleViewAll = () => {
-    navigate('/view_all_creators', { state: { creatorsArray: columns } });
+    navigate('/view_all_creators', { state: { creatorsArray: columns, creatorsHeading : heading } });
   };
 
   const formatUsername = (username) => {

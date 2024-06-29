@@ -1,0 +1,140 @@
+.brand-detail-container {
+    padding: 20px;
+}
+
+.brand-logo-banner {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.brand-icon-container {
+    display: flex;
+    gap: 20px;
+    align-items: center;
+    padding: 0 40px;
+}
+
+.brand-icon {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    margin-bottom: 10px;
+}
+
+.brand-name {
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+.brand-description {
+    margin-bottom: 20px;
+    padding: 0 40px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.brand-description strong {
+    font-size: 24px;
+}
+
+.brand-image-container {
+    margin-bottom: 20px;
+    padding: 0 40px;
+    display: none;
+}
+
+.brand-image {
+    width: 300px;
+    height: auto;
+}
+
+.loading-container,
+.error-message,
+.no-data {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.explore-user-section {
+    width: 100%;
+    padding: 0 40px;
+    margin: 20px 0;
+}
+
+.explore-curation-heading {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    justify-content: space-between;
+    font-size: 24px;
+}
+
+.view-btn {
+    width: 150px;
+    height: 45px;
+    border: 1px solid #f8a003;
+}
+
+.wishlist-img {
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.4);
+}
+
+
+.videos-conatiner {
+    display: flex;
+    gap: 20px;
+    justify-content: flex-start;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    padding: 5px;
+}
+
+.videos-conatiner::-webkit-scrollbar {
+    display: none;
+}
+
+
+@media (max-width: 750px) {
+    .brand-detail-container{
+        padding-bottom: 50px;
+    }
+    .explore-user-section {
+      padding: 0;
+      margin-top: 0;
+      margin-bottom: 15px;
+    }
+    .explore-user-heading {
+      font-size: 16px;
+      gap: 10px;
+    }
+    .brand-image-container {
+        display: block;
+    }
+    .brand-image {
+        width: 100%;
+        height: 200px;
+        object-fit: cover;
+        border-radius: 10px;
+    }
+    .explore-curation-heading {
+        font-size: 16px;
+        gap: 10px;
+        margin-top: 10px;
+        margin-bottom: 10px;
+    }
+    .brand-icon-container, .brand-image-container, .brand-description{
+        padding: 0;
+    }
+    .view-btn{
+        width: 100px;
+        height: 25px;
+        padding: 0;
+        font-size: 10px;
+    }
+}  

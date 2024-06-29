@@ -17,7 +17,8 @@ const Rewards = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { rewards, loading: rewardsLoading, error: rewardsError } = useSelector(state => state.rewardsData);
-  const {token, loading: authLoading, error: authError} = useSelector(state => state.authUser); 
+  const user = JSON.parse(localStorage.getItem('foodjam-user'));
+  const token = user ? user.sessionToken : null;
 
   useEffect(() => {
     dispatch(fetchRewardsRequest());

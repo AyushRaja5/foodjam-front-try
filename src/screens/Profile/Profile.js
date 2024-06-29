@@ -194,12 +194,13 @@ const Profile = () => {
   // console.log(userProfileInfo, 'user profile Data')
   return (
     <div className='profile-component'>
-      <div>
+      <div className='left-side-profile'>
         {userProfileInfoLoading && (
           <Stack spacing={1}>
-            <Skeleton variant="rounded" sx={{ fontSize: '1rem' }} width={'100%'} height={280} />
+            <Skeleton variant="rounded" sx={{ fontSize: '1rem' }} width={'320px'} height={280} />
           </Stack>
         )}
+        
         {!userProfileInfoLoading &&
           <div className='profileInfo'>
             <div className='profile-pic-name-info'>
@@ -294,7 +295,7 @@ const Profile = () => {
           </Typography>
         </DialogContent>
       </BootstrapDialog>
-      <Divider sx={{ marginLeft: '20px', borderWidth: '1px', color: 'red', height:'90vh' }} orientation="vertical" variant="fullWidth" flexItem />
+      <Divider sx={{ marginLeft: '20px', borderWidth: '1px', color: 'red', height:'90vh' }} orientation="vertical" variant="fullWidth" className='vertical-line' flexItem />
       <div className='dashboardInfo'>
         <Box sx={{ width: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
           <div className='tabs-mobile'>
@@ -539,13 +540,16 @@ const ChannelCustomTabPanel = ({ channelTabValue, handleChannelChange, userPosts
       )}
       {!userPostsInfoLoading && (
         <CustomTabPanel value={channelTabValue} index="1">
-          <div style={{
-            width: '100%',
-            display: 'flex',
-            flexWrap: 'wrap',
-            gap: '10px',
-            justifyContent: 'start'
-          }}>
+          <div 
+          style={{
+                  display: 'grid',
+                  gridTemplateColumns: 'repeat(auto-fill, minmax(200px, 1fr))', // Adjust column width as needed
+                  gap: '10px',
+                  marginTop: '10px',
+                  justifyItems:'center'
+                }}
+                className='custom-grid'
+          >
             {userPosts?.data?.map((post) => (
               <VideoCard post={post} key={post.id} />
             ))}
@@ -614,24 +618,28 @@ const StoreCustomTabPanel = ({ storeProducts, storeProductsLoading, currentStore
               display: 'flex',
               flexWrap: 'wrap',
               gap: '10px',
+              marginTop:'10px'
               // justifyContent:'start'
             }}
           >
             <CustomTabPanel value={storeTabValue} index="1">
+            {storeProducts && storeProducts.data && storeProducts.data.length > 0 ? (
+              <>
               <div
                 style={{
-                  width: '100%',
-                  display: 'flex',
-                  flexWrap: 'wrap',
+                  display: 'grid',
+                  gridTemplateColumns: 'repeat(auto-fill, minmax(200px, 1fr))', // Adjust column width as needed
                   gap: '10px',
-                  justifyContent: 'start'
+                  marginTop: '10px',
+                  justifyItems:'center'
                 }}
+                className='custom-grid'
               >
                 {storeProducts?.data?.map((product) => (
                   <StoreMyProductCard myProduct={product} key={product.product_id} />
                 ))}
               </div>
-              {storeProducts && storeProducts.data && storeProducts.data.length > 0 ? (
+              
                 <Stack spacing={2} className="pagination-stack">
                   <Pagination
                     count={Math.ceil(storeProducts.metadata.total_posts / limit)}
@@ -640,6 +648,7 @@ const StoreCustomTabPanel = ({ storeProducts, storeProductsLoading, currentStore
                     size="small"
                   />
                 </Stack>
+                </>
                 ) : (
                   <div
                     style={{

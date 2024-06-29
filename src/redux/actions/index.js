@@ -14,6 +14,7 @@ import * as ExploreActions from './ExploreActions'
 import * as contestActions from './contestActions'
 import * as rewardsActions from './rewardsActions'
 import * as campaignActions from './campaignActions'
+import * as brandActions from './brandActions'
 // Export all action creators
 export {
   authActions,
@@ -31,5 +32,6 @@ export {
   ExploreActions,
   contestActions,
   rewardsActions,
-  campaignActions
+  campaignActions,
+  brandActions
 };

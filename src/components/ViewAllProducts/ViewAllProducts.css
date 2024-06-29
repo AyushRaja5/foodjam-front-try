@@ -1,0 +1,123 @@
+.view-all-product-conatiner{
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 20px;
+  padding: 20px 40px;
+}
+.product-section-container{
+  justify-self: center;
+}
+.product-section-container .product-card-container {
+  display: flex;
+  flex-direction: column;
+  height: 260px;
+  width: 180px;
+  position: relative;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+}
+.product-image {
+  width: 100%;
+  height: 60%;
+  border-radius: 10px;
+}
+
+.bottom-text{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  margin-top: 10px;
+  height: 30%;
+  padding: 0 10px;
+}
+.saved-productinfo {
+  font-size: 12px;
+}
+
+.saved-product-price{
+  font-size: 24px;
+  font-weight: 600;
+  display: flex;
+  justify-content: space-between;
+}
+
+.saved-product-add-button{
+  background-color: transparent;
+  border: 1px solid #f8a003;
+  color:  #f8a003;
+  padding: 10px 25px;
+  border-radius: 5px;
+}
+
+.saved-product-add-button{
+  background-color: transparent;
+  border: 1px solid #f8a003;
+  font-weight: 600;
+  cursor: pointer;
+  /* color:  #f8a003; */
+  padding: 10px 25px;
+  border-radius: 5px;
+}
+.view-all-product-conatiner .quantity-btn{
+  min-width: none;
+  max-width : 10px;
+  color: #f8a003;
+  border: 1px solid #f8a003;
+}
+.view-all-product-conatiner .css-edsu1d-MuiButtonGroup-root .MuiButtonGroup-grouped {
+  min-width: 20px;
+}
+@media (max-width: 750px) {
+    .view-all-product-conatiner{
+      gap: 10px;
+      grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+      padding: 10px;
+      margin-top: 0;
+      margin-bottom: 60px;
+    }
+    .product-section-container .product-card-container {
+      display: flex;
+      flex-direction: column;
+      height: 200px;
+      width: 150px;
+      position: relative;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+  }
+  .product-card-container, .myproduct-card-container {
+    display: flex;
+    height: 200px;
+    width: 150px;
+    position: relative;
+  }
+  .css-19kzrtu {
+    padding: 10px !important;
+  }
+ .saved-product-price{
+  font-size: 16px;
+ }
+  .bottom-center-text {
+    font-size: 9px;
+  }
+  .pagination-stack{
+    margin-bottom: 20px;
+    font-size: 8px;
+  }
+  .saved-product-add-button{
+    background-color: transparent;
+    border: 1px solid #f8a003;
+    color:  #f8a003;
+    padding: 0px 10px;
+    border-radius: 5px;
+  }  
+  .view-all-product-conatiner .quantity-btn{
+    min-width: none;
+    max-width : 15px;
+    font-size: 14px;
+    padding: 0 10px;
+  }
+  .view-all-product-conatiner .css-edsu1d-MuiButtonGroup-root .MuiButtonGroup-grouped {
+    min-width: 15px;
+    font-size: 12px;
+  }
+}
