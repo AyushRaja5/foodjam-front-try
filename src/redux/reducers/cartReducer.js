@@ -12,6 +12,7 @@ import {
   DELETE_CART_PRODUCT_REQUEST,
   DELETE_CART_PRODUCT_SUCCESS,
   DELETE_CART_PRODUCT_FAILURE,
+  RESET_RESPONSE_MESSAGE
 } from '../actions/cartActions';
 
 const initialState = {
@@ -59,6 +60,11 @@ const cartReducer = (state = initialState, action) => {
         ...state,
         loading: false,
         error: action.payload,
+      };
+    case RESET_RESPONSE_MESSAGE:
+      return {
+        ...state,
+        responseMessage: null,
       };
     default:
       return state;

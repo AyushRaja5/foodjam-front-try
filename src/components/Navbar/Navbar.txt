@@ -118,7 +118,7 @@ const Navbar = () => {
             <li><Link to="/"><img src={FJ} alt='home'/>Home</Link></li>
             <li><Link to="/event"><img src={Explorer} alt='event'/>Event</Link></li>
             <li><Link to="/explore"><img src={Explorer} alt='explorer'/>Explore</Link></li>
-            <li><Link to="/foodjamstore"><img src={Bag} alt='Cart'/>Cart</Link></li>
+            <li><Link to="/shop"><img src={Bag} alt='Cart'/>Cart</Link></li>
             {isLoggedIn ? (
               <li><Link to="/profile"><img src={Profile} alt="Profile" />Profile</Link></li>
               // <button onClick={handleSignOut}>Sign Out</button>
@@ -183,7 +183,7 @@ const Navbar = () => {
         <img src={Explorer} alt='explorer'/>
           <span>Explore</span>
         </Link>
-        <Link to="/foodjamstore">
+        <Link to="/shop">
         <img src={Bag} alt='Cart'/>
           <span>Cart</span>
         </Link>

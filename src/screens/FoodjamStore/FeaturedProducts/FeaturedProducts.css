@@ -1,0 +1,103 @@
+.featured-product-section {
+    width: 100%;
+    padding: 0 40px;
+    margin: 20px 0;
+}
+.featured-product{
+    display: flex;
+}
+.featured-product-heading {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+.featured-product-container{
+    display: flex;
+    gap: 20px;
+    justify-content: flex-start;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    padding: 5px;
+    scroll-behavior: smooth;
+    scrollbar-width: none;
+}
+
+.featured-product-container::-webkit-scrollbar {
+    display: none;
+}
+
+.featured-product-card-container{
+    cursor: pointer;
+    display: flex;
+    height: 250px;
+    width: 350px;
+    align-items: center;
+    flex-direction: column;
+    justify-content: space-between;
+    text-align: center;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.4);
+    position: relative;
+}
+.featured-product-img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    border-radius: 10px;
+}
+.link-featured-product{
+    width: 100%;
+    height: inherit;
+}
+.featured-product-text-wrapper {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    border-radius: 10px;
+    padding: 20px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    font-size: 24px;
+    font-weight: 600;
+    color: white;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+.featured-product-title{
+    font-size: 16px;
+    text-align: left;
+    font-weight: 400;
+}
+.featured-product-description{
+    font-size: 14px;
+    text-align: left;
+    font-weight: 600;
+}
+@media (max-width: 750px) {
+    .featured-product-section  {
+        padding: 0;
+        margin-top: 0;
+        margin-bottom: 15px;
+    }
+
+    .featured-product-heading {
+        font-size: 16px;
+        gap: 10px;
+        margin-bottom: 5px;
+    }
+    .featured-product-card-container{
+        height: 170px;
+        width: 350px;
+    }
+    .featured-product-description{
+        font-size: 12px;
+        text-align: left;
+        font-weight: 500;
+    }
+}

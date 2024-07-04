@@ -170,7 +170,7 @@ const Navbar = () => {
     const path = location.pathname;
     if (path === '/') return 'Home';
     if (path.includes('/explore')) return 'Explore';
-    if (path.includes('/foodjamstore')) return 'Shop';
+    if (path.includes('/shop')) return 'Shop';
     if (path.includes('/profile')) return 'Profile';
     if (path.includes('/notifications')) return 'Notification';
     if (path.includes('/setting')) return 'Settings';
@@ -219,7 +219,7 @@ const Navbar = () => {
             <li><Link to="/"><img src={FJ} alt='home' />Home</Link></li>
             <li><Link to="https://event.foodjam.in/" target='blank'><img src={Explorer} alt='event' />Event</Link></li>
             <li><Link to="/explore"><img src={Explorer} alt='explorer' />Explore</Link></li>
-            <li><Link to="/foodjamstore"><img src={Bag} alt='Shop' />Shop</Link></li>
+            <li><Link to="/shop"><img src={Bag} alt='Shop' />Shop</Link></li>
             {isLoggedIn ? (
               <li ref={profileRef}>
                 <Link onClick={handleClick} ><img src={Profile} alt="Profile" /> Profile</Link>
@@ -378,7 +378,7 @@ const Navbar = () => {
           <img src={Explorer} alt='explorer' />
           <span>Explore</span>
         </Link>
-        <Link to="/foodjamstore">
+        <Link to="/shop">
           <img src={Bag} alt='Shop' />
           <span>Shop</span>
         </Link>

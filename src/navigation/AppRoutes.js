@@ -30,6 +30,11 @@ const ViewAllAffiliates = lazy(() => import('../components/ViewAllAffiliates/Vie
 const ViewAllVideos = lazy(() => import('../components/ViewAllVideos/ViewAllVideos'));
 const ViewAllProducts = lazy(() => import('../components/ViewAllProducts/ViewAllProducts'));
 const ViewAllBrands = lazy(() => import('../components/ViewAllBrands/ViewAllBrands'));
+
+const TopBrandsPage = lazy(() => import('../screens/TopBrandsPage/TopBrandsPage'));
+const BestSellersPage = lazy(() => import('../screens/BestSellersPage/BestSellersPage'));
+const ProductDetailsPage = lazy(() => import('../screens/ProductDetailsPage/ProductDetailsPage'));
+
 const AppRoutes = () => {
   return (
     <Router>
@@ -37,12 +42,13 @@ const AppRoutes = () => {
       <Suspense fallback={<div>Loading...</div>}>
         <Routes>
           <Route exact="true" path="/" element={<Home />} />
-          {/* <Route path="/event" element={<Event/>} /> */}
           <Route path="/explore" element={<Explore />} />
-          <Route path="/foodjamstore" element={<FoodamStore />} />
+          <Route path="/shop" element={<FoodamStore />} />
           <Route path="/login" element={<Login />} />
           {/* <Route path="/profile" element={<Profile/>} /> */}
           <Route path="/profile/:id/:tab" element={<Profile />} />
+
+          {/* Settings */}
           <Route path="/setting" element={<Settings />} />
           <Route path="/my_orders" element={<Settings />} />
           <Route path="/addresses" element={<Settings />} />
@@ -53,6 +59,8 @@ const AppRoutes = () => {
           <Route path="/notifications" element={<Notification />} />
           <Route path="/my_orders/:orderId" element={<YourOrderDetail />} />
           <Route path="/cart" element={<Cart />} />
+
+          {/* Explore */}
           <Route path="/view_all_products" element={<ViewAllProducts />} />
           <Route path="/view_all_brands" element={<ViewAllBrands />} />
           <Route path="/view_all_creators" element={<ViewAllCreators />} />
@@ -71,6 +79,11 @@ const AppRoutes = () => {
 
           <Route path="/campaigns" element={<Campaigns />} />
           <Route path="/campaign_details/:campaignId" element={<CampaignDetail />} />
+
+          {/* Shop  */}
+          <Route path="/top_brands" element={<TopBrandsPage />} />
+          <Route path="/best_sellers" element={<BestSellersPage />} />
+          <Route path="/product/:productId" element={<ProductDetailsPage />} />
 
           <Route path="*" element={<Home />} />
         </Routes>

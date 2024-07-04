@@ -17,6 +17,8 @@ import contestSaga from './contestSaga';
 import rewardsSaga from './rewardsSaga';
 import campaignSaga from './campaignSaga';
 import brandSaga from './brandSaga';
+import shopSaga from './shopSaga';
+import productSaga from './productSaga';
 export default function* rootSaga() {
   yield all([
     authSaga(),
@@ -35,6 +37,8 @@ export default function* rootSaga() {
     contestSaga(),
     rewardsSaga(),
     campaignSaga(),
-    brandSaga()
+    brandSaga(),
+    shopSaga(),
+    productSaga(),
   ]);
 }

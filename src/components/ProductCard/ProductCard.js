@@ -5,8 +5,11 @@ import { toast } from 'react-toastify';
 import { Button, ButtonGroup } from '@mui/material';
 import RemoveIcon from '@mui/icons-material/Remove';
 import AddIcon from '@mui/icons-material/Add';
+import { useDispatch } from 'react-redux';
+import { addToCartRequest } from '../../redux/actions/cartActions';
 export const ProductCard = ({ product }) => {
   const cdnBaseURL = 'https://cdn.commeat.com/';
+  const dispatch = useDispatch();
   const truncateText = (text, maxLength) => {
     if (text?.length > maxLength) {
       return text.substring(0, maxLength) + '...';
@@ -14,41 +17,53 @@ export const ProductCard = ({ product }) => {
     return text;
   };
   const handleAddToCart = async (product) => {
-    const user = JSON.parse(localStorage.getItem('foodjam-user'));
-    if(!user || !user?.sessionToken){
-        toast.error("Please login to add products")
-    }
-    const token = user ? user.sessionToken : null;
-    const accountId = user ? user.account_id : null;
+    // const user = JSON.parse(localStorage.getItem('foodjam-user'));
+    // if(!user || !user?.sessionToken){
+    //     toast.error("Please login to add products")
+    // }
+    // const token = user ? user.sessionToken : null;
+    // const accountId = user ? user.account_id : null;
 
-    try {
-        const response = await addProductToCart(token, accountId, { product_id: product.product_id, quantity: 1 });
-        if(response){
-            toast.success(response?.data.success)
-        }
-    } catch (error) {
-        toast.error(error?.response?.data?.message)
-        console.error(error);
+    // try {
+    //     const response = await addProductToCart(token, accountId, { product_id: product.product_id, quantity: 1 });
+    //     if(response){
+    //         toast.success(response?.data.success)
+    //     }
+    // } catch (error) {
+    //     toast.error(error?.response?.data?.message)
+    //     console.error(error);
+    // }
+    const user = JSON.parse(localStorage.getItem('foodjam-user'));
+    if (!user || !user?.sessionToken) {
+      toast.error("Please login to add products")
     }
+    dispatch(addToCartRequest(product?.product_id, "1"))
 };
 
 const handleQuantityChange = async (product_id, quantity) => {
-  console.log(product_id)
+  // console.log(product_id)
+  // if (quantity < 0) return;
+  // const user = JSON.parse(localStorage.getItem('foodjam-user'));
+  // if (!user || !user?.sessionToken) {
+  //   toast.error("Please login to add products")
+  // }
+  // const token = user ? user.sessionToken : null;
+  // const accountId = user ? user.account_id : null;
+
+  // const response = await addProductToCart(token, accountId, { product_id, quantity: quantity.toString() });
+
+  // if (response?.success) {
+  //   toast.success(response?.data?.success);
+  // } else {
+  //   toast.error("Some error occured. Please try after some time" || response?.message);
+  // }
+
   if (quantity < 0) return;
-  const user = JSON.parse(localStorage.getItem('foodjam-user'));
-  if (!user || !user?.sessionToken) {
-    toast.error("Please login to add products")
-  }
-  const token = user ? user.sessionToken : null;
-  const accountId = user ? user.account_id : null;
-
-  const response = await addProductToCart(token, accountId, { product_id, quantity: quantity.toString() });
-
-  if (response?.success) {
-    toast.success(response?.data?.success);
-  } else {
-    toast.error("Some error occured. Please try after some time" || response?.message);
-  }
+    const user = JSON.parse(localStorage.getItem('foodjam-user'));
+    if (!user || !user?.sessionToken) {
+      toast.error("Please login to add products")
+    }
+  dispatch(addToCartRequest(product_id, quantity.toString()))
 };
 
   return (

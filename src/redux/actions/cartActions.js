@@ -15,6 +15,7 @@ export const DELETE_CART_PRODUCT_REQUEST = 'DELETE_CART_PRODUCT_REQUEST';
 export const DELETE_CART_PRODUCT_SUCCESS = 'DELETE_CART_PRODUCT_SUCCESS';
 export const DELETE_CART_PRODUCT_FAILURE = 'DELETE_CART_PRODUCT_FAILURE';
 
+export const RESET_RESPONSE_MESSAGE = 'RESET_RESPONSE_MESSAGE';
   // Fetch Cart Products
   export const fetchCartProductsRequest = (limit, offset) => ({
     type: FETCH_CART_PRODUCTS_REQUEST,
@@ -77,5 +78,9 @@ export const DELETE_CART_PRODUCT_FAILURE = 'DELETE_CART_PRODUCT_FAILURE';
   export const deleteCartProductFailure = (error) => ({
     type: DELETE_CART_PRODUCT_FAILURE,
     payload: error,
+  });
+
+  export const resetResponseMessage = () => ({
+    type: RESET_RESPONSE_MESSAGE,
   });
   

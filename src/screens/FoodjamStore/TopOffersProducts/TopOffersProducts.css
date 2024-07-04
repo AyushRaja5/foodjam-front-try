@@ -1,0 +1,14 @@
+.crown-img{
+    padding: 7px;
+    width: 48px;
+    height: 45px;
+    border-radius: 50%;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.4);
+}
+
+@media (max-width: 750px) {
+    .crown-img {
+        height: 30px;
+        width: 32px;
+    }
+}
