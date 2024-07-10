@@ -64,6 +64,7 @@ const ViewAllProducts = () => {
   //   }
   // };
   
+  console.log(productsArray,'asdfgh')
   return (
     <div className="view-all-product-conatiner">
       {productsArray?.map((product, i) => (

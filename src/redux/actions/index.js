@@ -17,6 +17,7 @@ import * as campaignActions from './campaignActions'
 import * as brandActions from './brandActions'
 import * as shopActions from './shopActions'
 import * as productActions from './productActions'
+import * as categoriesActions from './categoriesActions'
 // Export all action creators
 export {
   authActions,
@@ -37,5 +38,6 @@ export {
   campaignActions,
   brandActions,
   shopActions,
-  productActions
+  productActions,
+  categoriesActions
 };

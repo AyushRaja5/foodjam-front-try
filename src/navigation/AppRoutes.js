@@ -33,7 +33,9 @@ const ViewAllBrands = lazy(() => import('../components/ViewAllBrands/ViewAllBran
 
 const TopBrandsPage = lazy(() => import('../screens/TopBrandsPage/TopBrandsPage'));
 const BestSellersPage = lazy(() => import('../screens/BestSellersPage/BestSellersPage'));
+const TopOffersPage = lazy(() => import('../screens/TopOffersPage/TopOffersPage'));
 const ProductDetailsPage = lazy(() => import('../screens/ProductDetailsPage/ProductDetailsPage'));
+const CategoriesPage = lazy(() => import('../screens/CategoriesPage/CategoriesPage'));
 
 const AppRoutes = () => {
   return (
@@ -83,6 +85,8 @@ const AppRoutes = () => {
           {/* Shop  */}
           <Route path="/top_brands" element={<TopBrandsPage />} />
           <Route path="/best_sellers" element={<BestSellersPage />} />
+          <Route path="/top_offers" element={<TopOffersPage />} />
+          <Route path="/categories/:categoriesId" element={<CategoriesPage />} />
           <Route path="/product/:productId" element={<ProductDetailsPage />} />
 
           <Route path="*" element={<Home />} />

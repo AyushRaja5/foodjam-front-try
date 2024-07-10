@@ -20,6 +20,7 @@ import campaignReducer from './campaignReducer'
 import brandReducer from './brandReducer'
 import shopReducer from './shopReducer'
 import productReducer from './productReducer'
+import categoriesReducers from './categoriesReducers'
 
 const rootReducer = combineReducers({
   authUser : authReducer,
@@ -41,7 +42,8 @@ const rootReducer = combineReducers({
   campaignData : campaignReducer,
   brandData : brandReducer,
   shopData : shopReducer,
-  productData : productReducer
+  productData : productReducer,
+  categoriesData : categoriesReducers,
   // Add other reducers here if needed
 });
 

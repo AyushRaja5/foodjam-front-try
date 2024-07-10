@@ -10,6 +10,7 @@ import RemoveIcon from '@mui/icons-material/Remove';
 import AddIcon from '@mui/icons-material/Add';
 import { useDispatch } from 'react-redux';
 import { addToCartRequest } from '../../../redux/actions/cartActions';
+import { ProductCard } from '../../../components/ProductCard/ProductCard';
 const BestSellersProducts = ({ variant, columns, heading, display_limit }) => {
     const [displayData, setDisplayData] = useState(columns.slice(0, display_limit));
     const [isExpanded, setIsExpanded] = useState(false);
@@ -54,51 +55,14 @@ const BestSellersProducts = ({ variant, columns, heading, display_limit }) => {
 
             <div className="best-sellers-container">
                 {displayData.map((data, index) => (
-                    <Link to={`/product/${data?.product_id}`} className='link-shop-brand'>
-                        <div key={index} className="best-sellers-card-container">
-                            <img
-                                src={
-                                    data.thumb?.includes("https://")
-                                        ? data.thumb
-                                        : `https://cdn.commeat.com/${data.thumb}`
-                                }
-                                alt={heading}
-                                className="best-sellers-img"
-                            />
-                            <div className="best-sellers-text-wrapper">
-                                <p className="best-sellers-title">{formatBrandname(data.name, 50)}</p>
-                                <div className='price-quantity-section'>
-                                    <div className='best-sellers-price'>&#8377; {data.price}</div>
-
-                                    <div className='best-sellers-quantity'> {data?.quantity ?
-                                        <ButtonGroup>
-                                            <Button
-                                                className='best-sellers-quantity-btn'
-                                                aria-label="reduce"
-                                                sx={{ borderRadius: '10px' }}
-                                                onClick={() => handleQuantityChange(data.product_id, parseInt(data.quantity) - 1)}
-                                            >
-                                                <RemoveIcon fontSize="x-small" />
-                                            </Button>
-                                            <Button className='best-sellers-quantity-btn' sx={{ borderLeft: 'none', borderRight: 'none', color:'black' }}>{parseInt(data.quantity)}</Button>
-                                            <Button
-                                                className='best-sellers-quantity-btn'
-                                                sx={{ borderLeft: 'none', borderRadius: '10px' }}
-                                                aria-label="increase"
-                                                onClick={() => handleQuantityChange(data.product_id, parseInt(data.quantity) + 1)}
-                                            >
-                                                <AddIcon fontSize="x-small" />
-                                            </Button>
-                                        </ButtonGroup>
-                                        : <button className='best-sellers-add-button'
-                                            onClick={(e) => {
-                                                handleAddToCart(data);
-                                            }}>Add</button>
-                                    }</div>
-                                </div>
-                            </div>
-                        </div>
-                     </Link>
+                   <div
+                   key={index}
+                   className="product-section-container"
+                 >
+                   <ProductCard
+                     product={data}
+                   />
+                 </div>
                 ))}
             </div>
         </div>

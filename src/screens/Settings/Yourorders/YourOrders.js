@@ -24,6 +24,7 @@ const YourOrders = () => {
       window.removeEventListener('resize', handleResize);
     };
   }, [dispatch]);
+  
 
   if (loading) return (
     <div className='yourOrders'>

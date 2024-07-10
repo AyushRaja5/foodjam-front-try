@@ -21,7 +21,7 @@ const ProductCategories = ({ variant, columns, heading, display_limit }) => {
             <div className="product-categories-container">
                 {displayData.map((data, index) => (
                     <div key={index} className="product-categories-card-container">
-                        <Link to={`/`} className='link-product-categories'>
+                        <Link to={`/categories/${data.category_id}`} className='link-product-categories'>
                             <div className="product-categories-image-container">
                                 <img
                                     className="product-categories-img"

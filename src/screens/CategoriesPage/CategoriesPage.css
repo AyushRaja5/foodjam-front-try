@@ -1,0 +1,159 @@
+.view-all-categories-conatiner{
+    padding: 20px 60px;
+}
+.brand-section{
+    margin: 20px 0;
+}
+.categories-each-section{
+    display: flex;
+    gap: 20px;
+    justify-content: flex-start;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    padding: 5px;
+    scrollbar-width: none;
+}
+
+.categories-page-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.categories-page-top-heading {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+.categories-view-btn {
+    width: 150px;
+    height: 45px;
+    border: 1px solid #f8a003;
+}
+
+.categories-product-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+    padding: 15px;
+    height: 180px;
+    width: 300px;
+    position: relative;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+}
+
+.link-shop-brand{
+    text-decoration: none;
+    color: inherit;
+}
+
+.categories-product-left{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 30px;
+}
+.categories-product-price-add-btn{
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+.categories-product-price{
+    font-weight: 600;
+    font-size: 20px;
+}
+
+.categories-product-right img {
+    height: 100px;
+    width: 100px;
+    border-radius: 10px;
+}
+
+.saved-product-add-button{
+    background-color: transparent;
+    border: 1px solid #f8a003;
+    color:  #f8a003;
+    padding: 10px 25px;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  .categories-product-qty .quantity-btn{
+    min-width: none;
+    max-width : 10px;
+    color: #f8a003;
+    border: 1px solid #f8a003;
+  }
+  .categories-product-qty .css-edsu1d-MuiButtonGroup-root .MuiButtonGroup-grouped {
+    min-width: 20px;
+  }
+
+  @media screen and (max-width: 750px) {
+    .view-all-product-conatiner{
+        padding: 20px;
+    }
+    .categories-product-container {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 10px;
+        padding: 15px;
+        height: 100px;
+        width: 200px;
+        position: relative;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    }
+    .categories-product-text{
+        font-size: 16px;
+    }
+    .categories-product-price{
+        font-weight: 600;
+        font-size: 16px;
+    }
+    
+    .categories-product-left{
+        gap: 5px;
+    }
+
+    .categories-product-right img {
+        height: 60px;
+        width: 60px;
+        border-radius: 10px;
+    }
+
+    .saved-product-add-button{
+      background-color: transparent;
+      border: 1px solid #f8a003;
+      color:  #f8a003;
+      padding: 0px 10px;
+      border-radius: 5px;
+    }  
+    .categories-product-qty .quantity-btn{
+      min-width: none;
+      max-width : 15px;
+      font-size: 14px;
+      padding: 0 10px;
+    }
+    .categories-product-qty .css-edsu1d-MuiButtonGroup-root .MuiButtonGroup-grouped {
+      min-width: 15px;
+      font-size: 12px;
+    }
+
+    .categories-page-top-heading {
+        font-size: 16px;
+        gap: 10px;
+        margin-bottom: 5px;
+    }
+    .categories-view-btn{
+        width: 100px;
+        height: 25px;
+        padding: 5px;
+        font-size: 10px;
+    }
+  }

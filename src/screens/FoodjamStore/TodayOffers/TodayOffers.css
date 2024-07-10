@@ -40,7 +40,7 @@
     justify-content: space-between;
     text-align: center;
     border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.4);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
     position: relative;
 }
 .today-offer-img {
@@ -67,7 +67,7 @@
     font-size: 24px;
     font-weight: 600;
     color: white;
-    background-color: rgba(0, 0, 0, 0.5);
+    background-color: rgba(0, 0, 0, 0.3);
 }
 .today-offer-description{
     font-size: 14px;

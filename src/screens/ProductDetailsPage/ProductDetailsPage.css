@@ -16,7 +16,7 @@
   }
   
   .product-details .css-ohwg9z{
-    min-height: 400px;
+    max-height: 400px;
   }
   .product-images img {
     margin-bottom: 10px;
@@ -48,10 +48,13 @@
     margin: 5px 0;
   }
 
-  .orderButton-div{
+  .orderButton-div-web{
     display: flex;
     width: 100%;
     justify-content: center;
+  }
+  .orderButton-div-mobile{
+    display: none;
   }
   .product-add-to-cart-bookmark-section{
     /* flex: 1; */
@@ -93,6 +96,33 @@
   background-color: #f8a003;
   font-weight: 600;
 }
+.product-view-cart-bookmark-section{
+  display: flex;
+    width: 90%;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+}
+.product-view-cart-bookmark-section a{
+  width: 60% !important;
+  text-align: end;
+}
+.product-view-cart-bookmark-section button{
+    width: 100%;
+    min-height: 50px;
+    background-color: #00ae88;
+    color: white;
+    font-weight: 600;
+}
+.product-view-cart-bookmark-section button:hover{
+  width: 100%;
+  min-height: 50px;
+  color: white;
+  background-color: #00ae88;
+  font-weight: 600;
+}
 .product-details-similar-product{
     display: flex;
     max-width: 950px;
@@ -131,11 +161,22 @@
     background-color: white;
     border-radius: 10px;
   }
-  @media (max-width: 768px) {
+  @media (max-width: 750px) {
     .product-details {
       flex-direction: column;
       gap: 0px;
       padding: 10px;
+      margin-bottom: 60px;
+    }
+    .orderButton-div-web{
+      display: none;
+    }
+    .orderButton-div-mobile{
+      display: flex;
+      justify-content: center;
+    }
+    .orderButton-div-mobile .product-add-to-cart-bookmark-section{
+      width: 100%;
     }
     .css-1m9128y {
         display: none;
@@ -144,6 +185,7 @@
         flex: 1;
         text-align: center;
         min-width: none;
+        min-height: 50%;
     }
     .product-info {
         flex: 2;

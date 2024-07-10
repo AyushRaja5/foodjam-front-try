@@ -1,9 +1,13 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import './FeaturedProducts.css'; // Make sure to import your CSS file
 import placeholder from '../../../assets/imagespng/placeholder.png'; // Update with correct path
 import crownImg from '../../../assets/imagespng/crownImg.png'; // Update with correct path
 import { Button, Card, CardContent, Typography } from '@mui/material'; // If using Material UI
 import { Link } from 'react-router-dom';
+import { ProductCard } from '../../../components/ProductCard/ProductCard';
+import { fetchCartProductsRequest, resetResponseMessage } from '../../../redux/actions/cartActions';
+import { useDispatch, useSelector } from 'react-redux';
+import { toast } from 'react-toastify';
 
 
 const FeaturedProducts = ({ variant, columns, heading, display_limit }) => {
@@ -17,10 +21,6 @@ const FeaturedProducts = ({ variant, columns, heading, display_limit }) => {
             setDisplayData(columns);
         }
         setIsExpanded(!isExpanded);
-    };
-
-    const formatBrandname = (title, alphabet_limit) => {
-        return title?.length > alphabet_limit ? `${title.slice(0, alphabet_limit)}...` : title;
     };
 
     return (
@@ -40,6 +40,18 @@ const FeaturedProducts = ({ variant, columns, heading, display_limit }) => {
 
             <div className="featured-product-container">
                 {displayData.map((data, index) => (
+                    <div
+                    key={index}
+                    className="product-section-container"
+                  >
+                    <ProductCard
+                      product={data}
+                    />
+                  </div>
+                ))}
+            </div>
+            {/* <div className="featured-product-container">
+                {displayData.map((data, index) => (
                     <div key={index} className="featured-product-card-container">
                         <Link to={`/product/${data?.product_id}`} className='link-featured-product'>
                             <img
@@ -58,7 +70,7 @@ const FeaturedProducts = ({ variant, columns, heading, display_limit }) => {
                         </Link>
                     </div>
                 ))}
-            </div>
+            </div> */}
         </div>
     )
 }

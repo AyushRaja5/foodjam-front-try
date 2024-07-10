@@ -9,7 +9,10 @@ const TopBrands = ({ heading, columns, display_limit }) => {
     const [displayData, setDisplayData] = useState(columns.slice(0, display_limit || 6));
 
     const navigate = useNavigate();
-    const handleViewAll = () => { navigate('/top_brands')};
+    const handleViewAll = () => { 
+        // navigate('/top_brands')
+        navigate(`/view_all_brands`, { state: { brandArray: columns } });
+    };
 
     const truncateText = (text, maxLength) => {
         if (text?.length > maxLength) {

@@ -71,3 +71,38 @@ export const getUserCartService = async (token, accountId, postparams)  => {
       throw error;
     }
   };
+
+  export const PaymentProceedService = async (token, accountId, orderObj) => {
+    try {
+      const response = await axios.post(
+        `orders/v1/order`,
+        orderObj,
+        {
+          headers: {
+            'x-access-token': token,
+            'x-access-user': accountId,
+          },
+        }
+      );
+      return response.data;
+    } catch (error) {
+      throw error;
+    }
+  };
+
+  export const GetOrderInfoByID = async (token, accountId, orderID) => {
+    try {
+      const response = await axios.post(
+        `orders/v1/order/${orderID}`,
+        {
+          headers: {
+            'x-access-token': token,
+            'x-access-user': accountId,
+          },
+        }
+      );
+      return response.data;
+    } catch (error) {
+      throw error;
+    }
+  };
