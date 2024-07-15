@@ -250,8 +250,8 @@ const Profile = () => {
             sx={{ width: '100%', display: 'flex', padding: '0 20px', paddingTop: '10px', }}
           >
             {isOwnProfile && <CustomTab value={1} icon={<img src={dashboard} alt="Dashboard" className='tab-icon' />} label="Dashboard" />}
-            <CustomTab value={2} icon={<img src={channel} alt="Channel" className='tab-icon' />} label="Channel" />
             <CustomTab value={3} icon={<img src={cartHome} alt="Store" className='tab-icon' />} label="Store" />
+            <CustomTab value={2} icon={<img src={channel} alt="Channel" className='tab-icon' />} label="Channel" />
             {isOwnProfile && <CustomTab value={4} icon={<img src={bookmarkSelect} alt="Save" className='tab-icon' />} label="Save" />}
           </Tabs>
           {!isOwnProfile && <Button sx={{ bgcolor: 'black', color: 'white', width: '70%' }}
@@ -317,8 +317,8 @@ const Profile = () => {
               }}
             >
               {isOwnProfile && <Tab value={1} icon={<img src={dashboard} alt="Dashboard" className='tab-icon' />} label="Dashboard" />}
-              <Tab value={2} icon={<img src={channel} alt="Channel" className='tab-icon' />} label="Channel" />
               <Tab value={3} icon={<img src={cartHome} alt="Store" className='tab-icon' />} label="Store" />
+              <Tab value={2} icon={<img src={channel} alt="Channel" className='tab-icon' />} label="Channel" />
               {isOwnProfile && <Tab value={4} icon={<img src={bookmarkSelect} alt="Save" className='tab-icon' />} label="Save" />}
             </Tabs>
 
@@ -728,12 +728,14 @@ const SavedCustomTabPanel = ({ savedPosts, savedPostsLoading, limit }) => {
         {!savedPostsLoading && (
           <CustomTabPanel value={savedTabValue} index="1">
             <div style={{
-              width: '100%',
-              display: 'flex',
-              flexWrap: 'wrap',
+              display: 'grid',
+              gridTemplateColumns: 'repeat(auto-fill, minmax(200px, 1fr))', // Adjust column width as needed
               gap: '10px',
-              justifyContent: 'start'
-            }}>
+              marginTop: '10px',
+              justifyItems:'center'
+              }}
+              className='custom-grid'
+            >
               {savedPosts.saved?.categoryData[0].videos.map((post) => (
                 <ProductCard product={post} key={post.id} />
               ))}
@@ -754,11 +756,11 @@ const SavedCustomTabPanel = ({ savedPosts, savedPostsLoading, limit }) => {
           <CustomTabPanel value={savedTabValue} index="2" >
             <div
               style={{
-                width: '100%',
-                display: 'flex',
-                flexWrap: 'wrap',
+                display: 'grid',
+                gridTemplateColumns: 'repeat(auto-fill, minmax(150px, 1fr))', // Adjust column width as needed
                 gap: '10px',
-                justifyContent: 'start'
+                marginTop: '10px',
+                justifyItems:'center'
               }}
             >
               {savedPosts.saved?.categoryData[1].videos.map((post) => (

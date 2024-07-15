@@ -4,6 +4,8 @@ import placeholder from '../../../assets/imagespng/placeholder.png'; // Update w
 import topCreators from '../../../assets/imagespng/topCreators.png'; // Update with correct path
 import { Button, Card, CardContent, Typography } from '@mui/material'; // If using Material UI
 import { Link } from 'react-router-dom';
+const colors = ['#331a1a', '#2F4F4F', '#483D8B', '#556B2F', '#8B4513', '#5F9EA0', '#4B0082'];
+ // Add as many colors as you need
 
 const DealsProducts = ({ variant, columns, heading, display_limit }) => {
   const [displayData, setDisplayData] = useState(columns.slice(0, display_limit));
@@ -39,7 +41,7 @@ const DealsProducts = ({ variant, columns, heading, display_limit }) => {
 
       <div className="dealProduct-container">
         {displayData.map((data, index) => (
-          <div key={index} className="dealProduct-card-container">
+          <div key={index} className="dealProduct-card-container" style={{ backgroundColor: colors[index % colors.length] }}>
             <Link to={`/product/${data?.product_id}`} className='link-shop-brand'>
                 <div className="dealProduct-image-container">
                   <img

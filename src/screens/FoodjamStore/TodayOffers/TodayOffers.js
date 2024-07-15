@@ -4,6 +4,7 @@ import placeholder from '../../../assets/imagespng/placeholder.png'; // Update w
 import topCreators from '../../../assets/imagespng/topCreators.png'; // Update with correct path
 import { Button, Card, CardContent, Typography } from '@mui/material'; // If using Material UI
 import { Link } from 'react-router-dom';
+import { ProductCard } from '../../../components/ProductCard/ProductCard';
 
 const TodayOffers =  ({ variant, columns, heading, display_limit }) => {
     const [displayData, setDisplayData] = useState(columns.slice(0, display_limit));
@@ -39,22 +40,30 @@ const TodayOffers =  ({ variant, columns, heading, display_limit }) => {
 
             <div className="today-offer-container">
                 {displayData.map((data, index) => (
-                    <div key={index} className="today-offer-card-container">
-                        <Link to={`/product/${data?.product_id}`} className='link-today-offer'>
-                            <img
-                                src={
-                                    data.thumb?.includes("https://")
-                                        ? data.thumb
-                                        : `https://cdn.commeat.com/${data.thumb}`
-                                }
-                                alt={heading}
-                                className="today-offer-img"
-                            />
-                            <div className="today-offer-text-wrapper">
-                                <p className="today-offer-description">{formatBrandname(data.description)}</p>
-                            </div>
-                        </Link>
-                    </div>
+                    // <div key={index} className="today-offer-card-container">
+                    //     <Link to={`/product/${data?.product_id}`} className='link-today-offer'>
+                    //         <img
+                    //             src={
+                    //                 data.thumb?.includes("https://")
+                    //                     ? data.thumb
+                    //                     : `https://cdn.commeat.com/${data.thumb}`
+                    //             }
+                    //             alt={heading}
+                    //             className="today-offer-img"
+                    //         />
+                    //         <div className="today-offer-text-wrapper">
+                    //             <p className="today-offer-description">{formatBrandname(data.description)}</p>
+                    //         </div>
+                    //     </Link>
+                    // </div>
+                    <div
+                    key={index}
+                    className="product-section-container"
+                  >
+                    <ProductCard
+                      product={data}
+                    />
+                  </div>
                 ))}
             </div>
         </div>

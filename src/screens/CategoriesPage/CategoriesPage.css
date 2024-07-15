@@ -2,7 +2,7 @@
     padding: 20px 60px;
 }
 .brand-section{
-    margin: 20px 0;
+    margin-bottom: 20px;
 }
 .categories-each-section{
     display: flex;
@@ -51,6 +51,7 @@
 .link-shop-brand{
     text-decoration: none;
     color: inherit;
+    height: 100%;
 }
 
 .categories-product-left{
@@ -97,13 +98,16 @@
     .view-all-product-conatiner{
         padding: 20px;
     }
+    .view-all-categories-conatiner{
+        padding: 0 20px;
+    }
     .categories-product-container {
         display: flex;
         justify-content: space-between;
         align-items: center;
-        gap: 10px;
-        padding: 15px;
-        height: 100px;
+        gap: 7px;
+        padding: 5px 10px;
+        height: 110px;
         width: 200px;
         position: relative;
         border-radius: 10px;
@@ -122,9 +126,10 @@
     }
 
     .categories-product-right img {
-        height: 60px;
+        height: 90px;
         width: 60px;
         border-radius: 10px;
+        object-fit: cover;
     }
 
     .saved-product-add-button{
@@ -145,7 +150,7 @@
       font-size: 12px;
     }
 
-    .categories-page-top-heading {
+    .categories-page-top-heading h2{
         font-size: 16px;
         gap: 10px;
         margin-bottom: 5px;

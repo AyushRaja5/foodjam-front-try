@@ -1,0 +1,103 @@
+.success-container, .failure-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    margin-top: 5%;
+  }
+  
+  .success-card, .failure-card {
+    background-color: rgb(249, 246, 246);
+    padding: 40px;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    width: 400px;
+  }
+  
+  .success-icon {
+    font-size: 48px;
+    color: orange;
+    margin-bottom: 20px;
+  }
+  
+  .success-card h2, .failure-card h2 {
+    margin-bottom: 10px;
+    color: #333;
+  }
+  
+  .success-card p, .failure-card p {
+    margin-bottom: 20px;
+    color: #777;
+  }
+  
+  .success-card .button-container, .failure-card .button-container {
+    display: flex;
+    justify-content: space-around;
+  }
+  
+  .view-order-btn,
+  .continue-shopping-btn {
+    background-color: orange;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    padding: 10px 20px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+  .view-order-btn:hover,
+  .continue-shopping-btn:hover {
+    background-color: #e69500;
+  }
+
+
+  /* Failure */
+
+  .button-container {
+    display: flex;
+    gap: 20px;
+    justify-content: space-between;
+  }
+  
+  .go-to-cart-btn,
+  .go-to-home-btn {
+    background-color: #0056b3;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    padding: 10px 20px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+  .go-to-cart-btn:hover,
+  .go-to-home-btn:hover {
+    background-color: #003d80;
+  }
+  
+  
+  @media (max-width: 750px) {
+    .success-container, .failure-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100%;
+        margin-top: 25%;
+    }
+
+    .success-card, .failure-card {
+        background-color: rgb(249, 246, 246);
+        padding: 40px;
+        border-radius: 8px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        text-align: center;
+        max-width: 350px;
+      }
+    .button-container{
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+}

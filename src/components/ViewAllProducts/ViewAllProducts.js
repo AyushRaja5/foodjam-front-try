@@ -64,7 +64,11 @@ const ViewAllProducts = () => {
   //   }
   // };
   
-  console.log(productsArray,'asdfgh')
+  // console.log(productsArray,'asdfgh')
+
+  if (!productsArray || productsArray.length === 0) {
+    return null; // Return null if productsArray is empty or undefined
+  }
   return (
     <div className="view-all-product-conatiner">
       {productsArray?.map((product, i) => (

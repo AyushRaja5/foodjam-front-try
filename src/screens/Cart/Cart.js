@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import './Cart.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchCartProductsRequest, updateCartProductRequest } from '../../redux/actions/cartActions';
@@ -10,8 +10,13 @@ import { toast } from 'react-toastify';
 import { fetchUserAddresssRequest } from '../../redux/actions/userAddressActions';
 import locator from '../../assets/imagespng/locator@3x.png';
 import emptyData from '../../assets/imagespng/empty-cart.png'
+import { PaymentProceedService } from '../../services/Cart/UserCart';
+import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 const Cart = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate()
+  const callback = useCallback()
   const { cartproducts, loading: cartProductsLoading, error: cartProductsError, responseMessage } = useSelector((state) => state.cartProducts);
   const { addresses, loading: addressesLoading, error: addressesError } = useSelector((state) => state.userAddress);
   const [localCartProducts, setLocalCartProducts] = useState([]);
@@ -19,6 +24,7 @@ const Cart = () => {
   const [couponDialogOpen, setCouponDialogOpen] = useState(false);
   const [selectedAddress, setSelectedAddress] = useState(null);
   const [couponCode, setCouponCode] = useState('');
+  const [paymentstatusRazorpay, setPaymentstatusRazorpay] = useState(null);
 
   useEffect(() => {
     dispatch(fetchCartProductsRequest(10, 1));
@@ -109,6 +115,59 @@ const Cart = () => {
     return <div className='error'>Error: {addressesError}</div>;
   }
 
+  const handlePayment = async(addressObj) => {
+    let orderObj = {
+      address_id: addressObj.address_id,
+      shipping_address: {
+        city: addressObj.city,
+        address_1: addressObj.address_1,
+        lastname: addressObj.lastname || '',
+        firstname: addressObj.first_name || addressObj.company,
+        zone_id: addressObj.zone,
+        postcode: addressObj.postcode,
+        country_id: 99,
+        address_2: addressObj.address_2,
+        name: addressObj.company,
+        phone: addressObj?.phone,
+      },
+      payment_method: 'razorpay',
+      coupon_code: 'my_code',
+    }
+    const user = JSON.parse(localStorage.getItem('foodjam-user'));
+    const token = user ? user.sessionToken : null;
+    const accountId = user ? user.account_id : null;
+
+    if (!user || !token) {
+      toast.error("You are not Signed In");
+      return;
+    }
+
+    try{
+      const response = await PaymentProceedService(token, accountId, orderObj)
+      console.log(response)
+      if (response.success) { // Open payment URL in the same tab
+        try {
+          window.open(response.data.payment_url, '_self');
+          const paymentCheckResponse = callback(response.data.payment_url);
+          setPaymentstatusRazorpay(paymentCheckResponse)
+          console.log(paymentCheckResponse,'paymentcheck response')
+          if (paymentCheckResponse) {
+            toast.success('Payment made successfully');
+            console.log(paymentCheckResponse)
+          }
+        } catch (error) {
+          console.error('Error checking payment status:', error);
+        }
+      } else {
+        toast.error(response.message || "Order failed.");
+      }
+    }
+    catch(error){
+      console.log(error)
+    }
+    // console.log(orderObj,'order Obj')
+  }
+  console.log(paymentstatusRazorpay,'payment status razorpay')
   return (
     <>
       {!cartProductsLoading && (
@@ -222,7 +281,7 @@ const Cart = () => {
                   )}
                 </div>
               </span>
-              <Button>Proceed TO Payment</Button>
+              <Button onClick={() => handlePayment(selectedAddress)}>Proceed TO Payment</Button>
             </div>
           </div>
         </div>

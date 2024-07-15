@@ -30,6 +30,9 @@ const ViewAllAffiliates = lazy(() => import('../components/ViewAllAffiliates/Vie
 const ViewAllVideos = lazy(() => import('../components/ViewAllVideos/ViewAllVideos'));
 const ViewAllProducts = lazy(() => import('../components/ViewAllProducts/ViewAllProducts'));
 const ViewAllBrands = lazy(() => import('../components/ViewAllBrands/ViewAllBrands'));
+const SuccessFullPaidOrder = lazy(() => import('../components/OrderPaymentScreens/SuccessFullPaidOrder'));
+const FailedPaidOrder = lazy(() => import('../components/OrderPaymentScreens/FailedPaidOrder'));
+
 
 const TopBrandsPage = lazy(() => import('../screens/TopBrandsPage/TopBrandsPage'));
 const BestSellersPage = lazy(() => import('../screens/BestSellersPage/BestSellersPage'));
@@ -43,7 +46,7 @@ const AppRoutes = () => {
       <Navbar />
       <Suspense fallback={<div>Loading...</div>}>
         <Routes>
-          <Route exact="true" path="/" element={<Home />} />
+          <Route exact="true" path="/" element={<Explore />} />
           <Route path="/explore" element={<Explore />} />
           <Route path="/shop" element={<FoodamStore />} />
           <Route path="/login" element={<Login />} />
@@ -89,6 +92,9 @@ const AppRoutes = () => {
           <Route path="/categories/:categoriesId" element={<CategoriesPage />} />
           <Route path="/product/:productId" element={<ProductDetailsPage />} />
 
+          <Route path="/success" element={<SuccessFullPaidOrder />} />
+          <Route path="/failed" element={<FailedPaidOrder />} />
+          
           <Route path="*" element={<Home />} />
         </Routes>
       </Suspense>

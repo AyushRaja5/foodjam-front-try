@@ -14,6 +14,7 @@ import Affliate from './Affliate/Affliate';
 import Leaderboard from './Leaderboard/Leaderboard';
 import ButtonsCard from './Buttons/Buttons';
 import { toast } from 'react-toastify';
+import Footer from '../../components/Footer/Footer';
 
 const Explore = () => {
   const dispatch = useDispatch();
@@ -64,6 +65,8 @@ const Explore = () => {
       {sortedRows?.map((exploreItem, index) => (
         <RenderFunction key={index} data={exploreItem} handleFollow={handleFollow} />
       ))}
+
+      <Footer />
     </div>
   );
 };

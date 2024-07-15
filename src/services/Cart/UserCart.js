@@ -75,7 +75,7 @@ export const getUserCartService = async (token, accountId, postparams)  => {
   export const PaymentProceedService = async (token, accountId, orderObj) => {
     try {
       const response = await axios.post(
-        `orders/v1/order`,
+        `orders/v1/order/web`,
         orderObj,
         {
           headers: {

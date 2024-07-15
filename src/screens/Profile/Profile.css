@@ -21,11 +21,11 @@
     /* align-items: center; */
     /* background-color: aqua; */
 }
-.custom-grid{
+/* .custom-grid{
     height: 100vh;
     overflow:scroll;
     scrollbar-width: none;
-}
+} */
 .css-1nppm96-MuiButtonBase-root-MuiTab-root{
     min-height: 60px !important;
 }
