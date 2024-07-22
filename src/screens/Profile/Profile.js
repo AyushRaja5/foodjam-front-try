@@ -884,7 +884,7 @@ const SavedCustomTabPanel = ({ savedPosts, savedPostsLoading, limit }) => {
             <div
               style={{
                 display: 'grid',
-                gridTemplateColumns: 'repeat(auto-fill, minmax(150px, 1fr))', // Adjust column width as needed
+                gridTemplateColumns: 'repeat(auto-fill, minmax(200px, 1fr))', // Adjust column width as needed
                 gap: '10px',
                 marginTop: '10px',
                 justifyItems:'center'
