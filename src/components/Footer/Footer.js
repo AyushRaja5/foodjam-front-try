@@ -1,14 +1,16 @@
 import React from 'react';
-import { Container, Grid, Typography, Link, IconButton, Box } from '@mui/material';
-import { Facebook, Twitter, Google, Instagram, LinkedIn, GitHub, Home, Email, Phone, Print } from '@mui/icons-material';
+import { Container, Grid, Typography, Link, IconButton, Box, Button, Snackbar } from '@mui/material';
+import { Facebook, Twitter, Google, Instagram, LinkedIn, Home, Email, Phone, Print, Close as CloseIcon } from '@mui/icons-material';
 import FJLogo from '../../assets/imagessvg/foodjamLogo.svg';
 import GPlayStore from '../../assets/imagessvg/playstore.webp';
-import IOSstore from '../../assets/imagessvg/ios-store.jpg';
-import './Footer.css'
+import IOSstore from '../../assets/imagespng/iphone-play-store.png';
+import './Footer.css';
+
 export default function Footer() {
   return (
-    <Box component="footer" >
+    <div className="footer" >
       <Container>
+        <SimpleSnackbar />
         <Grid container justifyContent="space-between" alignItems="center" borderBottom="1px solid gray" pb={4} mb={2}>
         </Grid>
 
@@ -112,6 +114,56 @@ export default function Footer() {
           </Link>
         </Typography>
       </Box>
-    </Box>
+    </div>
+  );
+}
+
+const SimpleSnackbar = () => {
+  const [open, setOpen] = React.useState(true); // Show Snackbar by default
+
+  const handleClose = (event, reason) => {
+    setOpen(false);
+  };
+
+  const action = (
+    <>
+      <Button className='snackbar-download-button' sx={{ bgcolor: '#f8a003', color: 'white' }} size="small" onClick={handleClose}>
+        Open App
+      </Button>
+      <IconButton
+        size="small"
+        aria-label="close"
+        color="inherit"
+        onClick={handleClose}
+      >
+        <CloseIcon fontSize="small" />
+      </IconButton>
+    </>
+  );
+
+  return (
+    <div className='snackbar-download-app'>
+      <Snackbar
+        open={open}
+        sx={{backgroundColor:'white', height:'50px'}}
+        // autoHideDuration={6000}
+        onClose={handleClose}
+      >
+        <div className='snackbar-download-content'>
+          <span>Download our app for better experience</span>
+          <Button className='snackbar-download-button' sx={{ bgcolor: '#f8a003', color: 'white' }} size="small" onClick={handleClose}>
+            Open App
+          </Button>
+          <IconButton
+            size="small"
+            aria-label="close"
+            color="inherit"
+            onClick={handleClose}
+          >
+            <CloseIcon fontSize="small" />
+          </IconButton>
+        </div>
+      </Snackbar>
+    </div>
   );
 }

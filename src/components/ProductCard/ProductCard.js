@@ -1,13 +1,15 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import './ProductCard.css';
 import { addProductToCart } from '../../services/Cart/UserCart';
 import { toast } from 'react-toastify';
-import { Button, ButtonGroup, CircularProgress } from '@mui/material';
+import { Button, ButtonGroup, CircularProgress, Drawer, IconButton } from '@mui/material';
 import RemoveIcon from '@mui/icons-material/Remove';
 import AddIcon from '@mui/icons-material/Add';
 import { useDispatch, useSelector } from 'react-redux';
-import { addToCartRequest } from '../../redux/actions/cartActions';
+import { addToCartRequest, fetchCartProductsRequest, resetResponseMessage } from '../../redux/actions/cartActions';
 import { Link } from 'react-router-dom';
+import CloseIcon from '@mui/icons-material/Close';
+
 export const ProductCard = ({ product, quantity }) => {
   const dispatch = useDispatch();
   const { loading: cartLoading } = useSelector(state => state.cartProducts);
@@ -22,7 +24,11 @@ export const ProductCard = ({ product, quantity }) => {
     if (!user || !user?.sessionToken) {
       toast.error("Please login to add products")
     }
-    dispatch(addToCartRequest(product?.product_id, "1"))
+
+    if(product.id)
+      dispatch(addToCartRequest(product?.id, "1"))
+
+    else dispatch(addToCartRequest(product?.product_id, "1"))
   };
 
   const handleQuantityChange = async (product_id, quantity) => {
@@ -37,12 +43,12 @@ export const ProductCard = ({ product, quantity }) => {
   return (
     <div className='product-card-container'>
       <Link to={`/product/${product?.product_id}`} className='link-product-detail'>
-      <img src={`${product.thumb}`} alt='Product Thumbnail' className='product-image' />
+        <img src={`${product.thumb}`} alt='Product Thumbnail' className='product-image' />
       </Link>
 
-        <div className='saved-productinfo'>
-          {truncateText(product.text, 30) || truncateText(product.name, 30)}
-        </div>
+      <div className='saved-productinfo'>
+        {truncateText(product.text, 30) || truncateText(product.name, 30)}
+      </div>
       <span className='bottom-text'>
         <div className='saved-product-price'>
           &#8377;{product.price}
@@ -54,16 +60,16 @@ export const ProductCard = ({ product, quantity }) => {
                   className='quantity-btn'
                   aria-label="reduce"
                   sx={{ borderRadius: '10px' }}
-                  onClick={() => handleQuantityChange(product.product_id, parseInt(quantity || product.quantity) - 1)}
+                  onClick={() => handleQuantityChange(product.product_id || product.id, parseInt(quantity || product.quantity) - 1)}
                 >
                   <RemoveIcon fontSize="small" />
                 </Button>
-                <Button className='quantity-btn' sx={{ borderLeft: 'none', borderRight: 'none' }}>{cartLoading ? <CircularProgress size={15} color='primary' sx={{display:'flex', textAlign:'center'}}/> :  parseInt(quantity  || product.quantity)}</Button>
+                <Button className='quantity-btn' sx={{ borderLeft: 'none', borderRight: 'none' }}>{cartLoading ? <CircularProgress size={15} color='primary' sx={{ display: 'flex', textAlign: 'center' }} /> : parseInt(quantity || product.quantity)}</Button>
                 <Button
                   className='quantity-btn'
                   sx={{ borderLeft: 'none', borderRadius: '10px' }}
                   aria-label="increase"
-                  onClick={() => handleQuantityChange(product.product_id, parseInt(quantity  || product.quantity) + 1)}
+                  onClick={() => handleQuantityChange(product.product_id || product.id, parseInt(quantity || product.quantity) + 1)}
                 >
                   <AddIcon fontSize="small" />
                 </Button>
@@ -81,17 +87,65 @@ export const ProductCard = ({ product, quantity }) => {
 };
 
 export const StoreMyProductCard = ({ myProduct }) => {
-  // const cdnBaseURL = 'https://cdn.commeat.com/';
+  const cdnBaseURL = 'https://cdn.commeat.com/';
+  const thumbnailURL = myProduct.thumbnail.includes('https') ? myProduct.thumbnail : `${cdnBaseURL}${myProduct.thumbnail}`;
 
+  const [drawerOpen, setDrawerOpen] = useState(false);
+  const dispatch = useDispatch();
+  const { cartproducts, loading: cartLoading, responseMessage } = useSelector(state => state.cartProducts);
+
+  useEffect(() => {
+    dispatch(fetchCartProductsRequest(10, 1));
+  }, [dispatch]);
+
+  const toggleDrawer = (open) => (event) => {
+    if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
+      return;
+    }
+    setDrawerOpen(open);
+  };
+
+  useEffect(() => {
+    if (responseMessage) {
+      toast.success(responseMessage.success)
+      dispatch(resetResponseMessage())
+      dispatch(fetchCartProductsRequest(10, 1));
+    }
+  }, [responseMessage]);
+
+  const getQuantityFromCart = (productId) => {
+    const availableProduct = cartproducts?.products?.find(product => product.product_id === productId.toString());
+    return availableProduct ? availableProduct.quantity : 0;
+  };
+
+  // console.log(myProduct,'my product', cartproducts,'caart products')
   return (
     <div className='myproduct-card-container'>
-      <img src={`${myProduct.thumb}`} alt='Video Thumbnail' className='myproduct-thumbnail' />
-      <div className='overlay'>
-        <span className='myproduct-bottom-text'>
-          <div>{myProduct.name}</div>
-        </span>
+      <img src={thumbnailURL} alt='Video Thumbnail' className='store-videos-thumbnail' onClick={toggleDrawer(true)} />
+      <div className='my-store-product-div'>
+        <div>Products in reels</div>
+        <div className='mystore-product-array-img'>
+          {myProduct?.products.length > 0 && myProduct?.products.map((product) => (
+            <div className='myproduct-thumbnail' key={product.id}>
+              <img src={product.thumb} alt='Product Thumbnail' />
+            </div>
+          ))}
+        </div>
+        <Button className='shop-now-button' onClick={toggleDrawer(true)}>Shop Now</Button>
       </div>
+
+      <Drawer anchor="bottom" open={drawerOpen} onClose={toggleDrawer(false)}>
+        <div className='drawer-content'>
+          <IconButton onClick={toggleDrawer(false)}>
+            <CloseIcon />
+          </IconButton>
+          <div className='drawer-product-list'>
+          {myProduct?.products.map((product) => (
+              <ProductCard product={product} key={product.id} quantity={getQuantityFromCart(product.id)} />
+            ))}
+          </div>
+        </div>
+      </Drawer>
     </div>
   );
 }
-

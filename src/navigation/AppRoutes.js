@@ -3,6 +3,7 @@
 import React, { Suspense, lazy } from 'react';
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Navbar from '../components/Navbar/Navbar';
+import Footer from '../components/Footer/Footer';
 
 const Home = lazy(() => import('../screens/Home/Home'));
 const Explore = lazy(() => import('../screens/Explore/Explore'));
@@ -98,6 +99,7 @@ const AppRoutes = () => {
           <Route path="*" element={<Home />} />
         </Routes>
       </Suspense>
+      <Footer />
     </Router>
   );
 };

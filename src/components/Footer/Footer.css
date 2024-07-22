@@ -30,9 +30,31 @@
   .footer-logo:hover {
     transform: scale(1.1);
   }
-  
+.snackbar-download-app{
+    display: none;
+}
+ .snackbar-download-button{
+    background-color : #f8a003;
+    width: 120px;
+ }
+ .snackbar-download-content{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 0 10px;
+ }
+ .snackbar-download-content span{
+    display: flex;
+    flex-wrap: wrap;
+ }
 @media (max-width: 750px) {
+    .footer{
+        margin-bottom: 40px;
+    }
     .footer-logo {
         width: 100px;
+    }
+    .snackbar-download-app{
+        display: block;
     }
 }

@@ -34,3 +34,33 @@ export const GetDashboardStatesService = async (token, accountId)  => {
       throw error;
     }
   }
+
+  export const EditUserProfileService = async (token, accountId, editProfile)  => {
+    console.log(editProfile, 'edit Profile in service')
+    try {
+      const response = await axios.patch(
+        `users/v1/user/profile`,
+        {
+          first_name: editProfile.name.split(' ')[0] || '',
+          middle_name: '',
+          last_name: editProfile.name.split(' ')[1] || '',
+          user_name: editProfile.username,
+          phone: editProfile.phone,
+          profile_picture: editProfile.profile_picture || '',
+          email: editProfile.email,
+          facebook: editProfile.facebook,
+          instagram: editProfile.instagram,
+          youtube: editProfile.youtube,
+        },
+        {
+          headers: {
+            'x-access-token': token,
+            'x-access-user': accountId,
+          },
+        }
+      );
+      return response.data;
+    } catch (error) {
+      throw error;
+    }
+  }

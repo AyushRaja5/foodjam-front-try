@@ -30,7 +30,7 @@ import dashboard3 from '../../assets/imagespng/dashBoard3.png'
 import dashboard4 from '../../assets/imagespng/dashBoard4.png'
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchStatsRequest } from '../../redux/actions/dashboardStateActions'
-import { fetchUserProfileByAccountIdRequest } from '../../redux/actions/userProfileByAccountIdActions'
+import { fetchUserProfileByAccountIdRequest, saveEditProfileRequest } from '../../redux/actions/userProfileByAccountIdActions'
 import { fetchPostByIdRequest } from '../../redux/actions/postByIdActions'
 import { followUserRequest, resetSuccessMessage } from '../../redux/actions/ExploreActions'
 import { fetchSavedPostsRequest } from '../../redux/actions/savedPostsProductsActions';
@@ -45,7 +45,7 @@ import exclusiveLite from '../../assets/imagespng/ecLite.png'
 import menuLite from '../../assets/imagespng/sellingLite.png'
 import userPlaceholder from '../../assets/imagespng/user.png'
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
-import { Button, Divider, Skeleton } from '@mui/material';
+import { Button, DialogActions, Divider, Skeleton, TextField } from '@mui/material';
 import { toast } from 'react-toastify';
 
 
@@ -67,6 +67,9 @@ const BootstrapDialog = styled(Dialog)(({ theme }) => ({
   },
   '& .MuiDialogActions-root': {
     padding: theme.spacing(1),
+  },
+  '& .MuiPaper-root': {
+    width: '80%',
   },
 }));
 
@@ -103,6 +106,18 @@ const Profile = () => {
   const [currentStoreMyProductsPage, setCurrentStoreMyProductsPage] = useState(1);
   const [value, setValue] = React.useState(initialTab());
   const [channelTabValue, setChannelTabValue] = React.useState('1');
+  const [openPopularityDialogBox, setOpenPopularityDialogBox] = React.useState(false);
+  const [openEditProfileDialogBox, setOpenEditProfileDialogBox] = useState(false);
+  const [formValues, setFormValues] = useState({
+    name: '',
+    username: '',
+    email: '',
+    mobile: '',
+    facebook: '',
+    instagram: '',
+    youtube: ''
+  });
+
   const myStore = useSelector((state) => state)
   const { stats, loading: statsLoading, error: statsError } = useSelector((state) => state.dashboardState);
   const { userProfileInfo, loading: userProfileInfoLoading, error: userProfileInfoError } = useSelector((state) => state.userProfile);
@@ -145,7 +160,7 @@ const Profile = () => {
   }, [location]);
 
   useEffect(() => {
-    console.log(`Fetching data for user ID: ${id} and tab: ${tab}`);
+    // console.log(`Fetching data for user ID: ${id} and tab: ${tab}`);
     dispatch(fetchUserProfileByAccountIdRequest(id));
   }, [dispatch, id, successMessage]);
 
@@ -165,8 +180,6 @@ const Profile = () => {
     }
   }, [dispatch, value, id, tab]);
 
-  const [openPopularityDialogBox, setOpenPopularityDialogBox] = React.useState(false);
-
   const handleClickOpenPopularityDialogBox = () => {
     setOpenPopularityDialogBox(true);
   };
@@ -174,6 +187,42 @@ const Profile = () => {
   const handleClosePopularityDialogBox = () => {
     setOpenPopularityDialogBox(false);
   };
+
+  const handleClickOpenEditProfileDialogBox = () => {
+    setOpenEditProfileDialogBox(true);
+  };
+
+  const handleCloseEditProfileDialogBox = () => {
+    setOpenEditProfileDialogBox(false);
+  };
+
+  const handleFormChange = (e) => {
+    const { name, value } = e.target;
+    setFormValues((prevValues) => ({
+      ...prevValues,
+      [name]: value,
+    }));
+  };
+
+  const handleSaveProfile = () => {
+    dispatch(saveEditProfileRequest(formValues));
+    setOpenEditProfileDialogBox(false);
+  };
+
+  useEffect(() => {
+    // console.log(userProfileInfo, 'user profile info')
+    if (userProfileInfo) {
+      setFormValues({
+        name: `${userProfileInfo.first_name} ${userProfileInfo.last_name}` || '',
+        username: userProfileInfo.username || '',
+        email: userProfileInfo.email || '',
+        phone: userProfileInfo.phone || '',
+        facebook: userProfileInfo?.facebook_link || '',
+        instagram: userProfileInfo?.instagram_link || '',
+        youtube: userProfileInfo?.youtube_link || '',
+      });
+    }
+  }, [userProfileInfo]);
 
   // useEffect(() => {
   //   if (successMessage?.success) {
@@ -189,9 +238,7 @@ const Profile = () => {
     console.log(accountToFollow);
     dispatch(followUserRequest(accountToFollow));
   };
-  // console.log(stats, 'dashboard profile stats')
-  // console.log(userPosts, 'user posts if account id')
-  // console.log(userProfileInfo, 'user profile Data')
+
   return (
     <div className='profile-component'>
       <div className='left-side-profile'>
@@ -233,7 +280,7 @@ const Profile = () => {
             <span className='share-card-span'>
               <div className='buttons-div'>
                 <button>Share Profile</button>
-                <button>Edit Profile</button>
+                <button onClick={handleClickOpenEditProfileDialogBox}>Edit Profile</button>
               </div>
             </span>
           </div>
@@ -295,6 +342,86 @@ const Profile = () => {
           </Typography>
         </DialogContent>
       </BootstrapDialog>
+
+      <BootstrapDialog onClose={handleCloseEditProfileDialogBox} open={openEditProfileDialogBox}>
+        <DialogTitle sx={{ m: 0, p: 2 }}>
+          Edit Profile
+          <IconButton
+            aria-label="close"
+            onClick={handleCloseEditProfileDialogBox}
+            sx={{
+              position: 'absolute',
+              right: 8,
+              top: 8,
+              color: (theme) => theme.palette.grey[500],
+            }}
+          >
+            <CloseIcon />
+          </IconButton>
+        </DialogTitle>
+        <DialogContent dividers>
+          <Stack spacing={2}>
+            <TextField
+              name="name"
+              label="Name"
+              value={formValues.name}
+              onChange={handleFormChange}
+              fullWidth
+            />
+            <TextField
+              name="username"
+              label="Username"
+              value={formValues.username}
+              onChange={handleFormChange}
+              fullWidth
+            />
+            <TextField
+              name="email"
+              label="Email"
+              value={formValues.email}
+              onChange={handleFormChange}
+              fullWidth
+            />
+            <TextField
+              name="phone"
+              label="Mobile"
+              value={formValues.phone}
+              onChange={handleFormChange}
+              fullWidth
+            />
+            <TextField
+              name="facebook"
+              label="Facebook"
+              value={formValues.facebook}
+              onChange={handleFormChange}
+              fullWidth
+            />
+            <TextField
+              name="instagram"
+              label="Instagram"
+              value={formValues.instagram}
+              onChange={handleFormChange}
+              fullWidth
+            />
+            <TextField
+              name="youtube"
+              label="YouTube"
+              value={formValues.youtube}
+              onChange={handleFormChange}
+              fullWidth
+            />
+          </Stack>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleCloseEditProfileDialogBox} color="primary">
+            Cancel
+          </Button>
+          <Button onClick={handleSaveProfile} color="primary">
+            Save
+          </Button>
+        </DialogActions>
+      </BootstrapDialog>
+
       <Divider sx={{ marginLeft: '20px', borderWidth: '1px', color: 'red', height:'90vh' }} orientation="vertical" variant="fullWidth" className='vertical-line' flexItem />
       <div className='dashboardInfo'>
         <Box sx={{ width: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
@@ -590,7 +717,7 @@ const StoreCustomTabPanel = ({ storeProducts, storeProductsLoading, currentStore
   const handleStoreTabChange = (event, newValue) => {
     setstoreTabValue(newValue);
   };
-  console.log(storeProducts, 'store products', storeProductsLoading)
+  // console.log(storeProducts, 'store products', storeProductsLoading)
   return (
     <div>
       <Box >
@@ -600,7 +727,7 @@ const StoreCustomTabPanel = ({ storeProducts, storeProductsLoading, currentStore
           aria-label="scrollable prevent tabs example"
           sx={{ width: '100%', display: 'flex', paddingTop: '10px', borderBottom: 1, borderColor: 'skyblue' }}
         >
-          <Tab label={`My Products (${storeProducts?.metadata?.total_posts || storeProducts?.data?.length})`} value="1" />
+          <Tab label={`My Products (${storeProducts?.metadata?.total_posts || storeProducts?.data?.store?.categories[0]?.total})`} value="1" />
           <Tab label="My Workshop (0)" value="2" />
           <Tab label="Exclusive Content (0)" value="3" />
         </Tabs>
@@ -623,20 +750,20 @@ const StoreCustomTabPanel = ({ storeProducts, storeProductsLoading, currentStore
             }}
           >
             <CustomTabPanel value={storeTabValue} index="1">
-            {storeProducts && storeProducts.data && storeProducts.data.length > 0 ? (
+            { storeProducts?.data?.store?.categoryData[0]?.products.length > 0 ? (
               <>
               <div
-                style={{
-                  display: 'grid',
-                  gridTemplateColumns: 'repeat(auto-fill, minmax(200px, 1fr))', // Adjust column width as needed
-                  gap: '10px',
-                  marginTop: '10px',
-                  justifyItems:'center'
-                }}
-                className='custom-grid'
+                // style={{
+                //   display: 'grid',
+                //   gridTemplateColumns: 'repeat(auto-fill, minmax(200px, 1fr))', // Adjust column width as needed
+                //   gap: '10px',
+                //   marginTop: '10px',
+                //   justifyItems:'center'
+                // }}
+                className='custom-store-grid'
               >
-                {storeProducts?.data?.map((product) => (
-                  <StoreMyProductCard myProduct={product} key={product.product_id} />
+                {storeProducts?.data?.store?.categoryData[0]?.products.map((product) => (
+                  <StoreMyProductCard myProduct={product} key={product.id} />
                 ))}
               </div>
               

@@ -5,7 +5,7 @@
     flex-direction: row;
     gap: 20px;
     padding: 20px;
-    height: 100vh;
+    /* height: 100vh; */
   }
   
   .product-images {
@@ -14,7 +14,24 @@
     min-width: 25%;
     overflow: hidden;
   }
-  
+
+  /* Custom styles for the carousel arrows */
+.carousel .control-next.control-arrow:before,
+.carousel .control-prev.control-arrow:before {
+  border-top-color: black;
+  border-right-color: black;
+}
+
+/* Make the arrows black */
+.carousel .control-prev.control-arrow:before {
+  border-right: 8px solid black;
+}
+
+.carousel .control-next.control-arrow:before {
+  border-left: 8px solid black;
+}
+
+/*   
   .product-details .css-ohwg9z{
     max-height: 400px;
   }
@@ -27,7 +44,7 @@
     max-width: 400px;
     max-height: 400px;
   }
-  
+   */
   .product-info {
     flex: 2;
     display: flex;
@@ -173,7 +190,6 @@
       flex-direction: column;
       gap: 0px;
       padding: 10px;
-      margin-bottom: 60px;
     }
     .orderButton-div-web{
       display: none;

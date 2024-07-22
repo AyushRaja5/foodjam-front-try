@@ -5,7 +5,9 @@ import { fetchSingleProductRequest } from '../../redux/actions/productActions';
 import { Button, ButtonGroup, Skeleton, Stack } from '@mui/material';
 import { toast } from 'react-toastify';
 import './ProductDetailsPage.css'
-import Carousel from 'react-material-ui-carousel';
+import { Carousel } from 'react-responsive-carousel';
+import 'react-responsive-carousel/lib/styles/carousel.min.css';
+
 import Accordion from '@mui/material/Accordion';
 import AccordionSummary from '@mui/material/AccordionSummary';
 import AccordionDetails from '@mui/material/AccordionDetails';
@@ -111,12 +113,7 @@ const ProductDetails = ({ data, handleAddToCart, handleQuantityChange, cartprodu
     <div className="product-details">
       <div className="product-images">
         <Carousel
-          swipe={true}
-          IndicatorIcon={true}
-          autoPlay={false}
-          interval={5000}
-          animation={'fade'}
-        stopAutoPlayOnHover = {true}
+          emulateTouch={true}
         >
           {images.map((image, index) => (
             <img key={index} src={image.popup} alt={`Product image ${index + 1}`} className='product-carousel-img' />

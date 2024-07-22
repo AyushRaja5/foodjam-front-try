@@ -56,57 +56,109 @@
   min-width: 20px;
 }
 /* ------------------------ */
+.myproduct-card-container{
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  border-radius: 10px;
+  padding-bottom: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
 
-.myproduct-card-container {
+.myproduct-card-container:hover {
+  transform: scale(1.02);
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+}
+
+.store-videos-thumbnail {
   display: flex;
   height: 220px;
-  width: 180px;
+  width: 100%;
   position: relative;
+  border-radius: 10px;
+  object-fit: cover;
+}
+.my-store-product-div{
+  width: 100%;
+  gap: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-top: 10px;
+}
+.mystore-product-array-img{
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  align-items: center;
+}
+.myproduct-thumbnail {
+  display: flex;
+  height: 100px;
+  width: 100px;
   border-radius: 10px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
 }
-.myproduct-thumbnail {
-  width: 100%;
-  height: auto;
-  border-radius: 15px;
-}
-
-.overlay {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
+.myproduct-thumbnail img{
   display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  padding: 10px;
-  border-radius: 15px;
-  background-color: rgba(0, 0, 0, 0.5);
+  height: 100px;
+  width: 100px;
+  border-radius: 10px;
+  object-fit: contain;
 }
-
-.myproduct-bottom-text{
-  display: flex;
-  flex-direction: column;
-  justify-content: space-evenly;
-  position: absolute;
-  bottom: 10px;
+.shop-now-button, .shop-now-button:hover {
+  width: 80%;
   color: white;
-  font-size: 14px;
+  background-color: #f8a003;
 }
 
+.drawer-product-list{
+  padding: 10px 40px 20px;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 10px;
+  justify-items: center;
+}
 @media screen and (max-width: 750px) {
-  .product-card-container, .myproduct-card-container {
+  .product-card-container{
     display: flex;
     height: 200px;
     width: 150px;
     position: relative;
+  }
+  .myproduct-card-container {
+    display: flex;
+    width: 90%;
+    gap: 10px;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .myproduct-card-container:hover {
+    transform: none;
+  }
+  .shop-now-button, .shop-now-button:hover {
+    width: 80%;
+    color: white;
+    background-color: #f8a003;
+  }
+  .store-videos-thumbnail {
+    height: 220px;
+    width: 100%;
+    object-fit: cover;
   }
   .product-card-container .product-image {
     width: 100%;
     height: 140px;
     border-radius: 10px;
     object-fit: cover;
+  }
+  .drawer-product-list{
+    padding: 10px;
+    gap: 10px;
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
   }
   .css-19kzrtu {
     padding: 10px !important;
