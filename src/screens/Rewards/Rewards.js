@@ -1,10 +1,11 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchRewardsRequest } from '../../redux/actions/rewardsActions'; // Adjust the path as needed
-import { Stack, Skeleton, Typography } from '@mui/material';
+import { Stack, Skeleton, Typography, Breadcrumbs } from '@mui/material';
 import './Rewards.css';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
+import expiredImg from '../../assets/imagespng/expired.png';
 
 const truncateText = (text, maxLength) => {
   if (text.length > maxLength) {
@@ -47,10 +48,23 @@ const Rewards = () => {
 
   return (
     <div className="rewards-container">
+      <Breadcrumbs separator="›"  aria-label="breadcrumb">
+        <Link underline="hover" style={{ textDecoration: 'none', color: 'inherit' }} to="/explore">
+          Explore
+        </Link>
+        <Typography color="text.primary">Rewards</Typography>
+      </Breadcrumbs>
+      <br/>
       <div className="rewards-grid">
         {rewards?.data?.map(reward => (
-          <div key={reward.id} className="reward-card"  onClick={() => handleRewardClick(reward.id)}>
+          <div key={reward.id} className="reward-card" onClick={() => handleRewardClick(reward.id)}>
             <img src={reward.cover_image} alt={reward.logo} />
+            {reward.expiry_status === "Expired" &&
+              <img
+                src={expiredImg}
+                alt="Expired"
+                className="expired-stripe"
+              />}
             <div className="reward-card-info">
               <Typography variant="h5" className="reward-card-title">
                 {truncateText(reward.title, 30)}

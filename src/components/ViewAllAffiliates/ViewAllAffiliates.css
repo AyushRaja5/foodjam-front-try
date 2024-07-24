@@ -1,10 +1,7 @@
-.view-all-affiliate {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 40px;
-    justify-content: center;
-    align-items: center;
+.view-all-affiliate-container {
     margin: 20px 40px;
+}
+.view-all-affiliate {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
     gap: 20px;
@@ -47,14 +44,16 @@
         justify-items: center;
     }
 
-    .view-all-affiliate {
+    .view-all-affiliate-container {
+        margin: 0 20px 80px;
+    }
+    /* .view-all-affiliate {
         display: flex;
         flex-wrap: wrap;
         gap: 10px;
-        justify-content: flex-start;
+        justify-content: space-around;
         align-items: center;
-        margin: 0 20px 80px;
-    }
+    } */
 
     .affiliate-div {
         gap: 5px;

@@ -28,7 +28,7 @@ const Navbar = () => {
   const [loginOrSignUp, setLoginOrSignUp] = useState('Login');
   const [showOTPForm, setShowOTPForm] = useState(false);
   const [showSignInMenu, setShowSignInMenu] = useState(false);
-  const [loginNumber, setLoginNumber] = useState('');
+  const [loginNumber, setLoginNumber] = useState('+91');
   const [signupNumber, setsignupNumber] = useState('');
   const [signupName, setsignupName] = useState('');
   const [signupEmail, setsignupEmail] = useState('');
@@ -119,7 +119,8 @@ const Navbar = () => {
   const handleLoginSubmit = (event) => {
     event.preventDefault();
     const login_type = 'phone';
-    LoginUser({ login_type, phone: loginNumber })
+    const phone = loginNumber.replace('+91', '');
+    LoginUser({ login_type, phone: phone })
       .then((response) => {
         toast.success(response.message);
         setShowOTPForm(true);
@@ -138,7 +139,8 @@ const Navbar = () => {
 
   const handleOTPSubmit = (event) => {
     event.preventDefault();
-    dispatch(loginRequest({ phone: loginNumber, otp: otpText }));
+    const phone = loginNumber.replace('+91', '');
+    dispatch(loginRequest({ phone: phone, otp: otpText }));
   };
 
   useEffect(() => {
@@ -220,6 +222,7 @@ const Navbar = () => {
             <li><Link to="https://event.foodjam.in/" target='blank'><img src={Explorer} alt='event' />Event</Link></li>
             <li><Link to="/explore"><img src={Explorer} alt='explorer' />Explore</Link></li>
             <li><Link to="/shop"><img src={Bag} alt='Shop' />Shop</Link></li>
+            <li><Link to="/cart"><img src={Bag} alt='Cart' />Cart</Link></li>
             {isLoggedIn ? (
               <li ref={profileRef}>
                 <Link onClick={handleClick} ><img src={Profile} alt="Profile" /> Profile</Link>
@@ -329,7 +332,7 @@ const Navbar = () => {
           !showOTPForm ? (
             <form onSubmit={handleLoginSubmit}>
               <div className="form-group">
-                <input type="tel" tabIndex="1" maxLength="10" autoComplete="off" placeholder="Phone Number" value={loginNumber} onChange={(e) => setLoginNumber(e.target.value)} required />
+                <input type="tel" tabIndex="1" maxLength="13" autoComplete="off" placeholder="Phone Number" value={loginNumber} onChange={(e) => setLoginNumber(e.target.value)} required />
               </div>
               <button type="submit">Login</button>
               <div className='tnc-login'>By clicking on Login, I accept the Terms & Conditions & Privacy Policy</div>

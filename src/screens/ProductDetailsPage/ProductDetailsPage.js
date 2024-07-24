@@ -7,7 +7,7 @@ import { toast } from 'react-toastify';
 import './ProductDetailsPage.css'
 import { Carousel } from 'react-responsive-carousel';
 import 'react-responsive-carousel/lib/styles/carousel.min.css';
-
+import ReactImageMagnify from 'react-image-magnify';
 import Accordion from '@mui/material/Accordion';
 import AccordionSummary from '@mui/material/AccordionSummary';
 import AccordionDetails from '@mui/material/AccordionDetails';
@@ -116,7 +116,23 @@ const ProductDetails = ({ data, handleAddToCart, handleQuantityChange, cartprodu
           emulateTouch={true}
         >
           {images.map((image, index) => (
-            <img key={index} src={image.popup} alt={`Product image ${index + 1}`} className='product-carousel-img' />
+            <div key={index} className="product-carousel-img-wrapper imageMagnifyer">
+              <ReactImageMagnify
+                {...{
+                  smallImage: {
+                    alt: `Product image ${index + 1}`,
+                    isFluidWidth: true,
+                    src: image.popup,
+                  },
+                  largeImage: {
+                    src: image.popup,
+                    width: 1200,
+                    height: 1800,
+                  },
+                  shouldUsePositiveSpaceLens: true,
+                }}
+              />
+            </div>
           ))}
         </Carousel>
 

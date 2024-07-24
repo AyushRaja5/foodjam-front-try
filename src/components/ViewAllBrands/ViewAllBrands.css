@@ -1,8 +1,10 @@
 .view-all-brands-conatiner{
+  padding: 20px 40px;
+}
+.view-all-brands{
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(190px, 1fr));
   gap: 20px;
-  padding: 20px 40px;
 }
 
 .brand-card-container{
@@ -12,7 +14,7 @@
   text-decoration: none;
   color: inherit;
 }
-.user-card {
+.view-all-brands .user-card {
   cursor: pointer;
   display: flex;
   height: 250px;
@@ -26,35 +28,36 @@
   border-radius: 15px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.4);
 }
-.user-img {
+.view-all-brands .user-img {
   width: 150px;
   height: 150px;
   object-fit: cover;
   border-radius: 50%;
 }
-.user-text {
+.view-all-brands .user-text {
   font-size: 20px;
 }
 @media (max-width: 750px) {
     .view-all-brands-conatiner{
-      gap: 10px;
-      grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
       padding: 10px;
-      margin-top: 0;
-      margin-bottom: 60px;
     }
-    .user-card {
+    .view-all-brands{
+      gap: 10px;
+      grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+      margin-top: 0;
+    }
+    .view-all-brands .user-card {
       height: 160px;
       width: 130px;
       padding: 15px 5px;
     }
-    .user-img {
+    .view-all-brands .user-img {
       width: 90px;
       height: 90px;
       margin: 0;
       padding: 0;
     }
-    .user-text {
+    .view-all-brands .user-text {
       font-size: 15px;
       padding: 0 5px;
       margin: 0;

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { getCategoriesProductRequest } from '../../redux/actions/categoriesActions';
-import { Button, ButtonGroup, CircularProgress, Skeleton, Stack } from '@mui/material';
+import { Breadcrumbs, Button, ButtonGroup, CircularProgress, Skeleton, Stack, Typography } from '@mui/material';
 import { toast } from 'react-toastify';
 import './CategoriesPage.css'
 import { addToCartRequest, fetchCartProductsRequest, resetResponseMessage } from '../../redux/actions/cartActions';
@@ -13,6 +13,7 @@ const CategoriesPage = () => {
     const { categoriesId } = useParams();
     const dispatch = useDispatch();
     const navigate = useNavigate();
+    const limit = 5;
     const { data, error, loading } = useSelector(state => state.categoriesData);
     const { cartproducts, responseMessage, loading: cartLoading } = useSelector(state => state.cartProducts);
 
@@ -92,6 +93,19 @@ const CategoriesPage = () => {
     };
     return (
         <div className="view-all-categories-conatiner">
+            <Breadcrumbs separator="›"  aria-label="breadcrumb">
+                <Link underline="hover" style={{ textDecoration: 'none', color: 'inherit' }} to="/explore">
+                    Explore
+                </Link>
+                <Typography color="text">Explore CategoriesPage</Typography>
+                <Typography color="text.primary">{data?.data[0]?.category_name || ""}</Typography>
+            </Breadcrumbs>
+            <br/>
+
+            <div className='explore-categories-banner'>
+                <img src={data?.data[0]?.category_icon} alt={data?.data[0]?.category_name}/>
+            </div>
+
             {data?.metadata && data.metadata.map((brand, index) => (
                 <div key={index} className="brand-section">
     
@@ -99,12 +113,14 @@ const CategoriesPage = () => {
                         <div className="categories-page-top-heading">
                             <h2>{brand.brand_name} ({brand.count})</h2>
                         </div>
-                        <Button onClick={() => handleViewAll(groupedProducts[brand.brand_name])} className="categories-view-btn">
-                            View All
-                        </Button>
+                        {brand.count > limit && (
+                            <Button onClick={() => handleViewAll(groupedProducts[brand.brand_name])} className="categories-view-btn">
+                                View All
+                            </Button>
+                        )}
                     </div>
                     <div className="categories-each-section">
-                        {groupedProducts[brand.brand_name]?.map((product, i) => (
+                        {groupedProducts[brand.brand_name]?.slice(0, limit)?.map((product, i) => (
                             <HorozontalProduct key={i} product={product}
                                 cartLoading={cartLoading}
                                 quantity={getQuantityFromCart(product.product_id)}

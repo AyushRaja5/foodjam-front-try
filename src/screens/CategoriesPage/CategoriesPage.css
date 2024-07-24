@@ -13,7 +13,11 @@
     padding: 5px;
     scrollbar-width: none;
 }
-
+.explore-categories-banner{
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+}
 .categories-page-top {
     display: flex;
     justify-content: space-between;
@@ -25,13 +29,14 @@
     display: flex;
     align-items: center;
     gap: 20px;
-    font-size: 24px;
+    font-size: 16px;
     margin-bottom: 20px;
 }
 
 .categories-view-btn {
     width: 150px;
-    height: 45px;
+    font-size: 14px;
+    height: 40px;
     border: 1px solid #f8a003;
 }
 
@@ -100,6 +105,10 @@
     }
     .view-all-categories-conatiner{
         padding: 0 20px;
+    }
+    .explore-categories-banner img{
+        height: 100px;
+        width: 100%;
     }
     .categories-product-container {
         display: flex;

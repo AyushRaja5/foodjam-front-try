@@ -97,7 +97,7 @@ const CampaignDetail = () => {
 }
 
 const ExpiredContestDetail = ({ singleCampaign, joinTheCampaign, BUCKET_URL, setShow, setSrc, setPoster }) => (
-  <Container className="campaign-detail-container">
+  <Container className="campaign-detail">
     <div className="campaign-share-banner-container">
       <img src={shareEmptyImg} alt='share' className='share-img' />
       <div className="banner-sec">

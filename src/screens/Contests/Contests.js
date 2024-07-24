@@ -10,6 +10,7 @@ import {
   CircularProgress,
   Stack,
   Skeleton,
+  Breadcrumbs,
 } from '@mui/material';
 import './Contests.css';
 import dayjs from 'dayjs';
@@ -61,6 +62,13 @@ const Contests = () => {
   const [offset, setOffset] = useState(0);
   const [page, setPage] = useState(1);
   const stares = useSelector(state => state)
+
+  const contestTypeMap = {
+    0: 'Live Contests',
+    1: 'Expired Contests',
+    2: 'Upcoming Contests',
+  };
+
   console.log( 'stares', stares)
   useEffect(() => {
     dispatch(fetchContestsRequest(offset, limitCnt));
@@ -126,6 +134,15 @@ const Contests = () => {
 
   return (
     <div className="contests-container">
+      <Breadcrumbs separator="›"  aria-label="breadcrumb">
+        <Link underline="hover" style={{ textDecoration: 'none', color: 'inherit' }} to="/explore">
+          Explore
+        </Link>
+        <Typography separator="›"  aria-label="breadcrumb">Contests</Typography>
+        <Typography color="text.primary">{contestTypeMap[selectedModule]}</Typography>
+      </Breadcrumbs>
+      <br/>
+
       <Tabs
         value={selectedModule}
         onChange={handleChange}
@@ -158,6 +175,7 @@ const Contests = () => {
               <p className="tip-txt">You have no live events. Click on New Contest to create your contest.</p>
             </div>
           ) : (
+            <>
             <div className='contest-list'>
               {getListData()?.map((item, index) => (
                 <div key={item?.id} className="main-view">
@@ -233,6 +251,17 @@ const Contests = () => {
                 </div>
               ))}
             </div>
+            <Box display="flex" justifyContent="center" my={2}>
+              <Pagination
+                size="small"
+                count={Math.ceil(contests?.metadata?.total_contests / limitCnt)}
+                page={page}
+                onChange={handlePageChange}
+                variant="outlined"
+                color="secondary"
+              />
+            </Box>
+            </>
           )}
         </div>
       </TabPanel>
@@ -247,6 +276,7 @@ const Contests = () => {
               <p className="tip-txt">You have no expired events.</p>
             </div>
           ) : (
+            <>
             <div className='contest-list'>
               {getListData()?.map(item => (
                 <div key={item?.id} className="main-view">
@@ -351,6 +381,17 @@ const Contests = () => {
                 </div>
               ))}
             </div>
+            <Box display="flex" justifyContent="center" my={2}>
+              <Pagination
+                size="small"
+                count={Math.ceil(contests?.metadata?.total_contests / limitCnt)}
+                page={page}
+                onChange={handlePageChange}
+                variant="outlined"
+                color="secondary"
+              />
+            </Box>
+            </>
           )}
         </div>
       </TabPanel>
@@ -365,6 +406,7 @@ const Contests = () => {
               <p className="tip-txt">You have no upcoming events.</p>
             </div>
           ) : (
+            <>
             <div className='contest-list'>
               {getListData()?.map((item, index) => {
                 const prize = item.prize && item.prize[index === 0 ? '1st' : index === 1 ? '2nd' : '3rd'];
@@ -424,20 +466,21 @@ const Contests = () => {
                 );
               })}
             </div>
+            <Box display="flex" justifyContent="center" my={2}>
+              <Pagination
+                size="small"
+                count={Math.ceil(contests?.metadata?.total_contests / limitCnt)}
+                page={page}
+                onChange={handlePageChange}
+                variant="outlined"
+                color="secondary"
+              />
+            </Box>
+            </>
           )}
         </div>
       </TabPanel>
 
-      <Box display="flex" justifyContent="center" my={2}>
-        <Pagination
-          size="small"
-          count={Math.ceil(contests?.metadata?.total_contests / limitCnt)}
-          page={page}
-          onChange={handlePageChange}
-          variant="outlined"
-          color="secondary"
-        />
-      </Box>
     </div>
   );
 };

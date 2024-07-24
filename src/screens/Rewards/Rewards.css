@@ -67,6 +67,14 @@
   margin-top: 5px;
 }
 
+.reward-card .expired-stripe {
+  position: absolute;
+  height: 100px !important;
+  width: 100px !important;
+  top: 0px;
+  left: 0px;
+}
+
 @media (max-width: 550px) {
   .rewards-container {
     width: 100%;

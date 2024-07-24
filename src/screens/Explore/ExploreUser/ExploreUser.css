@@ -58,7 +58,8 @@
 .scroll-btn {
   background-color: transparent;
   border: none;
-  font-size: 24px;
+  border-radius: 30px;
+  font-size: 18px;
   cursor: pointer;
   position: absolute;
   top: 50%;
@@ -78,6 +79,7 @@
 
 .scroll-container:hover .scroll-btn {
   opacity: 1;
+  background-color: rgba(248, 160, 3, 0.3); 
 }
 
 .user-card {
