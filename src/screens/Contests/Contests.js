@@ -9,8 +9,7 @@ import {
   Pagination,
   CircularProgress,
   Stack,
-  Skeleton,
-  Breadcrumbs,
+  Skeleton
 } from '@mui/material';
 import './Contests.css';
 import dayjs from 'dayjs';
@@ -61,15 +60,7 @@ const Contests = () => {
   const [searchTxt, setSearchTxt] = useState('');
   const [offset, setOffset] = useState(0);
   const [page, setPage] = useState(1);
-  const stares = useSelector(state => state)
 
-  const contestTypeMap = {
-    0: 'Live Contests',
-    1: 'Expired Contests',
-    2: 'Upcoming Contests',
-  };
-
-  console.log( 'stares', stares)
   useEffect(() => {
     dispatch(fetchContestsRequest(offset, limitCnt));
   }, [offset, limitCnt]);
@@ -134,14 +125,6 @@ const Contests = () => {
 
   return (
     <div className="contests-container">
-      <Breadcrumbs separator="›"  aria-label="breadcrumb">
-        <Link underline="hover" style={{ textDecoration: 'none', color: 'inherit' }} to="/explore">
-          Explore
-        </Link>
-        <Typography separator="›"  aria-label="breadcrumb">Contests</Typography>
-        <Typography color="text.primary">{contestTypeMap[selectedModule]}</Typography>
-      </Breadcrumbs>
-      <br/>
 
       <Tabs
         value={selectedModule}

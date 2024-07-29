@@ -6,7 +6,7 @@
   justify-items: center;
 }
 
-  .user-card {
+  .view-all-creators-container .user-card {
     cursor: pointer;
     display: flex;
     height: 230px;
@@ -30,7 +30,7 @@
   .user-text {
     font-size: 16px;
   }
-  .user-follow-btn{
+  .view-all-creators-container .user-follow-btn{
     border: 1px solid #f8a003;
     padding: 7px 20px;
     color: black;

@@ -1,8 +1,7 @@
 import React from 'react'
 import './ViewAllAffiliates.css'
 import { Link, useLocation, useNavigate } from 'react-router-dom';
-import { useDispatch } from 'react-redux';// Adjust the path as needed
-import {Typography, Breadcrumbs } from '@mui/material';
+import { useDispatch } from 'react-redux';
 const ViewAllAffiliates = () => {
     const location = useLocation();
   const dispatch = useDispatch()
@@ -11,13 +10,6 @@ const ViewAllAffiliates = () => {
   const { affiliateArray } = location.state || { affiliateArray: [] };
     return (
         <div className="view-all-affiliate-container">
-            <Breadcrumbs separator="›"  aria-label="breadcrumb">
-                <Link underline="hover" style={{ textDecoration: 'none', color: 'inherit' }} to="/explore">
-                Explore
-                </Link>
-                <Typography color="text.primary">View All Affiliates</Typography>
-            </Breadcrumbs>
-            <br/>
 
             <div className="view-all-affiliate">
             {affiliateArray?.map((data) => (

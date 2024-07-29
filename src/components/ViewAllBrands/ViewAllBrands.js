@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import './ViewAllBrands.css';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import userPlaceholder from '../../assets/imagespng/user.png'
-import { Button, Card, Grid, Stack, Skeleton, Breadcrumbs, Typography, } from '@mui/material';
+import { Button, Card, Grid, Stack, Skeleton } from '@mui/material';
 import { fetchExploreRequest, followUserRequest } from '../../redux/actions/ExploreActions';
 import { useDispatch, useSelector } from 'react-redux';
 import VideoCard from '../videocard/VideoCard';
@@ -56,13 +56,6 @@ const ViewAllBrands = () => {
 
   return (
     <div className='view-all-brands-conatiner'>
-    <Breadcrumbs separator="›"  aria-label="breadcrumb">
-        <Link underline="hover" style={{ textDecoration: 'none', color: 'inherit' }} to="/explore">
-          Explore
-        </Link>
-        <Typography color="text.primary">All Brands</Typography>
-      </Breadcrumbs>
-      <br/>
     
     <div className="view-all-brands">
       {brands?.map((data, index) => (

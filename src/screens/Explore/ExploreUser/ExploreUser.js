@@ -5,8 +5,8 @@ import topCreators from '../../../assets/imagespng/topCreators.png';
 import userPlaceholder from '../../../assets/imagespng/user.png';
 import { Link, useNavigate } from "react-router-dom";
 
-const ExploreUser = ({ variant, columns, dataSource, heading, limit, handleFollow }) => {
-  const [displayData, setDisplayData] = useState(columns.slice(0, limit));
+const ExploreUser = ({ variant, columns, dataSource, heading, display_limit, handleFollow }) => {
+  const [displayData, setDisplayData] = useState(columns.slice(0, display_limit));
   const navigate = useNavigate();
   const containerRef = useRef(null);
 
@@ -34,9 +34,11 @@ const ExploreUser = ({ variant, columns, dataSource, heading, limit, handleFollo
             <img src={topCreators} alt="topCreators" className="topCreators-img" />
             <strong>{heading}</strong>
           </div>
+          {columns?.length > display_limit && (
           <Button onClick={handleViewAll} className="view-btn">
             View All
           </Button>
+          )}
         </div>
       )}
       <div className="scroll-container">

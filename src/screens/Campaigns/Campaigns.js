@@ -7,10 +7,8 @@ import {
   Tabs,
   Typography,
   Pagination,
-  CircularProgress,
   Stack,
   Skeleton,
-  Breadcrumbs,
 } from '@mui/material';
 import './Campaigns.css';
 import dayjs from 'dayjs';
@@ -64,13 +62,8 @@ const Campaigns = () => {
   const [offset, setOffset] = useState(0);
   const [page, setPage] = useState(1);
   const stares = useSelector(state => state)
-  const campaignsTypeMap = {
-    0: 'Live Campaign',
-    1: 'Expired Campaign',
-    2: 'Upcoming Campaign',
-  };
 
-  console.log('stares', stares)
+  // console.log('stares', stares)
   useEffect(() => {
     dispatch(fetchCampaignsRequest(offset, limitCnt));
   }, [offset, limitCnt]);
@@ -126,16 +119,6 @@ const Campaigns = () => {
 
   return (
     <div className="campaigns-container">
-
-      <Breadcrumbs separator="›" aria-label="breadcrumb">
-        <Link underline="hover" style={{ textDecoration: 'none', color: 'inherit' }} to="/explore">
-          Explore
-        </Link>
-        <Typography separator="›" aria-label="breadcrumb">Campaigns</Typography>
-        <Typography color="text.primary">{campaignsTypeMap[selectedModule]}</Typography>
-      </Breadcrumbs>
-      <br />
-
       <Tabs
         value={selectedModule}
         onChange={handleChange}

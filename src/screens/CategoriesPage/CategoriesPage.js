@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { getCategoriesProductRequest } from '../../redux/actions/categoriesActions';
-import { Breadcrumbs, Button, ButtonGroup, CircularProgress, Skeleton, Stack, Typography } from '@mui/material';
+import { Button, ButtonGroup, CircularProgress, Skeleton, Stack, Typography } from '@mui/material';
 import { toast } from 'react-toastify';
 import './CategoriesPage.css'
 import { addToCartRequest, fetchCartProductsRequest, resetResponseMessage } from '../../redux/actions/cartActions';
@@ -93,14 +93,6 @@ const CategoriesPage = () => {
     };
     return (
         <div className="view-all-categories-conatiner">
-            <Breadcrumbs separator="›"  aria-label="breadcrumb">
-                <Link underline="hover" style={{ textDecoration: 'none', color: 'inherit' }} to="/explore">
-                    Explore
-                </Link>
-                <Typography color="text">Explore CategoriesPage</Typography>
-                <Typography color="text.primary">{data?.data[0]?.category_name || ""}</Typography>
-            </Breadcrumbs>
-            <br/>
 
             <div className='explore-categories-banner'>
                 <img src={data?.data[0]?.category_icon} alt={data?.data[0]?.category_name}/>

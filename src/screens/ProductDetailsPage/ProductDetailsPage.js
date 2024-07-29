@@ -130,11 +130,15 @@ const ProductDetails = ({ data, handleAddToCart, handleQuantityChange, cartprodu
                     height: 1800,
                   },
                   shouldUsePositiveSpaceLens: true,
+                  enlargedImagePortalId : 'magnifyImg'
+                  // enlargedImagePosition: 'over'
                 }}
               />
             </div>
           ))}
         </Carousel>
+        
+        <div id='magnifyImg'></div>
 
         <div className='orderButton-div-web'>
           {quantity > 0 ? (
@@ -262,7 +266,6 @@ const ProductDetails = ({ data, handleAddToCart, handleQuantityChange, cartprodu
         </div>
 
       </div>
-
     </div>
   );
 };

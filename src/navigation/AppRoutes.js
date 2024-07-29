@@ -3,8 +3,9 @@
 import React, { Suspense, lazy } from 'react';
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Navbar from '../components/Navbar/Navbar';
-import Footer from '../components/Footer/Footer';
+import BreadcrumbsComponent from '../BreadCrumbs/BreadcrumbsComponent';
 
+const Footer = lazy(() => import('../components/Footer/Footer'));
 const Home = lazy(() => import('../screens/Home/Home'));
 const Explore = lazy(() => import('../screens/Explore/Explore'));
 const FoodamStore = lazy(() => import('../screens/FoodjamStore/FoodjamStore'));
@@ -46,6 +47,7 @@ const AppRoutes = () => {
     <Router>
       <Navbar />
       <Suspense fallback={<div>Loading...</div>}>
+      <BreadcrumbsComponent/>
         <Routes>
           <Route exact="true" path="/" element={<Explore />} />
           <Route path="/explore" element={<Explore />} />
