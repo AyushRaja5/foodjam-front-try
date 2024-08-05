@@ -126,11 +126,14 @@ const ProductDetails = ({ data, handleAddToCart, handleQuantityChange, cartprodu
                   },
                   largeImage: {
                     src: image.popup,
-                    width: 1200,
-                    height: 1800,
+                    width: 800,
+                    height: 1000,
                   },
                   shouldUsePositiveSpaceLens: true,
-                  enlargedImagePortalId : 'magnifyImg'
+                  enlargedImagePortalId : 'magnifyImg',
+                  enlargedImageContainerDimensions : {
+                    width: '150%', height: '100%'
+                  }
                   // enlargedImagePosition: 'over'
                 }}
               />
