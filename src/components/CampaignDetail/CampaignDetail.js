@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { fetchSingleCampaignRequest, joinCampaignRequest } from '../../redux/actions/campaignActions';
+import { setBreadcrumbTitle, clearBreadcrumbTitle } from '../../redux/actions/breadcrumbActions';
 import kingImg from '../../assets/imagespng/king.png';
 import campaignCalenderIcon from '../../assets/imagespng/contestIcon.png';
 import expiredImg from '../../assets/imagespng/expired.png';
@@ -42,6 +43,18 @@ const CampaignDetail = () => {
       getCampaignDetails();
     }
   }, [campaignId]);
+
+  useEffect(() => {
+    if (singleCampaign?.data?.title) {
+      dispatch(setBreadcrumbTitle(`/campaign_details/${campaignId}`, singleCampaign.data.title));
+    }
+  }, [singleCampaign, dispatch, campaignId]);
+
+  useEffect(() => {
+    return () => {
+      dispatch(clearBreadcrumbTitle(`/campaign_details/${campaignId}`));
+    };
+  }, [dispatch, campaignId]);
 
   useEffect(() => {
     if (successMessage) {

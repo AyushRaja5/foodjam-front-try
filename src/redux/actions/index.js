@@ -18,6 +18,7 @@ import * as brandActions from './brandActions'
 import * as shopActions from './shopActions'
 import * as productActions from './productActions'
 import * as categoriesActions from './categoriesActions'
+import * as breadcrumbAction from './breadcrumbActions'
 // Export all action creators
 export {
   authActions,
@@ -39,5 +40,6 @@ export {
   brandActions,
   shopActions,
   productActions,
-  categoriesActions
+  categoriesActions,
+  breadCrumbAction
 };

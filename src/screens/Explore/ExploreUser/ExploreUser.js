@@ -42,7 +42,7 @@ const ExploreUser = ({ variant, columns, dataSource, heading, display_limit, han
         </div>
       )}
       <div className="scroll-container">
-        <Button className="scroll-btn left" onClick={scrollLeft}>{"<"}</Button>
+        {displayData.length > 4 && <Button className="scroll-btn left" onClick={scrollLeft}>{"<"}</Button>}
         <div className="videos-container" ref={containerRef}>
           {displayData.map((data, index) => (
             <div key={index} className="user-card-container">
@@ -75,7 +75,7 @@ const ExploreUser = ({ variant, columns, dataSource, heading, display_limit, han
             </div>
           ))}
         </div>
-        <Button className="scroll-btn right" onClick={scrollRight}>{">"}</Button>
+        {displayData.length > 4 && <Button className="scroll-btn right" onClick={scrollRight}>{">"}</Button>}
       </div>
     </div>
   );

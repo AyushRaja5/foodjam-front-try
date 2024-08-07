@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import { Container, Button, Skeleton, Stack, Avatar } from '@mui/material';
 import { fetchSingleContestRequest, joinContestRequest, resetSuccessMessage } from '../../redux/actions/contestActions';
+import { setBreadcrumbTitle, clearBreadcrumbTitle } from '../../redux/actions/breadcrumbActions';
 import './ContestDetail.css';
 import dayjs from 'dayjs';
 import utc from 'dayjs/plugin/utc';
@@ -41,6 +42,18 @@ const ContestDetail = () => {
       getContestDetails();
     }
   }, [contestId]);
+
+  useEffect(() => {
+    if (singleContest?.data?.title) {
+      dispatch(setBreadcrumbTitle(`/contest_details/${contestId}`, singleContest.data.title));
+    }
+  }, [singleContest, dispatch, contestId]);
+
+  useEffect(() => {
+    return () => {
+      dispatch(clearBreadcrumbTitle(`/contest_details/${contestId}`));
+    };
+  }, [dispatch, contestId]);
 
   useEffect(() => {
     if (successMessage) {

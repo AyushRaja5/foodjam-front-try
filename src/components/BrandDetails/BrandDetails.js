@@ -3,6 +3,7 @@ import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import { fetchSingleBrandRequest, followBrandRequest } from '../../redux/actions/brandActions';
+import { setBreadcrumbTitle, clearBreadcrumbTitle } from '../../redux/actions/breadcrumbActions';
 import './BrandDetails.css';
 import ExploreVideos from '../../screens/Explore/ExploreVideos/ExploreVideos'
 import BrandDetailView from '../BrandDetailView/BrowseByCategory/BrowseByCategory';
@@ -18,6 +19,21 @@ const BrandDetails = () => {
         dispatch(fetchSingleBrandRequest(brandId));
     }, [dispatch, brandId]);
 
+    const brandData = brand?.[0];
+    console.log(brandData)
+
+    useEffect(() => {
+        if (brandData?.name) {
+          dispatch(setBreadcrumbTitle(`/brand/${brandId}`, brandData?.name));
+        }
+    }, [brandData, dispatch, brandId]);
+    
+    useEffect(() => {
+    return () => {
+        dispatch(clearBreadcrumbTitle(`/brand/${brandId}`));
+    };
+    }, [dispatch, brandId]);
+
     if (loading) return (
         <div className='loading-container'>
             <Stack spacing={1} sx={{ width: '100%', display: 'flex', alignItems: 'center' }}>
@@ -31,8 +47,6 @@ const BrandDetails = () => {
 
     if (error) return <div className='error-message'>Error: {error}</div>;
 
-    const brandData = brand?.[0];
-    console.log(brandData)
     return (
         brandData ? (
             <div className='brand-detail-container'>

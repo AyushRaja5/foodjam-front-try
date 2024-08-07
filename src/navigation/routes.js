@@ -24,7 +24,7 @@ const breadcrumbRoutes = [
   { path: '/top_brands', label: 'Top Brands', parents: [{label:'Shop',url:'/shop'}] },
   { path: '/best_sellers', label: 'Best Sellers', parents: [{label:'Shop',url:'/shop'}] },
   { path: '/top_offers', label: 'Top Offers', parents: [{label:'Shop',url:'/shop'}] },
-  { path: '/categories/:categoriesId', label: 'Categories', parents: [{label:'Shop',url:'/shop'}] },
+  { path: '/categories/:categoriesId', label: 'categoriesId', parents: [{label:'Shop',url:'/shop'}, {label:'Categories',url:null}] },
   { path: '/product/:productId', label: 'Product Details', parents: [{label:'Shop',url:'/shop'}] },
   
   // Settings

@@ -4,6 +4,7 @@ import breadcrumbRoutes from '../navigation/routes';
 import Breadcrumbs from '@mui/material/Breadcrumbs';
 import Typography from '@mui/material/Typography';
 import Link from '@mui/material/Link';
+import { useSelector } from 'react-redux';
 
 // Utility function to extract dynamic parameters
 const extractParams = (path, pattern) => {
@@ -22,6 +23,7 @@ const extractParams = (path, pattern) => {
 const BreadcrumbsComponent = () => {
   const location = useLocation();
   const pathnames = location.pathname.split('/').filter(x => x);
+  const {breadcrumbTitles} = useSelector(state => state.breadcrumbData);
 
   const getBreadcrumbs = () => {
     const breadcrumbs = [];
@@ -40,7 +42,7 @@ const BreadcrumbsComponent = () => {
       if (route) {
         // Extract parameters from the currentPath
         params = extractParams(currentPath, route.path);
-        console.log(params)
+        // console.log(params)
         if (route.parents) {
           route.parents.forEach(parent => {
             breadcrumbs.push({ path: parent.url, label: parent.label });
@@ -49,9 +51,9 @@ const BreadcrumbsComponent = () => {
 
         // Replace dynamic segments with extracted values
         console.log(params,'my params')
-        const breadcrumbLabel = route.label.replace(/:\w+/g, match => params[match.slice(1)] || match);
-        // if(params[breadcrumbLabel]) console.log(params[breadcrumbLabel],'my label')
-        breadcrumbs.push({ path: currentPath, label: params[breadcrumbLabel] || breadcrumbLabel });
+        const breadcrumbLabel = breadcrumbTitles[currentPath]  ||  route.label.replace(/:\w+/g, match => params[match.slice(1)] || match);
+        if(params[breadcrumbLabel]) console.log(params[breadcrumbLabel],'my label')
+        breadcrumbs.push({ path: currentPath, label: breadcrumbLabel });
       }
     });
 

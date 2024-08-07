@@ -21,6 +21,7 @@ import brandReducer from './brandReducer'
 import shopReducer from './shopReducer'
 import productReducer from './productReducer'
 import categoriesReducers from './categoriesReducers'
+import breadcrumbReducer from './breadcrumbReducer'
 
 const rootReducer = combineReducers({
   authUser : authReducer,
@@ -44,6 +45,7 @@ const rootReducer = combineReducers({
   shopData : shopReducer,
   productData : productReducer,
   categoriesData : categoriesReducers,
+  breadcrumbData : breadcrumbReducer
   // Add other reducers here if needed
 });
 

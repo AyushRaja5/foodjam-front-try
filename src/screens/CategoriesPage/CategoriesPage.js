@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { getCategoriesProductRequest } from '../../redux/actions/categoriesActions';
+import { setBreadcrumbTitle, clearBreadcrumbTitle } from '../../redux/actions/breadcrumbActions';
 import { Button, ButtonGroup, CircularProgress, Skeleton, Stack, Typography } from '@mui/material';
 import { toast } from 'react-toastify';
 import './CategoriesPage.css'
@@ -30,6 +31,18 @@ const CategoriesPage = () => {
             dispatch(fetchCartProductsRequest(10, 1));
         }
     }, [responseMessage, dispatch]);
+
+    useEffect(() => {
+        if (data?.data[0]?.category_name) {
+          dispatch(setBreadcrumbTitle(`/categories/${categoriesId}`, data?.data[0]?.category_name));
+        }
+      }, [data?.data[0], dispatch, categoriesId]);
+    
+      useEffect(() => {
+        return () => {
+          dispatch(clearBreadcrumbTitle(`/categories/${categoriesId}`));
+        };
+      }, [dispatch, categoriesId]);
 
     if (loading) return (
         <div className='water'>
