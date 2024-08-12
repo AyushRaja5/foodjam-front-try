@@ -20,11 +20,15 @@
 }
 
 .best-sellers-container {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    /* display: grid; */
+    /* grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); */
+    display: flex;
     gap: 20px;
-    justify-items: center;
-    text-align: center;
+    justify-content: flex-start;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    padding: 5px;
+    scrollbar-width: none;
 }
 
 .best-sellers-card-container{

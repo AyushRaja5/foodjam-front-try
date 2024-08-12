@@ -8,7 +8,7 @@ import DealsProducts from './DealsProducts/DealsProducts';
 import ProductCategories from './ProductCategories/ProductCategories';
 import FeaturedProducts from './FeaturedProducts/FeaturedProducts';
 import BestSellersProducts from './BestSellersProducts/BestSellersProducts';
-import { resetResponseMessage } from '../../redux/actions/cartActions';
+import { fetchCartProductsRequest, resetResponseMessage } from '../../redux/actions/cartActions';
 import TopBrands from './TopBrands/TopBrands';
 import TodayOffers from './TodayOffers/TodayOffers';
 import TopOffersProducts from './TopOffersProducts/TopOffersProducts';
@@ -16,9 +16,11 @@ import TopOffersProducts from './TopOffersProducts/TopOffersProducts';
 const FoodjamStore = () => {
   const dispatch = useDispatch();
   const { shop, loading, error } = useSelector(state => state.shopData);
-  const {responseMessage, loading:cartLoading} = useSelector(state => state.cartProducts);
+  const { cartproducts, responseMessage, loading: cartLoading } = useSelector(state => state.cartProducts);
+
   useEffect(() => {
     dispatch(fetchShopRequest());
+    dispatch(fetchCartProductsRequest(10, 1));
   }, [dispatch]);
 
   useEffect(() => {
@@ -50,18 +52,16 @@ const FoodjamStore = () => {
 
   const sortedRows = shop?.data?.rows?.slice().sort((a, b) => a.sequence - b.sequence);
 
-  // console.log(sortedRows,'sorted row')
-
   return (
     <div className='foodjamstore-component'>
       {sortedRows?.map((shopItem, index) => (
-        <RenderFunction key={index} data={shopItem} />
+        <RenderFunction key={index} data={shopItem} cartproducts={cartproducts} responseMessage={responseMessage} />
       ))}
     </div>
   );
 };
 
-const RenderFunction = ({ data }) => {
+const RenderFunction = ({ data, cartproducts, responseMessage }) => {
   if (!data.is_visible || !data.columns || data.columns.length === 0) {
     return null;
   }
@@ -74,7 +74,7 @@ const RenderFunction = ({ data }) => {
     case "Featured_Products":
       return <FeaturedProducts {...data} />;
     case "Best_Sellers_Products":
-      return <BestSellersProducts {...data} />;
+      return <BestSellersProducts {...data} cartproducts={cartproducts} responseMessage={responseMessage} />;
     case "Top_brands_Products":
       return <TopBrands {...data} />;
     case "Today_offers":

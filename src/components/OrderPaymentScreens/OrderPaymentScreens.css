@@ -6,19 +6,27 @@
     margin-top: 5%;
   }
   
-  .success-card, .failure-card {
-    background-color: rgb(249, 246, 246);
-    padding: 40px;
+  .success-card {
+    /* background-color: rgb(249, 246, 246); */
+    background-color: #F3F7F9;
+    padding: 20px 40px;
     border-radius: 8px;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
     text-align: center;
-    width: 400px;
+    width: 500px;
   }
-  
+  .failure-card{
+    background-color: hsl(38, 69%, 94%);
+    padding: 20px 40px;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    width: 500px;
+  }
   .success-icon {
-    font-size: 48px;
-    color: orange;
-    margin-bottom: 20px;
+    height: 100px;
+    width: 100px;
+    margin-bottom: 10px;
   }
   
   .success-card h2, .failure-card h2 {
@@ -78,6 +86,101 @@
   }
   
   
+  .delivery-card {
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #fff;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    max-width: 600px;
+    margin: 0 auto;
+  }
+  
+  .delivery-card-content {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+  }
+  
+  .delivery-info {
+    flex: 1;
+    text-align: left;
+  }
+  
+  .delivery-info h4 {
+    margin: 0 0 8px 0;
+    font-size: 1.2em;
+    color: #333;
+  }
+  
+  .delivery-info p {
+    margin: 4px 0;
+    color: #555;
+  }
+  
+  .phone-number {
+    color: #888;
+  }
+  
+  .address {
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+  }
+  
+  .location-icon {
+    margin-right: 4px;
+  }
+  
+  .delivery-image img {
+    max-width: 80px;
+    height: auto;
+  }
+  
+  .delivery-actions {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-top: 16px;
+  }
+  .failed-delivery-actions{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+    margin-top: 16px;
+  }
+  
+  .view-order-btn {
+    background-color: transparent;
+    border: 1px solid #fcb800;
+    padding: 8px 16px;
+    border-radius: 4px;
+    color: #fcb800;
+    cursor: pointer;
+    font-size: 14px;
+  }
+  .view-order-btn:hover {
+    background-color: #fcb800;
+    color: white;
+  }
+  
+  .homepage-link {
+    color: #666;
+    text-decoration: none;
+    font-size: 14px;
+  }
+  
+  .homepage-link:hover {
+    text-decoration: underline;
+  }
+  
+
   @media (max-width: 750px) {
     .success-container, .failure-container {
         display: flex;
@@ -99,5 +202,9 @@
         flex-direction: column;
         align-items: center;
         justify-content: center;
+    }
+    .delivery-card-content{
+      flex-direction: column-reverse;
+      gap: 10px;
     }
 }

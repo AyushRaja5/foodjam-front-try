@@ -47,8 +47,7 @@ export const ProductCard = ({ product, quantity }) => {
       </Link>
 
       <div className='saved-productinfo'>
-        {truncateText(product.text, 30) || truncateText(product.name, 30)}
-      </div>
+        <span className='product-text'>{truncateText(product.text, 50) || truncateText(product.name, 50)}</span>
       <span className='bottom-text'>
         <div className='saved-product-price'>
           &#8377;{product.price}
@@ -82,6 +81,7 @@ export const ProductCard = ({ product, quantity }) => {
           }
         </div>
       </span>
+      </div>
     </div>
   );
 };

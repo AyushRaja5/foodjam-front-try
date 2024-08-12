@@ -142,7 +142,7 @@ const CategoriesPage = () => {
 
 export default CategoriesPage
 
-const HorozontalProduct = ({ product, cartLoading, quantity, responseMessage, handleAddToCart, handleQuantityChange }) => {
+const HorozontalProduct2 = ({ product, cartLoading, quantity, responseMessage, handleAddToCart, handleQuantityChange }) => {
     const [screenWidth, setScreenWidth] = useState(window.innerWidth);
 
     useEffect(() => {
@@ -214,3 +214,90 @@ const HorozontalProduct = ({ product, cartLoading, quantity, responseMessage, ha
         </Link>
     )
 }
+export const HorozontalProduct = ({ product, cartLoading, quantity, responseMessage, handleAddToCart, handleQuantityChange }) => {
+    const [screenWidth, setScreenWidth] = useState(window.innerWidth);
+
+    useEffect(() => {
+        const handleResize = () => {
+            setScreenWidth(window.innerWidth);
+        };
+
+        window.addEventListener('resize', handleResize);
+        return () => {
+            window.removeEventListener('resize', handleResize);
+        };
+    }, []);
+
+    const truncateText = (text, maxLength) => {
+        if (text?.length > maxLength) {
+            return text.substring(0, maxLength) + '...';
+        }
+        return text;
+    };
+
+    const calculateDiscount = (originalPrice, specialPrice) => {
+        const discount = ((originalPrice - specialPrice) / originalPrice) * 100;
+        return Math.round(discount); // Rounding to the nearest whole number
+    };
+
+    const textMaxLength = screenWidth > 750 ? 30 : 20;
+
+    return (
+        <div className='link-shop-brand'>
+            <div className='categories-product-container'>
+                {product.special_price && (
+                    <div className='discount-badge'>
+                        {product.offer || calculateDiscount(product.product_price, product.special_price)}% OFF
+                    </div>
+                )}
+                <div className='product-image-container'>
+                    <img src={product.product_image} alt='Product' className='product-image' />
+                </div>
+                <div className='categories-product-details'>
+                    <Link to={`/product/${product.product_id}`} className='product-name'>
+                        {truncateText(product.product_name, textMaxLength)}
+                    </Link>
+                    <div className='product-brand'>
+                        {product.manufacturer_name || 'Restaurant Mamih'}
+                    </div>
+                    <div className='product-price-container'>
+                        <span className='product-price'>&#8377; {product.special_price || product.product_price}</span>
+                        {product.special_price && <span className='original-price'>&#8377; {product.product_price}</span>}
+                    </div>
+                    <div className='categories-product-price-add-btn'>
+                        <div>
+                            {quantity ?
+                                <div className="categories-product-qty">
+                                    <ButtonGroup>
+                                        <Button
+                                            className='quantity-btn'
+                                            aria-label="reduce"
+                                            sx={{ borderRadius: '10px' }}
+                                            onClick={() => handleQuantityChange(product.product_id, parseInt(quantity || product.quantity) - 1)}
+                                        >
+                                            <RemoveIcon fontSize="small" />
+                                        </Button>
+                                        <Button className='quantity-btn' sx={{ borderLeft: 'none', borderRight: 'none' }}>{cartLoading ? <CircularProgress size={15} color='primary' sx={{ display: 'flex', textAlign: 'center' }} /> : parseInt(quantity || product.quantity)}</Button>
+                                        <Button
+                                            className='quantity-btn'
+                                            sx={{ borderLeft: 'none', borderRadius: '10px' }}
+                                            aria-label="increase"
+                                            onClick={() => handleQuantityChange(product.product_id, parseInt(quantity || product.quantity) + 1)}
+                                        >
+                                            <AddIcon fontSize="small" />
+                                        </Button>
+                                    </ButtonGroup>
+                                </div>
+                                : <button className='saved-product-add-button'
+                                    onClick={(e) => {
+                                        handleAddToCart(product);
+                                    }}> {cartLoading ? <CircularProgress size={15} color='primary' /> : 'Add'}</button>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    );
+};
+
