@@ -57,7 +57,16 @@ const DealsProducts = ({ variant, columns, heading, display_limit }) => {
                   />
                 </div>
                   <div className="dealProduct-brand-title">
-                    {formatBrandname(data.title,60) || ''}
+                    {formatBrandname(data.title,50) || ''}
+                    <br/>
+                    {data.offer ? (
+                      <div className='deal-product-price-old-price'>
+                        <span className="line-through"> &#8377; {data.price}</span>
+                        <span className="new-product-price"><strong> &#8377; {data.special}</strong></span>
+                      </div>
+                    ) : (
+                      <span className="new-product-price">&#8377; {data.price}</span>
+                    )}
                     <div className='view-shop-brand'>View</div>
                   </div>
             </Link>

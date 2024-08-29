@@ -16,7 +16,7 @@ const Notification = lazy(() => import('../screens/Notification/Notification'));
 const YourOrderDetail = lazy(() => import('../screens/Settings/Yourorders/YourOrderDetail'));
 const Cart = lazy(() => import('../screens/Cart/Cart'));
 const WithdrawBalance = lazy(() => import('../screens/Settings/Withdrawal/WithdrawBalance'));
-// const NotFound = lazy(() => import('../screens/NotFound/NotFound'));
+const NotFound = lazy(() => import('../screens/NotFound/NotFound'));
 const TopFoodJammers = lazy(() => import('../screens/TopFoodJammers/TopFoodJammers'));
 const BrandDetails = lazy(() => import('../components/BrandDetails/BrandDetails'));
 const Contests = lazy(() => import('../screens/Contests/Contests'));
@@ -49,7 +49,7 @@ const AppRoutes = () => {
       <Suspense fallback={<div>Loading...</div>}>
       <BreadcrumbsComponent/>
         <Routes>
-          <Route exact="true" path="/" element={<Explore />} />
+          <Route path="/" element={<Explore />} errorElement={<NotFound/>}/>
           <Route path="/explore" element={<Explore />} />
           <Route path="/shop" element={<FoodamStore />} />
           <Route path="/login" element={<Login />} />
@@ -98,7 +98,7 @@ const AppRoutes = () => {
           <Route path="/success" element={<SuccessFullPaidOrder />} />
           <Route path="/failed" element={<FailedPaidOrder />} />
           
-          <Route path="*" element={<Home />} />
+          <Route path="*" element={<NotFound />} />
         </Routes>
       </Suspense>
       <Footer />

@@ -15,9 +15,9 @@ import { GetUserProfilebyAccountIdService, EditUserProfileService } from '../../
 function* fetchUserProfileByAccountId(action) {
   try {
     const userParams = action.payload
-    const token = JSON.parse(localStorage.getItem('foodjam-user')).sessionToken;
-    const accountId = JSON.parse(localStorage.getItem('foodjam-user')).account_id;
-    const response = yield call(GetUserProfilebyAccountIdService, token, accountId, userParams);
+    const token = JSON.parse(localStorage.getItem('foodjam-user'))?.sessionToken || null;
+    const accountId = JSON.parse(localStorage.getItem('foodjam-user'))?.account_id || null;
+    const response = yield call(GetUserProfilebyAccountIdService, token , accountId, userParams);
 
     yield put(fetchUserProfileByAccountIdSuccess(response.data));
   } catch (error) {
@@ -26,8 +26,8 @@ function* fetchUserProfileByAccountId(action) {
 }
 
 function* saveEditProfile(action) {
-  const token = JSON.parse(localStorage.getItem('foodjam-user')).sessionToken;
-  const accountId = JSON.parse(localStorage.getItem('foodjam-user')).account_id;
+  const token = JSON.parse(localStorage.getItem('foodjam-user'))?.sessionToken;
+  const accountId = JSON.parse(localStorage.getItem('foodjam-user'))?.account_id;
   try {
     const response = yield call(EditUserProfileService, token, accountId, action.payload);
     yield put(saveEditProfileSuccess(response.data));

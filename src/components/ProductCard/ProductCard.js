@@ -9,7 +9,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { addToCartRequest, fetchCartProductsRequest, resetResponseMessage } from '../../redux/actions/cartActions';
 import { Link } from 'react-router-dom';
 import CloseIcon from '@mui/icons-material/Close';
-
+import OfferRibbon from '../../assets/imagespng/offer-ribbon.png'
 export const ProductCard = ({ product, quantity }) => {
   const dispatch = useDispatch();
   const { loading: cartLoading } = useSelector(state => state.cartProducts);
@@ -25,7 +25,7 @@ export const ProductCard = ({ product, quantity }) => {
       toast.error("Please login to add products")
     }
 
-    if(product.id)
+    if (product.id)
       dispatch(addToCartRequest(product?.id, "1"))
 
     else dispatch(addToCartRequest(product?.product_id, "1"))
@@ -41,46 +41,59 @@ export const ProductCard = ({ product, quantity }) => {
   };
 
   return (
-    <div className='product-card-container'>
+    <div className='product-card-container' >
+      {product.offer &&
+        <div className='offer-ribbon'>
+          <img src={OfferRibbon} alt='offer ribbon' />
+          <span className='product-card-offer'>10% off</span>
+        </div>
+      }
       <Link to={`/product/${product?.product_id}`} className='link-product-detail'>
         <img src={`${product.thumb}`} alt='Product Thumbnail' className='product-image' />
       </Link>
 
       <div className='saved-productinfo'>
         <span className='product-text'>{truncateText(product.text, 50) || truncateText(product.name, 50)}</span>
-      <span className='bottom-text'>
-        <div className='saved-product-price'>
-          &#8377;{product.price}
+        <span className='bottom-text'>
+          <div className='saved-product-price'>
+            {product.offer ? (
+              <div className='price-old-price'>
+               <span className="line-through"> &#8377; {product.price}</span>
+               <span><strong> &#8377; {product.special}</strong></span>
+              </div>
+            ) : (
+              <span>&#8377; {product.price}</span>
+            )}
 
-          {quantity || product?.quantity ?
-            <div className="product-price">
-              <ButtonGroup>
-                <Button
-                  className='quantity-btn'
-                  aria-label="reduce"
-                  sx={{ borderRadius: '10px' }}
-                  onClick={() => handleQuantityChange(product.product_id || product.id, parseInt(quantity || product.quantity) - 1)}
-                >
-                  <RemoveIcon fontSize="small" />
-                </Button>
-                <Button className='quantity-btn' sx={{ borderLeft: 'none', borderRight: 'none' }}>{cartLoading ? <CircularProgress size={15} color='primary' sx={{ display: 'flex', textAlign: 'center' }} /> : parseInt(quantity || product.quantity)}</Button>
-                <Button
-                  className='quantity-btn'
-                  sx={{ borderLeft: 'none', borderRadius: '10px' }}
-                  aria-label="increase"
-                  onClick={() => handleQuantityChange(product.product_id || product.id, parseInt(quantity || product.quantity) + 1)}
-                >
-                  <AddIcon fontSize="small" />
-                </Button>
-              </ButtonGroup>
-            </div>
-            : <button className='saved-product-add-button'
-              onClick={(e) => {
-                handleAddToCart(product);
-              }}> {cartLoading ? <CircularProgress size={15} color='primary' /> : 'Add'}</button>
-          }
-        </div>
-      </span>
+            {quantity || product?.quantity ?
+              <div className="product-price">
+                <ButtonGroup>
+                  <Button
+                    className='quantity-btn'
+                    aria-label="reduce"
+                    sx={{ borderRadius: '10px' }}
+                    onClick={() => handleQuantityChange(product.product_id || product.id, parseInt(quantity || product.quantity) - 1)}
+                  >
+                    <RemoveIcon fontSize="small" />
+                  </Button>
+                  <Button className='quantity-btn' sx={{ borderLeft: 'none', borderRight: 'none' }}>{cartLoading ? <CircularProgress size={15} color='primary' sx={{ display: 'flex', textAlign: 'center' }} /> : parseInt(quantity || product.quantity)}</Button>
+                  <Button
+                    className='quantity-btn'
+                    sx={{ borderLeft: 'none', borderRadius: '10px' }}
+                    aria-label="increase"
+                    onClick={() => handleQuantityChange(product.product_id || product.id, parseInt(quantity || product.quantity) + 1)}
+                  >
+                    <AddIcon fontSize="small" />
+                  </Button>
+                </ButtonGroup>
+              </div>
+              : <button className='saved-product-add-button'
+                onClick={(e) => {
+                  handleAddToCart(product);
+                }}> {cartLoading ? <CircularProgress size={15} color='primary' /> : 'Add'}</button>
+            }
+          </div>
+        </span>
       </div>
     </div>
   );
@@ -140,7 +153,7 @@ export const StoreMyProductCard = ({ myProduct }) => {
             <CloseIcon />
           </IconButton>
           <div className='drawer-product-list'>
-          {myProduct?.products.map((product) => (
+            {myProduct?.products.map((product) => (
               <ProductCard product={product} key={product.id} quantity={getQuantityFromCart(product.id)} />
             ))}
           </div>

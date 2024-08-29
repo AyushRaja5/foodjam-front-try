@@ -1,11 +1,13 @@
 .explore-brands-container {
     display: flex;
-    justify-content: space-between; 
-    gap: 20px;
+    /* justify-content: space-between;  */
+    gap: 40px;
     flex-wrap: nowrap; 
     overflow-x: auto;
 }
-
+.curation-conatiner {
+    overflow-y: hidden;
+  }
 .explore-brands-container::-webkit-scrollbar {
     display: none; 
 }

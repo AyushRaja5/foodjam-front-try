@@ -11,7 +11,7 @@ const Brand = ({ variant, heading, columns, dataSource, limit }) => {
         {heading}
       </div>
 
-      <div className="explore-brands-container">
+      <div className="explore-brands-container curation-conatiner">
         {columns.map((data, index) => (
           <div key={index} className="explore-brand-card">
             <img

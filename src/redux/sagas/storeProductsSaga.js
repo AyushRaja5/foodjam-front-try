@@ -10,12 +10,17 @@ import { GetStoreMyproductService } from '../../services/Profile/Store';
 function* fetchStoreProducts(action) {
   try {
     const params = action.payload;
-    
-    const token = JSON.parse(localStorage.getItem('foodjam-user')).sessionToken;
-    const accountId = JSON.parse(localStorage.getItem('foodjam-user')).account_id;
-    const response = yield call(GetStoreMyproductService, token, accountId, params);
 
-    yield put(fetchStoreProductSuccess(response.data));
+    const token = JSON.parse(localStorage.getItem('foodjam-user'))?.sessionToken;
+    const accountId = JSON.parse(localStorage.getItem('foodjam-user'))?.account_id;
+    if (!token) {
+      const response = yield call(GetStoreMyproductService, null, null, params);
+      yield put(fetchStoreProductSuccess(response.data));
+    }
+    else {
+      const response = yield call(GetStoreMyproductService, token, accountId, params);
+      yield put(fetchStoreProductSuccess(response.data));
+    }
   } catch (error) {
     yield put(fetchStoreProductFailure(error));
   }

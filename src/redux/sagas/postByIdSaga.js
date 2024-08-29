@@ -11,8 +11,8 @@ function* fetchPostById(action) {
   try {
     const postparams = action.payload;
     
-    const token = JSON.parse(localStorage.getItem('foodjam-user')).sessionToken;
-    const accountId = JSON.parse(localStorage.getItem('foodjam-user')).account_id;
+    const token = JSON.parse(localStorage.getItem('foodjam-user'))?.sessionToken;
+    const accountId = JSON.parse(localStorage.getItem('foodjam-user'))?.account_id;
     const response = yield call(GetPostByIdService, token, accountId, postparams);
 
     yield put(fetchPostByIdSuccess(response.data));

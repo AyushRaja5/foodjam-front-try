@@ -36,7 +36,7 @@ function* fetchSingleCampaign(action) {
     const campaign = yield call(getSingleCampaigns, token, accountId, campaignId);
     yield put({ type: FETCH_SINGLE_CAMPAIGN_SUCCESS, payload: campaign });
   } catch (error) {
-    yield put({ type: FETCH_SINGLE_CAMPAIGN_FAILURE, payload: error.message });
+    yield put({ type: FETCH_SINGLE_CAMPAIGN_FAILURE, payload: error?.response?.data?.message });
   }
 }
 

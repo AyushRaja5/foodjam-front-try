@@ -23,7 +23,7 @@ import bronzeCupImg from '../../assets/imagespng/three.png';
 import profileUnknown from '../../assets/imagespng/unknown.png';
 import { Grid, IconButton, Typography } from '@mui/material';
 import { AddPhotoAlternate, Delete } from '@mui/icons-material';
-
+import NotAuthorized from '../../screens/NotAuthorized/NotAuthorized'
 dayjs.extend(utc);
 dayjs.extend(customParseFormat);
 
@@ -91,8 +91,13 @@ const CampaignDetail = () => {
       </Stack>
     </div>
   );
-  if (error) return <div variant="h6" color="error">Error: {error}</div>;
-  console.log(singleCampaign,'single campaign')
+  if (error) return (
+    <div variant="h6" color="error">
+      {toast.error(error)}
+      <NotAuthorized />
+    </div>);
+
+  console.log(singleCampaign,'single campaign', error, successMessage,'success mmessage')
   return (
     <Container className="campaign-detail-container">
       

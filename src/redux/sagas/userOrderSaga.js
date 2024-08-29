@@ -14,8 +14,8 @@ import { getUserOrders, getOrdersByOrderID } from '../../services/Profile/UserOr
 function* fetchUserOrdersSaga(action) {
   try {
     const params = action.payload;
-    const token = JSON.parse(localStorage.getItem('foodjam-user')).sessionToken;
-    const accountId = JSON.parse(localStorage.getItem('foodjam-user')).account_id;
+    const token = JSON.parse(localStorage.getItem('foodjam-user'))?.sessionToken;
+    const accountId = JSON.parse(localStorage.getItem('foodjam-user'))?.account_id;
     const response = yield call(getUserOrders, token, accountId, params);
     yield put(fetchUserOrdersSuccess(response.data));
 
@@ -27,8 +27,8 @@ function* fetchUserOrdersSaga(action) {
 function* fetchUserOrderByIdSaga(action) {
   try {
     const orderId = action.payload;
-    const token = JSON.parse(localStorage.getItem('foodjam-user')).sessionToken;
-    const accountId = JSON.parse(localStorage.getItem('foodjam-user')).account_id;
+    const token = JSON.parse(localStorage.getItem('foodjam-user'))?.sessionToken;
+    const accountId = JSON.parse(localStorage.getItem('foodjam-user'))?.account_id;
     const response = yield call(getOrdersByOrderID, token, accountId, orderId);
     yield put(fetchUserOrderByIdSuccess(response.data));
   } catch (error) {

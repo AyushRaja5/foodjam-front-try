@@ -2,6 +2,10 @@ import axios from 'axios';
 
 export const GetDashboardStatesService = async (token, accountId)  => {
     try {
+      if(!token){
+        const response = await axios.get('users/v2/users/stats');
+        return response.data;
+      }
       const response = await axios.get(
         'users/v2/users/stats',
         {
@@ -20,16 +24,22 @@ export const GetDashboardStatesService = async (token, accountId)  => {
   export const GetUserProfilebyAccountIdService = async (token, accountId, userparams)  => {
     const { account_id} = userparams;
     try {
-      const response = await axios.get(
-        `users/v2/user/profile?account_id=${account_id}`,
-        {
-          headers: {
-            'x-access-token': token,
-            'x-access-user': accountId,
-          },
-        }
-      );
-      return response.data;
+      if(!token || token === null){
+        const response = await axios.get(`users/v2/user/profile?account_id=${account_id}`);
+        return response.data;
+      }
+      else {
+        const response = await axios.get(
+          `users/v2/user/profile?account_id=${account_id}`,
+          {
+            headers: {
+              'x-access-token': token,
+              'x-access-user': accountId,
+            },
+          }
+        );
+        return response.data;
+      }
     } catch (error) {
       throw error;
     }

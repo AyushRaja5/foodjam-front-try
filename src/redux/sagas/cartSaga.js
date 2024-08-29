@@ -20,8 +20,8 @@ import {getUserCartService, addProductToCart, updateProductToCart, deleteProduct
 function* fetchCartProducts(action) {
   try {
     const params = action.payload;
-    const token = JSON.parse(localStorage.getItem('foodjam-user')).sessionToken;
-    const accountId = JSON.parse(localStorage.getItem('foodjam-user')).account_id;
+    const token = JSON.parse(localStorage.getItem('foodjam-user'))?.sessionToken;
+    const accountId = JSON.parse(localStorage.getItem('foodjam-user'))?.account_id;
     const response = yield call(getUserCartService, token, accountId, params);
     yield put(fetchCartProductsSuccess(response.data));
   } catch (error) {
@@ -32,8 +32,8 @@ function* fetchCartProducts(action) {
 function* addToCart(action) {
   try {
     const product = action.payload;
-    const token = JSON.parse(localStorage.getItem('foodjam-user')).sessionToken;
-    const accountId = JSON.parse(localStorage.getItem('foodjam-user')).account_id;
+    const token = JSON.parse(localStorage.getItem('foodjam-user'))?.sessionToken;
+    const accountId = JSON.parse(localStorage.getItem('foodjam-user'))?.account_id;
     const response = yield call(addProductToCart, token, accountId, product);
     yield put(addToCartSuccess(response.data));
   } catch (error) {
@@ -44,8 +44,8 @@ function* addToCart(action) {
 function* updateCartProduct(action) {
   try {
     const product = action.payload;
-    const token = JSON.parse(localStorage.getItem('foodjam-user')).sessionToken;
-    const accountId = JSON.parse(localStorage.getItem('foodjam-user')).account_id;
+    const token = JSON.parse(localStorage.getItem('foodjam-user'))?.sessionToken;
+    const accountId = JSON.parse(localStorage.getItem('foodjam-user'))?.account_id;
     const response = yield call(updateProductToCart, token, accountId, product);
     yield put(updateCartProductSuccess(response.data));
   } catch (error) {
@@ -56,8 +56,8 @@ function* updateCartProduct(action) {
 function* deleteCartProduct(action) {
   try {
     const productId = action.payload;
-    const token = JSON.parse(localStorage.getItem('foodjam-user')).sessionToken;
-    const accountId = JSON.parse(localStorage.getItem('foodjam-user')).account_id;
+    const token = JSON.parse(localStorage.getItem('foodjam-user'))?.sessionToken;
+    const accountId = JSON.parse(localStorage.getItem('foodjam-user'))?.account_id;
     const response = yield call(deleteProductFromCart, token, accountId, productId);
     yield put(deleteCartProductSuccess(response.data));
   } catch (error) {

@@ -24,8 +24,8 @@ import { addBankDetailsService, deleteBankDetailsService, getBankDetailsService,
 
 function* fetchBankUpiDetails() {
     try {
-      const token = JSON.parse(localStorage.getItem('foodjam-user')).sessionToken;
-      const accountId = JSON.parse(localStorage.getItem('foodjam-user')).account_id;
+      const token = JSON.parse(localStorage.getItem('foodjam-user'))?.sessionToken;
+      const accountId = JSON.parse(localStorage.getItem('foodjam-user'))?.account_id;
       const response = yield call(getBankDetailsService, token, accountId);
       yield put(fetchBankUpiDetailsSuccess(response.data));
     } catch (error) {
@@ -36,8 +36,8 @@ function* fetchBankUpiDetails() {
 function* addBankUpiDetails(action) {
   try {
     const bankDetail = action.payload;
-    const token = JSON.parse(localStorage.getItem('foodjam-user')).sessionToken;
-    const accountId = JSON.parse(localStorage.getItem('foodjam-user')).account_id;
+    const token = JSON.parse(localStorage.getItem('foodjam-user'))?.sessionToken;
+    const accountId = JSON.parse(localStorage.getItem('foodjam-user'))?.account_id;
     const response = yield call(addBankDetailsService, token, accountId, bankDetail);
     // console.log(response,'response')
     yield put(addBankUpiDetailsSuccess(response))
@@ -52,8 +52,8 @@ function* addBankUpiDetails(action) {
 function* deleteBankUpiDetails(action) {
   try {
     const bankDeleteDetail = action.payload;
-    const token = JSON.parse(localStorage.getItem('foodjam-user')).sessionToken;
-    const accountId = JSON.parse(localStorage.getItem('foodjam-user')).account_id;
+    const token = JSON.parse(localStorage.getItem('foodjam-user'))?.sessionToken;
+    const accountId = JSON.parse(localStorage.getItem('foodjam-user'))?.account_id;
     const response = yield call(deleteBankDetailsService, token, accountId, bankDeleteDetail);
     yield put(deleteBankUpiDetailsSuccess(response))
     yield put(fetchBankUpiDetailsRequest());
@@ -66,8 +66,8 @@ function* deleteBankUpiDetails(action) {
 function* fetchPayoutHistory(action) {
   try {
       const payoutHistory = action.payload;
-      const token = JSON.parse(localStorage.getItem('foodjam-user')).sessionToken;
-      const accountId = JSON.parse(localStorage.getItem('foodjam-user')).account_id;
+      const token = JSON.parse(localStorage.getItem('foodjam-user'))?.sessionToken;
+      const accountId = JSON.parse(localStorage.getItem('foodjam-user'))?.account_id;
       const response = yield call(getPayoutHistoryService, token, accountId, payoutHistory);
       yield put(fetchPayoutHistorySuccess(response.data));
   } catch (error) {
@@ -79,8 +79,8 @@ function* fetchPayoutHistory(action) {
 function* withdraw(action) {
   try {
     const withdrawDetail = action.payload;
-    const token = JSON.parse(localStorage.getItem('foodjam-user')).sessionToken;
-    const accountId = JSON.parse(localStorage.getItem('foodjam-user')).account_id;
+    const token = JSON.parse(localStorage.getItem('foodjam-user'))?.sessionToken;
+    const accountId = JSON.parse(localStorage.getItem('foodjam-user'))?.account_id;
     const response = yield call(
       withdrawDetail.mode === 'upi' ? withdrawFromUPIService : withdrawFromBankService,
       token,

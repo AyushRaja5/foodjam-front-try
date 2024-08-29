@@ -13,6 +13,7 @@ import emptyData from '../../assets/imagespng/empty-cart.png'
 import { PaymentProceedService } from '../../services/Cart/UserCart';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import NotAuthorized from '../NotAuthorized/NotAuthorized';
 const Cart = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate()
@@ -108,7 +109,12 @@ const Cart = () => {
   }
 
   if (cartProductsError) {
-    return <div className='error'>Error: {cartProductsError}</div>;
+    // return <div className='error'>Error: {cartProductsError}</div>;
+    return (
+      <div variant="h6" color="error">
+        {toast.error(cartProductsError)}
+        <NotAuthorized />
+      </div>);
   }
 
   if (addressesError) {

@@ -14,6 +14,7 @@ import Affliate from './Affliate/Affliate';
 import Leaderboard from './Leaderboard/Leaderboard';
 import ButtonsCard from './Buttons/Buttons';
 import { toast } from 'react-toastify';
+import NotFound from '../NotFound/NotFound';
 
 const Explore = () => {
   const dispatch = useDispatch();
@@ -55,7 +56,7 @@ const Explore = () => {
     </div>
   );
 
-  if (exploreError) return <div>Error: {exploreError}</div>;
+  if (exploreError) return <NotFound/>;
 
   const sortedRows = exploredata?.rows?.slice().sort((a, b) => a.sequence - b.sequence);
 

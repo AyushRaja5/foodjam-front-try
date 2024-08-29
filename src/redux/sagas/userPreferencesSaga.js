@@ -19,8 +19,8 @@ import { getUserPreferencesAPI, addUserPreferencesAPI } from '../../services/Pro
 
 function* fetchUserPreferences() {
   try {
-    const token = JSON.parse(localStorage.getItem('foodjam-user')).sessionToken;
-    const accountId = JSON.parse(localStorage.getItem('foodjam-user')).account_id;
+    const token = JSON.parse(localStorage.getItem('foodjam-user'))?.sessionToken;
+    const accountId = JSON.parse(localStorage.getItem('foodjam-user'))?.account_id;
     const response = yield call(getUserPreferencesAPI, token, accountId);
     // console.log(response.data?.preferences,' :response from saga')
     yield put(fetchUserPreferencesSuccess(response.data?.preferences));
@@ -32,8 +32,8 @@ function* fetchUserPreferences() {
 function* addUserPreferences(action) {
   try {
     const addressData = action.payload;
-    const token = JSON.parse(localStorage.getItem('foodjam-user')).sessionToken;
-    const accountId = JSON.parse(localStorage.getItem('foodjam-user')).account_id;
+    const token = JSON.parse(localStorage.getItem('foodjam-user'))?.sessionToken;
+    const accountId = JSON.parse(localStorage.getItem('foodjam-user'))?.account_id;
     const response = yield call(addUserPreferencesAPI, token, accountId, addressData);
     // console.log(response,'response')
     yield put(addUserPreferenceSuccess(response))

@@ -21,8 +21,8 @@ import { getUserAddressAPI, addUserAddressAPI, updateUserAddressAPI, deleteUserA
 function* fetchUserAddress(action) {
   try {
     const params = action.payload;
-    const token = JSON.parse(localStorage.getItem('foodjam-user')).sessionToken;
-    const accountId = JSON.parse(localStorage.getItem('foodjam-user')).account_id;
+    const token = JSON.parse(localStorage.getItem('foodjam-user'))?.sessionToken;
+    const accountId = JSON.parse(localStorage.getItem('foodjam-user'))?.account_id;
     const response = yield call(getUserAddressAPI, token, accountId, params);
     yield put(fetchUserAddresssSuccess(response.data.addresses));
   } catch (error) {
@@ -33,8 +33,8 @@ function* fetchUserAddress(action) {
 function* addUserAddress(action) {
   try {
     const addressData = action.payload;
-    const token = JSON.parse(localStorage.getItem('foodjam-user')).sessionToken;
-    const accountId = JSON.parse(localStorage.getItem('foodjam-user')).account_id;
+    const token = JSON.parse(localStorage.getItem('foodjam-user'))?.sessionToken;
+    const accountId = JSON.parse(localStorage.getItem('foodjam-user'))?.account_id;
     const response = yield call(addUserAddressAPI, token, accountId, addressData);
     console.log(response,'response')
     yield put(addUserAddressSuccess(response.data))
@@ -47,8 +47,8 @@ function* addUserAddress(action) {
 function* editUserAddress(action) {
   try {
     const { addressId, addressData } = action.payload;
-    const token = JSON.parse(localStorage.getItem('foodjam-user')).sessionToken;
-    const accountId = JSON.parse(localStorage.getItem('foodjam-user')).account_id;
+    const token = JSON.parse(localStorage.getItem('foodjam-user'))?.sessionToken;
+    const accountId = JSON.parse(localStorage.getItem('foodjam-user'))?.account_id;
     const response = yield call(updateUserAddressAPI, token, accountId, addressId, addressData);
     yield put(editUserAddressSuccess(response.data))
   } catch (error) {
@@ -59,8 +59,8 @@ function* editUserAddress(action) {
 function* deleteUserAddress(action) {
   try {
     const { addressId } = action.payload;
-    const token = JSON.parse(localStorage.getItem('foodjam-user')).sessionToken;
-    const accountId = JSON.parse(localStorage.getItem('foodjam-user')).account_id;
+    const token = JSON.parse(localStorage.getItem('foodjam-user'))?.sessionToken;
+    const accountId = JSON.parse(localStorage.getItem('foodjam-user'))?.account_id;
     const response = yield call(deleteUserAddressAPI, token, accountId, addressId);
     yield put(deleteUserAddressSuccess(response.data))
   } catch (error) {

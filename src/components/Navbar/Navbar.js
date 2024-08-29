@@ -63,7 +63,7 @@ const Navbar = () => {
     setLoggedUser(loggedUserFromStorage);
     
     if (loggedUserFromStorage) {
-      navigate(`/profile/${loggedUserFromStorage.account_id}/1`);
+      navigate(`/profile/${loggedUserFromStorage?.account_id}/1`);
       setShowOTPForm(false);
       setShowSignInMenu(false);
       setotpText('');

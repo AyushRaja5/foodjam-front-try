@@ -13,8 +13,8 @@ function* fetchSavedPosts(action) {
   try {
     const { limit, offset } = action.payload;
 
-    const token = JSON.parse(localStorage.getItem('foodjam-user')).sessionToken;
-    const accountId = JSON.parse(localStorage.getItem('foodjam-user')).account_id;
+    const token = JSON.parse(localStorage.getItem('foodjam-user'))?.sessionToken;
+    const accountId = JSON.parse(localStorage.getItem('foodjam-user'))?.account_id;
     const response = yield call(GetSavedPostProductByAccountIdService, token, accountId, action.payload);
 
     yield put(fetchSavedPostsSuccess(response.data));

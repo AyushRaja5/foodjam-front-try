@@ -11,8 +11,8 @@ import { getUserNotification } from '../../services/Profile/UserNotification';
 function* fetchUserNotificationsSaga(action) {
   try {
     const params = action.payload;
-    const token = JSON.parse(localStorage.getItem('foodjam-user')).sessionToken;
-    const accountId = JSON.parse(localStorage.getItem('foodjam-user')).account_id;
+    const token = JSON.parse(localStorage.getItem('foodjam-user'))?.sessionToken;
+    const accountId = JSON.parse(localStorage.getItem('foodjam-user'))?.account_id;
     const response = yield call(getUserNotification, token, accountId, params);
     yield put(fetchUserNotificationsSuccess(response.data));
 

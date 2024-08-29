@@ -93,7 +93,7 @@
     width: 100%;
     padding: 0 20px;
     position: absolute;
-    top: 65%;
+    top: 60%;
     left: 50%;
     transform: translate(-50%, -50%);
 }
@@ -184,7 +184,15 @@
     }
 
 }
-
+.deal-product-price-old-price{
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+}
+.new-product-price{
+    font-size: 20px;
+    font-weight: 600;
+}
 @media (max-width: 550px) {
     .dealProduct-card-container{
         height: 130px;

@@ -61,7 +61,7 @@ const BreadcrumbsComponent = () => {
   };
 
   const breadcrumbs = getBreadcrumbs();
-  console.log(breadcrumbs,'breadcrumbs')
+  // console.log(breadcrumbs,'breadcrumbs')
   return (
     <Breadcrumbs aria-label="breadcrumb">
       {breadcrumbs.map((breadcrumb, index) => (

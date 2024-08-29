@@ -1,0 +1,57 @@
+.not-found-container {
+    text-align: center;
+    padding: 20px 50px;
+    font-family: 'Arial, sans-serif';
+    color: #333;
+  }
+  
+  .not-found-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .logo {
+    font-size: 24px;
+    font-weight: bold;
+  }
+  
+  .not-found-nav a {
+    margin: 0 15px;
+    text-decoration: none;
+    color: #333;
+    font-weight: 500;
+  }
+  
+  .not-found-main {
+    margin-top: 30px;
+  }
+  
+  .not-found-main h1 {
+    font-size: 36px;
+    color: #ff6347; /* Adjust to match the image's color scheme */
+  }
+  
+  .not-found-main p {
+    font-size: 18px;
+    margin: 10px 20px;
+  }
+  
+  .illustration {
+    margin-top: 0;
+    /* Add styles for your illustration here */
+  }
+  
+  .back-to-home {
+    padding: 10px 20px;
+    background-color: #ff6347;
+    color: #fff;
+    border-radius: 5px;
+    text-decoration: none;
+    transition: background-color 0.3s;
+  }
+  
+  .back-to-home:hover {
+    background-color: #ff4500;
+  }
+  
