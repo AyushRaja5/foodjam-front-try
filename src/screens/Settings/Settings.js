@@ -25,6 +25,7 @@ import { toast } from 'react-toastify';
 import { deactivateAccount, deleteAccount } from '../../services/Profile/DeleteNDeactivate';
 import { useDispatch } from 'react-redux';
 import { clearAuthToken } from '../../redux/actions/authActions';
+import NotAuthorized from '../NotAuthorized/NotAuthorized';
 
 const Settings = () => {
   const dispatch = useDispatch();
@@ -152,6 +153,13 @@ const Settings = () => {
     }
   };
 
+  if(!userProfileData){
+    toast.error("Please Login to your account.")
+      return (
+        <div color="error">
+          <NotAuthorized />
+        </div>);
+    }
   return (
     <div className='setting-container'>
       <div className='profile-component'>

@@ -5,6 +5,8 @@ import { fetchUserNotificationsRequest } from '../../redux/actions/userNotificat
 import { Skeleton, Stack } from '@mui/material';
 import placeholderprofile from '../../assets/imagespng/placeholder.png'
 import { Link } from 'react-router-dom';
+import NotAuthorized from '../NotAuthorized/NotAuthorized';
+import { toast } from 'react-toastify';
 const Notification = () => {
   const dispatch = useDispatch();
   const notifications = useSelector(state => state.userNotification.usernotification);
@@ -26,7 +28,13 @@ const Notification = () => {
     </div>
   );
 
-  if (error) return <div>Error: {error}</div>;
+  if (error) {
+    return (
+      <div variant="h6" color="error">
+        {toast.error(error.response.data.message)}
+        <NotAuthorized />
+      </div>);
+  }
 
   const getTimeDifference = (createdAt) => {
     const timeDiffInDays = Math.floor((Date.now() - new Date(createdAt)) / (1000 * 60 * 60 * 24));

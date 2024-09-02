@@ -49,7 +49,7 @@ const AppRoutes = () => {
       <Suspense fallback={<div>Loading...</div>}>
       <BreadcrumbsComponent/>
         <Routes>
-          <Route path="/" element={<Explore />} errorElement={<NotFound/>}/>
+          <Route path="/" element={<Home />} errorElement={<NotFound/>}/>
           <Route path="/explore" element={<Explore />} />
           <Route path="/shop" element={<FoodamStore />} />
           <Route path="/login" element={<Login />} />

@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useRef } from 'react';
 import { Link, useLocation, useNavigate, useParams } from 'react-router-dom';
-import { List, ListItem, ListItemText, Popover, DialogActions, DialogContent, DialogContentText, DialogTitle, Button, Dialog, Stack, Skeleton } from '@mui/material';
+import { List, ListItem, ListItemText, Popover, DialogActions, DialogContent, DialogContentText, DialogTitle, Button, Dialog, Stack, Skeleton, TextField, InputAdornment } from '@mui/material';
 import './Navbar.css';
 import FJLogo from '../../assets/imagessvg/foodjamLogo.svg';
 import FJ from '../../assets/imagessvg/fj.svg';
@@ -23,12 +23,13 @@ import cartimg from '../../assets/imagespng/cart.png'
 import settingsimg from '../../assets/imagespng/setting.png'
 import Cartimg from '../../assets/imagespng/cart.png'
 import { NotificationsActive, ShoppingCart } from '@mui/icons-material';
+import SimpleSnackbar from '../Snackbar/Snackbar';
 const Navbar = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(!!localStorage.getItem('foodjam-user'));
   const [loginOrSignUp, setLoginOrSignUp] = useState('Login');
   const [showOTPForm, setShowOTPForm] = useState(false);
   const [showSignInMenu, setShowSignInMenu] = useState(false);
-  const [loginNumber, setLoginNumber] = useState('+91');
+  const [loginNumber, setLoginNumber] = useState('');
   const [signupNumber, setsignupNumber] = useState('');
   const [signupName, setsignupName] = useState('');
   const [signupEmail, setsignupEmail] = useState('');
@@ -119,8 +120,7 @@ const Navbar = () => {
   const handleLoginSubmit = (event) => {
     event.preventDefault();
     const login_type = 'phone';
-    const phone = loginNumber.replace('+91', '');
-    LoginUser({ login_type, phone: phone })
+    LoginUser({ login_type, phone: loginNumber })
       .then((response) => {
         toast.success(response.message);
         setShowOTPForm(true);
@@ -304,6 +304,7 @@ const Navbar = () => {
           }
         </div>
       </div>
+      {/* <SimpleSnackbar /> */}
 
       <Dialog
         open={logoutDialogOpen}
@@ -332,10 +333,18 @@ const Navbar = () => {
           !showOTPForm ? (
             <form onSubmit={handleLoginSubmit}>
               <div className="form-group">
-                <input type="tel" tabIndex="1" maxLength="13" autoComplete="off" placeholder="Phone Number" value={loginNumber} onChange={(e) => setLoginNumber(e.target.value)} required />
+                <TextField type="tel" tabIndex="1" maxLength="10" 
+                InputProps={{
+                  startAdornment: (
+                      <InputAdornment position="start">
+                          +91
+                      </InputAdornment>
+                  ),
+              }}
+              autoComplete="off" placeholder="Phone Number" value={loginNumber} onChange={(e) => setLoginNumber(e.target.value)} required  className="phone-input"/>
               </div>
               <button type="submit">Login</button>
-              <div className='tnc-login'>By clicking on Login, I accept the Terms & Conditions & Privacy Policy</div>
+              <div className='tnc-login'>By clicking on Login, I accept the <strong><Link to='/term-condition'> Terms & Conditions & Privacy Policy</Link></strong></div>
             </form>
           ) : (
             <form onSubmit={handleOTPSubmit}>

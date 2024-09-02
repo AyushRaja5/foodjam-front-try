@@ -17,11 +17,11 @@ const Leaderboard = ({ heading, columns, handleFollow }) => {
       <h2 className="top-list-title">Top Foodjamers of the Month</h2>
       <div className="list-style">
         {sortarr.map((item, index) => (
-          <div key={item.id} className="user-btn">
+          <div key={index} className="user-btn">
             <div
               className={`users-profile-btn ${index === 2 ? 'sub-img' : ''} ${index === 0 ? 'first-img' : ''}`}
               style={{
-                backgroundImage: `url(${item.profile_picture ? (item.profile_picture.includes('https') ? item.profile_picture : media + item.profile_picture) : userPlaceholder})`
+                backgroundImage: `url(${item?.profile_picture ? (item.profile_picture?.includes('https') ? item.profile_picture : media + item.profile_picture) : userPlaceholder})`
               }}
             >
               <div className="users-profile-label">
