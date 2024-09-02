@@ -136,7 +136,7 @@
 @media (max-width: 750px) {
     .withdraw-balance-container {
         padding: 10px;
-        margin-bottom: 60px;
+        margin-bottom: 30px;
     }
     .withdraw-balance-container .bank-detail-card {
         flex: 1 1 100%;

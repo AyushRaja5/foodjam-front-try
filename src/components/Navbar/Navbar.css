@@ -246,7 +246,11 @@ form button{
   display: flex;
   gap: 15px;
 }
-
+.mobile-header .fj-logo{
+  width: 100px;
+  height: auto;
+  margin-left: 50px;
+}
 .mobile-header .mobile-icons img{
   width: 22px;
   height: 22px;
@@ -265,7 +269,8 @@ form button{
 
 @media screen and (max-width: 750px) {
   .signin-menu {
-    width: 350px;
+    /* width: 350px; */
+    width: 100%;
   }
   .nav-bar-container{
     height: 60px;

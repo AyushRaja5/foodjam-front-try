@@ -242,8 +242,8 @@
         align-items: center;
         gap: 7px;
         padding: 5px 10px;
-        height: 110px;
-        width: 200px;
+        height: 130px;
+        width: 220px;
         position: relative;
         border-radius: 10px;
         box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
@@ -295,5 +295,27 @@
         height: 25px;
         padding: 5px;
         font-size: 10px;
+    }
+  }
+
+  @media screen and (max-width: 550px) {
+    .product-image-container .product-image {
+        width: 80px;
+        height: 80px;
+        border-radius: 50%;
+    }
+    .categories-product-price-add-btn .saved-product-add-button {
+        background-color: transparent;
+        border: 1px solid #f8a003;
+        color: #f8a003;
+        padding: 0px 10px;
+        border-radius: 5px;
+    }
+    .categories-product-container .categories-product-details {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        padding: 10px 0;
+        width: 55%;
     }
   }

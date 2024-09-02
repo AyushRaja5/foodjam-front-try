@@ -29,9 +29,9 @@ const Notification = () => {
   );
 
   if (error) {
+    { toast.error(error.response.data.message) }
     return (
       <div variant="h6" color="error">
-        {toast.error(error.response.data.message)}
         <NotAuthorized />
       </div>);
   }
@@ -50,19 +50,19 @@ const Notification = () => {
     <div className='userNotification'>
       {notifications?.map((notice) => (
         <Link to={`/profile/${notice?.account_id}/3`} className='linkuserNotificationToDoor'>
-        <div className="notification" >
-        <div className="profile-picture">
-          <img src={notice.profile_picture ? `${cdnBaseURL}${notice.profile_picture }` : placeholderprofile} alt={`${notice.first_name}'s profile`} />
-        </div>
-        <div className="message">
-          {notice.text}
-        </div>
-        <div className="date">
-            {getTimeDifference(notice.created_at)}
-            <div><strong>{notice.first_name}</strong></div>
-        </div>
-      </div>
-      </Link>
+          <div className="notification" >
+            <div className="profile-picture">
+              <img src={notice.profile_picture ? `${cdnBaseURL}${notice.profile_picture}` : placeholderprofile} alt={`${notice.first_name}'s profile`} />
+            </div>
+            <div className="message">
+              {notice.text}
+            </div>
+            <div className="date">
+              {getTimeDifference(notice.created_at)}
+              <div><strong>{notice.first_name}</strong></div>
+            </div>
+          </div>
+        </Link>
       ))}
     </div>
   )

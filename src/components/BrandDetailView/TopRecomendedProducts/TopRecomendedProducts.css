@@ -87,7 +87,7 @@
   @media screen and (max-width: 750px) {
     .product-card-container, .myproduct-card-container {
       display: flex;
-      height: 200px;
+      height: 220px;
       width: 150px;
       
       position: relative;

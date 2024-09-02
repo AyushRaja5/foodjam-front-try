@@ -57,6 +57,11 @@ const BrandDetails = () => {
                     </div>
                 </div>
 
+                <div className='brand-description'>
+                    <strong>About</strong>
+                    <div className='campaign-detail-long-info' dangerouslySetInnerHTML={{ __html: brandData?.description }} />
+                </div>
+
                 <div className='brand-image-container'>
                     <img src={brandData.images} alt={`${brandData.name}`} className='brand-image' />
                 </div>
@@ -66,10 +71,6 @@ const BrandDetails = () => {
                 {brandData.top_videos.length > 0 && <ExploreVideos columns={brandData.top_videos} heading='Top Videos' />}
                 {brandData.other_brands.length > 0 && <OtherBrands columns={brandData.other_brands} heading='Other brands' />}
                 
-                <div className='brand-description'>
-                    <strong>About</strong>
-                    <div className='campaign-detail-long-info' dangerouslySetInnerHTML={{ __html: brandData?.description }} />
-                </div>
             </div>
         ) : (
             <div className='no-data'>No brand data available</div>

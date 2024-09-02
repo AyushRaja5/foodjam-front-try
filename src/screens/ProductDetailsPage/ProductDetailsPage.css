@@ -112,12 +112,55 @@
     font-weight: 500;
     align-items: center;
 }
+.custom-bookmark-icon {
+  color: #f8a003;
+  font-size: 2rem; /* Adjust the size as needed */
+}
+.offer-text {
+  width : max-content;
+  background: linear-gradient(#ff6f00, #ff8f00);
+  color: white; 
+  font-weight: bold; 
+  padding: 8px 16px; 
+  border-radius: 20px; 
+  font-size: 1.1rem; 
+  text-transform: uppercase; 
+  letter-spacing: 1px; 
+  display: inline-block;  
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); 
+  animation: pulse 2s infinite; 
+}
+
+/* Keyframes for the pulse animation */
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+
 .shop-product-price-quantity{
     display: flex;
     justify-content: space-between;
     align-items: center;
     font-size: 28px;
     font-weight: 600;
+}
+.shop-product-price-quantity .price-old-price{
+  display: flex;
+  gap: 15px;
+  flex-direction: row;
+  justify-content: center;
+  align-items:end;
+}
+.shop-product-price-quantity .line-through{
+  font-size: 20px;
 }
 
 .product-add-to-cart-bookmark-section button{
@@ -259,5 +302,40 @@
       padding: 0px 10px;
       border-radius: 5px;
     }  
+  }
+  
+
+  .support-card {
+    display: flex;
+    align-items: center;
+    background-color: #fff4e1; /* Light orange background */
+    padding: 16px;
+    border-radius: 8px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  }
+  
+  .support-icon {
+    color: #f5b65b;
+    margin-right: 16px;
+    padding: 10px;
+    background-color: white;
+    border-radius: 50%;
+  }
+  
+  .support-text p {
+    margin: 10px;
+    color: #333; /* Default text color */
+    font-size: 1rem;
+  }
+  
+  .support-text strong {
+    font-size: 1.1rem;
+    color: #333; /* Text color for the bold part */
+  }
+  
+  .support-email {
+    color: #f2941b; /* Orange color for the email */
+    font-weight: bold;
+    margin-left: 10px;
   }
   

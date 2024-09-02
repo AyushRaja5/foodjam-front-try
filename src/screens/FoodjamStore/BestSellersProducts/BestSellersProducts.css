@@ -118,13 +118,13 @@
         width: 150px;
         position: relative;
     }
-    .best-sellers-container {
+    /* .best-sellers-container {
         display: grid;
         grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
         gap: 10px;
         justify-items: center;
         text-align: center;
-    }
+    } */
     .best-sellers-text-wrapper{
         padding: 10px;
     }

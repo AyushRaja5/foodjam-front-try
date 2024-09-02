@@ -292,6 +292,7 @@ const Navbar = () => {
 
       <div className="mobile-header">
         <div className="page-name">{getPageName()}</div>
+        {getPageName().length < 10  && <img src={FJLogo} className='fj-logo'/>}
         <div className="mobile-icons">
           <img src={SearchIcon} alt='search' />
           <Link to={`/notifications`}><img src={notificationimg} alt='bell' /></Link>

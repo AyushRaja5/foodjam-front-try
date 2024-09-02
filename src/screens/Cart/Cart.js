@@ -110,9 +110,9 @@ const Cart = () => {
 
   if (cartProductsError) {
     // return <div className='error'>Error: {cartProductsError}</div>;
+    { toast.error(cartProductsError) }
     return (
       <div variant="h6" color="error">
-        {toast.error(cartProductsError)}
         <NotAuthorized />
       </div>);
   }
@@ -121,7 +121,7 @@ const Cart = () => {
     return <div className='error'>Error: {addressesError}</div>;
   }
 
-  const handlePayment = async(addressObj) => {
+  const handlePayment = async (addressObj) => {
     let orderObj = {
       address_id: addressObj.address_id,
       shipping_address: {
@@ -148,7 +148,7 @@ const Cart = () => {
       return;
     }
 
-    try{
+    try {
       const response = await PaymentProceedService(token, accountId, orderObj)
       console.log(response)
       if (response.success) { // Open payment URL in the same tab
@@ -156,7 +156,7 @@ const Cart = () => {
           window.open(response.data.payment_url, '_self');
           const paymentCheckResponse = callback(response.data.payment_url);
           setPaymentstatusRazorpay(paymentCheckResponse)
-          console.log(paymentCheckResponse,'paymentcheck response')
+          console.log(paymentCheckResponse, 'paymentcheck response')
           if (paymentCheckResponse) {
             toast.success('Payment made successfully');
             console.log(paymentCheckResponse)
@@ -168,12 +168,12 @@ const Cart = () => {
         toast.error(response.message || "Order failed.");
       }
     }
-    catch(error){
+    catch (error) {
       console.log(error)
     }
     // console.log(orderObj,'order Obj')
   }
-  console.log(paymentstatusRazorpay,'payment status razorpay')
+  console.log(paymentstatusRazorpay, 'payment status razorpay')
   return (
     <>
       {!cartProductsLoading && (
@@ -183,44 +183,44 @@ const Cart = () => {
               <div className='empty-cart'>
                 <img src={emptyData} alt="Empty Cart" />
               </div> */}
-              <div className='order-products'>
-                {localCartProducts.map((product, index) => (
-                  <React.Fragment key={index}>
-                    <div className="product-item">
-                      <img src={product.thumb} alt={product.name} />
-                      <div className="product-info">
-                        <span>{product.name}</span>
-                        <div className='product-total'><strong>&#8377; {product.price * product.quantity}</strong></div>
-                      </div>
-                      <div className="product-price">
-                        <ButtonGroup>
-                          <Button
-                            className='quantity-btn'
-                            aria-label="reduce"
-                            sx={{ borderRadius: '10px' }}
-                            onClick={() => handleQuantityChange(product.cart_id, parseInt(product.quantity) - 1)}
-                          // disabled={parseInt(product.quantity) <= parseInt(product.minimum_quantity)}
-                          >
-                            <RemoveIcon fontSize="small" />
-                          </Button>
-                          <Button className='quantity-btn' sx={{ borderLeft: 'none', borderRight: 'none' }}>{parseInt(product.quantity)}</Button>
-                          <Button
-                            className='quantity-btn'
-                            sx={{ borderLeft: 'none', borderRadius: '10px' }}
-                            aria-label="increase"
-                            onClick={() => handleQuantityChange(product.cart_id, parseInt(product.quantity) + 1)}
-                          >
-                            <AddIcon fontSize="small" />
-                          </Button>
-                        </ButtonGroup>
-                      </div>
+            <div className='order-products'>
+              {localCartProducts.map((product, index) => (
+                <React.Fragment key={index}>
+                  <div className="product-item">
+                    <img src={product.thumb} alt={product.name} />
+                    <div className="product-info">
+                      <span>{product.name}</span>
+                      <div className='product-total'><strong>&#8377; {product.price * product.quantity}</strong></div>
                     </div>
-                    {index !== localCartProducts.length - 1 && (
-                      <Divider sx={{ marginLeft: '20px', borderWidth: '1px', color: 'red' }} variant="fullWidth" flexItem />
-                    )}
-                  </React.Fragment>
-                ))}
-              </div>
+                    <div className="product-price">
+                      <ButtonGroup>
+                        <Button
+                          className='quantity-btn'
+                          aria-label="reduce"
+                          sx={{ borderRadius: '10px' }}
+                          onClick={() => handleQuantityChange(product.cart_id, parseInt(product.quantity) - 1)}
+                        // disabled={parseInt(product.quantity) <= parseInt(product.minimum_quantity)}
+                        >
+                          <RemoveIcon fontSize="small" />
+                        </Button>
+                        <Button className='quantity-btn' sx={{ borderLeft: 'none', borderRight: 'none' }}>{parseInt(product.quantity)}</Button>
+                        <Button
+                          className='quantity-btn'
+                          sx={{ borderLeft: 'none', borderRadius: '10px' }}
+                          aria-label="increase"
+                          onClick={() => handleQuantityChange(product.cart_id, parseInt(product.quantity) + 1)}
+                        >
+                          <AddIcon fontSize="small" />
+                        </Button>
+                      </ButtonGroup>
+                    </div>
+                  </div>
+                  {index !== localCartProducts.length - 1 && (
+                    <Divider sx={{ marginLeft: '20px', borderWidth: '1px', color: 'red' }} variant="fullWidth" flexItem />
+                  )}
+                </React.Fragment>
+              ))}
+            </div>
           </div>
           <Divider sx={{ borderWidth: '1px', color: 'red' }} orientation="vertical" variant="fullWidth" flexItem />
 
@@ -328,36 +328,36 @@ const Cart = () => {
       </Dialog>
 
       <Dialog open={couponDialogOpen} onClose={handleCouponDialogClose} maxWidth="sm" fullWidth>
-      <DialogTitle>Apply Coupon Code</DialogTitle>
-      <DialogContent dividers>
-        <Typography variant="body1" gutterBottom>
-          Enter your coupon code below to receive a discount on your purchase.
-        </Typography>
-        <Box display="flex" alignItems="center">
-          <TextField
-            margin="normal"
-            label="Coupon Code"
-            fullWidth
-            variant="outlined"
-            value={couponCode}
-            onChange={handleCouponChange}
-          />
-          <Button 
-            onClick={handleApplyCoupon} 
-            color="primary" 
-            variant="contained" 
-            style={{ marginLeft: '8px', height: '56px' }} // Match the height of the TextField
-          >
-            Apply
+        <DialogTitle>Apply Coupon Code</DialogTitle>
+        <DialogContent dividers>
+          <Typography variant="body1" gutterBottom>
+            Enter your coupon code below to receive a discount on your purchase.
+          </Typography>
+          <Box display="flex" alignItems="center">
+            <TextField
+              margin="normal"
+              label="Coupon Code"
+              fullWidth
+              variant="outlined"
+              value={couponCode}
+              onChange={handleCouponChange}
+            />
+            <Button
+              onClick={handleApplyCoupon}
+              color="primary"
+              variant="contained"
+              style={{ marginLeft: '8px', height: '56px' }} // Match the height of the TextField
+            >
+              Apply
+            </Button>
+          </Box>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleCouponDialogClose} color="secondary" variant="outlined">
+            Cancel
           </Button>
-        </Box>
-      </DialogContent>
-      <DialogActions>
-        <Button onClick={handleCouponDialogClose} color="secondary" variant="outlined">
-          Cancel
-        </Button>
-      </DialogActions>
-    </Dialog>
+        </DialogActions>
+      </Dialog>
     </>
   );
 };

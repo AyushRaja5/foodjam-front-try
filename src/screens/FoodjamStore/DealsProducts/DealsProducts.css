@@ -177,6 +177,7 @@
         color: white;
         text-align: left;
         text-decoration: underline;
+        margin-top: 5px;
     }
 
     .scroll-container:hover .scroll-btn {
@@ -195,12 +196,15 @@
 }
 @media (max-width: 550px) {
     .dealProduct-card-container{
-        height: 130px;
-        width: 100px;
+        height: 150px;
+        width: 130px;
     }
     .dealProduct-image-container {
         height: 60px;
         width: 60px;
+    }
+    .new-product-price {
+        font-size: 18px;
     }
     .brand-img {
         width: 60px;

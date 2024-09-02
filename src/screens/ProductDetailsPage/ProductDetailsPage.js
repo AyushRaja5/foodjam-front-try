@@ -18,12 +18,14 @@ import RemoveIcon from '@mui/icons-material/Remove';
 import AddIcon from '@mui/icons-material/Add';
 import { addToCartRequest } from '../../redux/actions/cartActions';
 import CloseIcon from '@mui/icons-material/Close';
-
+import BookmarkBorderIcon from '@mui/icons-material/BookmarkBorder';
+import mailIcon from '../../assets/imagespng/mailIcon.png';
+import { MailLockOutlined } from '@mui/icons-material';
 const ProductDetailsPage = () => {
   const { productId } = useParams();
   const dispatch = useDispatch();
   const { product, loading, error } = useSelector(state => state.productData);
-  const {cartproducts, responseMessage, loading: cartLoading } = useSelector(state => state.cartProducts);
+  const { cartproducts, responseMessage, loading: cartLoading } = useSelector(state => state.cartProducts);
 
   useEffect(() => {
     dispatch(fetchSingleProductRequest(productId));
@@ -78,7 +80,7 @@ const ProductDetailsPage = () => {
     <div className='product-details-container'>
       {product && (
         <ProductDetails
-          data={product.data}
+          data={product?.data}
           handleAddToCart={handleAddToCart}
           handleQuantityChange={handleQuantityChange}
           cartproducts={cartproducts}
@@ -98,10 +100,13 @@ const ProductDetails = ({ data, handleAddToCart, handleQuantityChange, cartprodu
     quantity,
     stock,
     images,
-    similar_products
+    similar_products,
+    offer,
+    special
   } = data;
-
+  console.log(data,'data:')
   const CancellationPolicy = "Once the payment for your order is complete, the order cannot be cancelled.";
+  const RefundPolicy = "This product cannot be returned, but incase you receive the product that is physicall damaged, has missing parts or accessries, defective or different from the description, \n Please reach out to our support team.";
 
   const getQuantityFromCart = (productId) => {
     const availableProduct = cartproducts?.products?.find(product => product.product_id == productId);
@@ -140,12 +145,12 @@ const ProductDetails = ({ data, handleAddToCart, handleQuantityChange, cartprodu
         <div className='orderButton-div-web'>
           {quantity > 0 ? (
             <div className='product-view-cart-bookmark-section'>
-              <span className='product-bookmark'>Book</span>
+              <span className='product-bookmark'><BookmarkBorderIcon className="custom-bookmark-icon" /></span>
               <Link to='/cart'><Button>View Cart</Button></Link>
             </div>
           ) : (
             <div className='product-add-to-cart-bookmark-section'>
-              <span className='product-bookmark'>Book</span>
+              <span className='product-bookmark'><BookmarkBorderIcon className="custom-bookmark-icon" fontSize='5px' /></span>
               <Button onClick={() => handleAddToCart(data)}>Add to Cart</Button>
             </div>
           )}
@@ -154,12 +159,12 @@ const ProductDetails = ({ data, handleAddToCart, handleQuantityChange, cartprodu
 
       <Dialog open={open} onClose={handleClose} maxWidth="md" fullWidth>
         <DialogContent
-         sx={{
-          padding: 0,
-          "&::-webkit-scrollbar": {
-            display: "none"
-          }
-        }}>
+          sx={{
+            padding: 0,
+            "&::-webkit-scrollbar": {
+              display: "none"
+            }
+          }}>
           <IconButton
             aria-label="close"
             onClick={handleClose}
@@ -178,9 +183,18 @@ const ProductDetails = ({ data, handleAddToCart, handleQuantityChange, cartprodu
 
       <div className="product-info">
         <h2>{heading_title}</h2>
-
+        {offer && <span className="offer-text">{offer || '10 % off'}</span>}
         <div className='shop-product-price-quantity'>
-          <div className='product-price'>&#8377; {price}</div>
+          <div className='product-price'>
+          {offer ? (
+              <div className='price-old-price'>
+               <span className="line-through"> &#8377; {price}</span>
+               <span><strong> &#8377; {price}</strong></span>
+              </div>
+            ) : (
+              <span>&#8377; {price}</span>
+            )}
+          </div>
           <div className='shop-product-quantity'>
             {quantity > 0 ? (
               <ButtonGroup>
@@ -243,6 +257,29 @@ const ProductDetails = ({ data, handleAddToCart, handleQuantityChange, cartprodu
               <Typography>{CancellationPolicy}</Typography>
             </AccordionDetails>
           </Accordion>
+
+          <Accordion expanded={expanded === 'panel4'} onChange={handleChange('panel4')}>
+            <AccordionSummary expandIcon={<ExpandMoreIcon />} aria-controls="panel4-content" id="panel4-header">
+              <Typography><strong>Refund Policy</strong></Typography>
+            </AccordionSummary>
+            <AccordionDetails>
+              <Typography>{RefundPolicy}</Typography>
+              <SupportCard />
+            </AccordionDetails>
+          </Accordion>
+
+          <Accordion expanded={expanded === 'panel5'} onChange={handleChange('panel5')}>
+            <AccordionSummary expandIcon={<ExpandMoreIcon />} aria-controls="panel5-content" id="panel5-header">
+              <Typography><strong>More from this Category</strong></Typography>
+            </AccordionSummary>
+            <AccordionDetails>
+              <div className='product-details-similar-product'>
+                {similar_products.map((product, index) => (
+                  <ProductCard key={index} product={product} quantity={getQuantityFromCart(product.product_id)} />
+                ))}
+              </div>
+            </AccordionDetails>
+          </Accordion>
         </div>
       </div>
     </div>
@@ -250,3 +287,17 @@ const ProductDetails = ({ data, handleAddToCart, handleQuantityChange, cartprodu
 };
 
 export default ProductDetailsPage;
+
+const SupportCard = () => {
+  return (
+    <>
+      <div className="support-card">
+        <img src={mailIcon} alt='emailBox' className="support-icon" />
+        <div className="support-text">
+          <p><strong>Need Support?</strong></p>
+          <p>E-mail us at: <span className="support-email">support@foodjam.in</span></p>
+        </div>
+      </div>
+    </>
+  );
+};

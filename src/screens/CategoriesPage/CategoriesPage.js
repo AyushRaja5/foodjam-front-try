@@ -261,8 +261,8 @@ export const HorozontalProduct = ({ product, cartLoading, quantity, responseMess
                         {product.manufacturer_name || 'Restaurant Mamih'}
                     </div>
                     <div className='product-price-container'>
+                        {product?.special_price && <span className="line-through">&#8377; {product.product_price}</span>}
                         <span className='product-price'>&#8377; {product.special_price || product.product_price}</span>
-                        {product.special_price && <span className='original-price'>&#8377; {product.product_price}</span>}
                     </div>
                     <div className='categories-product-price-add-btn'>
                         <div>

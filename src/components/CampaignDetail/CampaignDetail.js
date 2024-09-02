@@ -28,7 +28,7 @@ dayjs.extend(utc);
 dayjs.extend(customParseFormat);
 
 const CampaignDetail = () => {
-    const { campaignId } = useParams();
+  const { campaignId } = useParams();
   const dispatch = useDispatch();
   const [show, setShow] = useState(false);
   const [src, setSrc] = useState("");
@@ -59,7 +59,7 @@ const CampaignDetail = () => {
   useEffect(() => {
     if (successMessage) {
       toast.success(successMessage);
-    //   dispatch(resetSuccessMessage());
+      //   dispatch(resetSuccessMessage());
     }
   }, [successMessage, dispatch]);
 
@@ -91,16 +91,18 @@ const CampaignDetail = () => {
       </Stack>
     </div>
   );
-  if (error) return (
-    <div variant="h6" color="error">
-      {toast.error(error)}
-      <NotAuthorized />
-    </div>);
+  if (error) {
+    { toast.error(error) }
+    return (
+      <div variant="h6" color="error">
+        <NotAuthorized />
+      </div>);
+  }
 
-  console.log(singleCampaign,'single campaign', error, successMessage,'success mmessage')
+  console.log(singleCampaign, 'single campaign', error, successMessage, 'success mmessage')
   return (
     <Container className="campaign-detail-container">
-      
+
       {singleCampaign?.data?.campaignType === 'expired' && (
         <ExpiredContestDetail singleCampaign={singleCampaign} joinTheCampaign={joinTheCampaign} BUCKET_URL={BUCKET_URL} setShow={setShow} setSrc={setSrc} setPoster={setPoster} />
       )}
@@ -108,7 +110,7 @@ const CampaignDetail = () => {
         <LiveContestDetail singleCampaign={singleCampaign} joinTheCampaign={joinTheCampaign} BUCKET_URL={BUCKET_URL} selectedFiles={selectedFiles} handleFilesSelected={handleFilesSelected} uploadContent={uploadContent} setShow={setShow} setSrc={setSrc} setPoster={setPoster} />
       )}
       {singleCampaign?.data?.campaignType === 'upcoming' && (
-        <UpcomingContestDetail singleCampaign={singleCampaign} joinTheCampaign={joinTheCampaign}/>
+        <UpcomingContestDetail singleCampaign={singleCampaign} joinTheCampaign={joinTheCampaign} />
       )}
     </Container>
   )
@@ -201,62 +203,62 @@ const ExpiredContestDetail = ({ singleCampaign, joinTheCampaign, BUCKET_URL, set
 );
 
 const LiveContestDetail = ({ singleCampaign, joinTheCampaign, selectedFiles, handleFilesSelected, uploadContent, BUCKET_URL, setShow, setSrc, setPoster }) => {
-  console.log(singleCampaign,'campaing single')
+  console.log(singleCampaign, 'campaing single')
   return (
-  <>
-    <div className="campaign-share-banner-container">
-      <img src={shareEmptyImg} alt='share' className='share-img' />
-      <div className="banner-sec">
-        <img
-          src={singleCampaign?.data?.cover ? (singleCampaign?.data?.cover.includes("https://") ? singleCampaign?.data?.cover : `https://cdn.commeat.com/${singleCampaign?.data?.cover}`) : ""}
-          alt='Contest cover'
-          className="banner-img"
-        />
-      </div>
-    </div>
-    <br/>
-    <div className='campaign-detail-middle'>
-      <div className='campaign-status'>
-        <div className="campaign-type live">
-          <div className="type-icon" />
-          <p>Live</p>
-        </div>
-      </div>
-      <div className="details-top-sec">
-        <div className="left-sec">
+    <>
+      <div className="campaign-share-banner-container">
+        <img src={shareEmptyImg} alt='share' className='share-img' />
+        <div className="banner-sec">
           <img
-            src={campaignCalenderIcon}
-            alt="Calendar"
-            className="calendar-icon"
+            src={singleCampaign?.data?.cover ? (singleCampaign?.data?.cover.includes("https://") ? singleCampaign?.data?.cover : `https://cdn.commeat.com/${singleCampaign?.data?.cover}`) : ""}
+            alt='Contest cover'
+            className="banner-img"
           />
-          <p className="date-txt">
-            Started on {dayjs.utc(singleCampaign?.data?.starts).format('ddd DD MMM, hh:mm A')}
-          </p>
-        </div>
-        <div className="left-sec">
-          <img
-            src={campaignCalenderIcon}
-            alt="Calendar"
-            className="calendar-icon"
-          />
-          <p className="date-txt">
-            Ends on {dayjs.utc(singleCampaign?.data?.ends).format('ddd DD MMM, hh:mm A')}
-          </p>
         </div>
       </div>
-      <br/>
-      <div className='campaign-detail-hashtags'>{singleCampaign?.data?.hashtags}</div>
-      <br/>
-      <div className='campaign-detail-hashtags'>{singleCampaign?.data?.title}</div>
-      <div variant="body1" component="div" className='campaign-detail-long-info' dangerouslySetInnerHTML={{ __html: singleCampaign?.data?.long_info }} />
+      <br />
+      <div className='campaign-detail-middle'>
+        <div className='campaign-status'>
+          <div className="campaign-type live">
+            <div className="type-icon" />
+            <p>Live</p>
+          </div>
+        </div>
+        <div className="details-top-sec">
+          <div className="left-sec">
+            <img
+              src={campaignCalenderIcon}
+              alt="Calendar"
+              className="calendar-icon"
+            />
+            <p className="date-txt">
+              Started on {dayjs.utc(singleCampaign?.data?.starts).format('ddd DD MMM, hh:mm A')}
+            </p>
+          </div>
+          <div className="left-sec">
+            <img
+              src={campaignCalenderIcon}
+              alt="Calendar"
+              className="calendar-icon"
+            />
+            <p className="date-txt">
+              Ends on {dayjs.utc(singleCampaign?.data?.ends).format('ddd DD MMM, hh:mm A')}
+            </p>
+          </div>
+        </div>
+        <br />
+        <div className='campaign-detail-hashtags'>{singleCampaign?.data?.hashtags}</div>
+        <br />
+        <div className='campaign-detail-hashtags'>{singleCampaign?.data?.title}</div>
+        <div variant="body1" component="div" className='campaign-detail-long-info' dangerouslySetInnerHTML={{ __html: singleCampaign?.data?.long_info }} />
 
-      <div className='participants-campaign-videos'>
-        {singleCampaign?.data?.participants?.length > 0 &&
-          <div className={`${singleCampaign?.data?.posts?.length > 0 ? '' : 'participantsTitle'} `}>
-            <ParticipantList participants={singleCampaign?.data?.participantDetails} />
-          </div>}
+        <div className='participants-campaign-videos'>
+          {singleCampaign?.data?.participants?.length > 0 &&
+            <div className={`${singleCampaign?.data?.posts?.length > 0 ? '' : 'participantsTitle'} `}>
+              <ParticipantList participants={singleCampaign?.data?.participantDetails} />
+            </div>}
 
-        {/* {singleCampaign?.data?.posts?.length > 0 && (
+          {/* {singleCampaign?.data?.posts?.length > 0 && (
           <div className='campaign-videos-container'>
             {singleCampaign?.data?.posts.map((vid, i) => (
               <div
@@ -274,29 +276,29 @@ const LiveContestDetail = ({ singleCampaign, joinTheCampaign, selectedFiles, han
           </div>
         )} */}
 
-      </div>
+        </div>
 
-      {/* <WinnerListBox winners={singleCampaign?.data?.winners || []} /> */}
-      <div className='file-select-link'>
-        <ContentUpload onFilesSelected={handleFilesSelected} />
-        + Add Link OR Screenshots
+        {/* <WinnerListBox winners={singleCampaign?.data?.winners || []} /> */}
+        <div className='file-select-link'>
+          <ContentUpload onFilesSelected={handleFilesSelected} />
+          + Add Link OR Screenshots
+        </div>
+        {selectedFiles.length > 0 && (
+          <Button variant="contained" color="primary" onClick={uploadContent}>
+            Upload Content
+          </Button>
+        )}
+        {/* <Button variant="contained" color="primary" onClick={uploadContent}>Upload Content</Button> */}
+        <br />
+        <button
+          className={`campaign-detail-join-btn ${singleCampaign?.data?.isjoined === '1' ? 'disabled' : ''}`}
+          onClick={() => joinTheCampaign(singleCampaign?.data?.id)}
+          disabled={singleCampaign?.data?.isjoined === '1'}
+        >
+          {singleCampaign?.data?.isjoined === '0' ? 'Join' : 'Joined'}
+        </button>
       </div>
-      {selectedFiles.length > 0 && (
-        <Button variant="contained" color="primary" onClick={uploadContent}>
-          Upload Content
-        </Button>
-      )}
-      {/* <Button variant="contained" color="primary" onClick={uploadContent}>Upload Content</Button> */}
-      <br/>
-      <button
-        className={`campaign-detail-join-btn ${singleCampaign?.data?.isjoined === '1' ? 'disabled' : ''}`}
-        onClick={() => joinTheCampaign(singleCampaign?.data?.id)}
-        disabled={singleCampaign?.data?.isjoined === '1'}
-      >
-        {singleCampaign?.data?.isjoined === '0' ? 'Join' : 'Joined'}
-      </button>
-    </div>
-  </>
+    </>
   )
 };
 
@@ -566,18 +568,18 @@ const ContentUpload = ({ onFilesSelected }) => {
         {selectedFiles.map((file, index) => (
           <Grid item xs={4} key={index} >
             <div className="file-preview-item">
-            {file.type.startsWith('image') ? (
-              <img src={URL.createObjectURL(file)} alt="preview" className="file-preview-image" />
-            ) : (
-              <video src={URL.createObjectURL(file)} className="file-preview-video" controls />
-            )}
-            <IconButton
-              color="secondary"
-              className="remove-file-button"
-              onClick={() => handleRemoveFile(index)}
-            >
-              <Delete />
-            </IconButton>
+              {file.type.startsWith('image') ? (
+                <img src={URL.createObjectURL(file)} alt="preview" className="file-preview-image" />
+              ) : (
+                <video src={URL.createObjectURL(file)} className="file-preview-video" controls />
+              )}
+              <IconButton
+                color="secondary"
+                className="remove-file-button"
+                onClick={() => handleRemoveFile(index)}
+              >
+                <Delete />
+              </IconButton>
             </div>
           </Grid>
         ))}
