@@ -12,6 +12,7 @@ import { fetchCartProductsRequest, resetResponseMessage } from '../../redux/acti
 import TopBrands from './TopBrands/TopBrands';
 import TodayOffers from './TodayOffers/TodayOffers';
 import TopOffersProducts from './TopOffersProducts/TopOffersProducts';
+import NotFound from '../NotFound/NotFound';
 
 const FoodjamStore = () => {
   const dispatch = useDispatch();
@@ -48,7 +49,7 @@ const FoodjamStore = () => {
     </div>
   );
 
-  if (error) return <div>Error: {error}</div>;
+  if (error) return <NotFound/>;
 
   const sortedRows = shop?.data?.rows?.slice().sort((a, b) => a.sequence - b.sequence);
 
