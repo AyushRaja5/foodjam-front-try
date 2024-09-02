@@ -31,8 +31,9 @@ const SimpleSnackbar = () => {
       <div className='snackbar-download-app'>
         <Snackbar
           open={open}
-          sx={{backgroundColor:'white', height:'50px'}}
+          sx={{backgroundColor:'white', height:'50px', boxShadow: '0px 4px 10px rgba(0, 0, 0, 0.2)',  marginTop: '45px',}}
           // autoHideDuration={6000}
+          anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
           onClose={handleClose}
         >
           <div className='snackbar-download-content'>
