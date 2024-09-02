@@ -114,7 +114,7 @@
   }
   
   .download-section div {
-    width: 43%;
+    width: 45%;
     display: flex;
     flex-wrap: wrap;
     text-align: left;
@@ -124,6 +124,7 @@
     color: #333;
     font-weight: 800;
     line-height: 32px;
+    justify-content: space-between;
   }
   
   .app-buttons {
