@@ -13,7 +13,7 @@ const Footer = () => {
       <div className="footer-section">
         <div variant="h6" fontWeight="bold"
               component={Link} href="https://foodjam.in/"
-              gutterBottom className='footer-brand'>
+              className='footer-brand'>
               <img src={FJLogo} alt="Logo" />
             </div>
         <p>

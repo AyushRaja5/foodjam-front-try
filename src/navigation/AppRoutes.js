@@ -4,6 +4,10 @@ import React, { Suspense, lazy } from 'react';
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Navbar from '../components/Navbar/Navbar';
 import BreadcrumbsComponent from '../BreadCrumbs/BreadcrumbsComponent';
+import { CircularProgress } from '@mui/material';
+import { useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
+
 
 const Footer = lazy(() => import('../components/Footer/Footer'));
 const Home = lazy(() => import('../screens/Home/Home'));
@@ -42,11 +46,25 @@ const TopOffersPage = lazy(() => import('../screens/TopOffersPage/TopOffersPage'
 const ProductDetailsPage = lazy(() => import('../screens/ProductDetailsPage/ProductDetailsPage'));
 const CategoriesPage = lazy(() => import('../screens/CategoriesPage/CategoriesPage'));
 
+const ScrollToTop = () => {
+  const { pathname } = useLocation();
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [pathname]);
+
+  return null;
+};
+
 const AppRoutes = () => {
   return (
     <Router>
+      <ScrollToTop /> 
       <Navbar />
-      <Suspense fallback={<div>Loading...</div>}>
+      <Suspense fallback={<div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '80vh' }}>
+          <CircularProgress />
+        </div>}>
+
       <BreadcrumbsComponent/>
         <Routes>
           <Route path="/" element={<Home />} errorElement={<NotFound/>}/>
