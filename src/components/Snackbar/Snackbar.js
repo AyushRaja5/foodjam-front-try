@@ -38,7 +38,7 @@ const SimpleSnackbar = () => {
         >
           <div className='snackbar-download-content'>
             <span>Download Foodjam app for earnings and rewards</span>
-            <Button className='snackbar-download-button' sx={{ bgcolor: '#f8a003', color: 'white' }} size="small" onClick={handleClose}>
+            <Button className='snackbar-download-button' sx={{ bgcolor: '#f8a003', color: 'white', lineHeight:1 }} size="small" onClick={handleClose}>
               Open App
             </Button>
             <IconButton

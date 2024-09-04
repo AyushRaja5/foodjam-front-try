@@ -3,7 +3,7 @@
 }
  .snackbar-download-button{
     background-color : #f8a003;
-    width: 120px;
+    width: 120px !important;
  }
  .snackbar-download-content{
     display: flex;
