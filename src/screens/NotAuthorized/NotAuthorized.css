@@ -62,5 +62,8 @@
       font-family: 'Arial, sans-serif';
       color: #333;
     }
-    
+    .illustration img{
+      width: 100%;
+      height: auto;
+    }
   }
