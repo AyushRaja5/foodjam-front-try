@@ -23,7 +23,6 @@ import cartimg from '../../assets/imagespng/cart.png'
 import settingsimg from '../../assets/imagespng/setting.png'
 import Cartimg from '../../assets/imagespng/cart.png'
 import { NotificationsActive, ShoppingCart } from '@mui/icons-material';
-import SimpleSnackbar from '../Snackbar/Snackbar';
 const Navbar = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(!!localStorage.getItem('foodjam-user'));
   const [loginOrSignUp, setLoginOrSignUp] = useState('Login');
@@ -210,22 +209,23 @@ const Navbar = () => {
       {loading && <LoaderOverlay />}
       <nav className="dashboard_navbar_web">
         <Link to='/' className="navbar-brand">
-          <img src={FJLogo} alt="Logo" />
+          <img src={FJLogo} alt="Logo" className="navbar-logo"/>
         </Link>
-        <div className="search_bar">
+        {/* <div className="search_bar">
           <input type="text" placeholder="Search..." disabled/>
           <img src={SearchIcon} alt="Search" className="search-icon" />
-        </div>
+        </div> */}
         <div className="navbar-collapse">
           <ul className="navMenu">
-            <li><Link to="/"><img src={FJ} alt='home' />Home</Link></li>
-            <li><Link to="https://event.foodjam.in/" target='blank'><img src={Explorer} alt='event' />Event</Link></li>
-            <li><Link to="/explore"><img src={Explorer} alt='explorer' />Explore</Link></li>
-            <li><Link to="/shop"><img src={Bag} alt='Shop' />Shop</Link></li>
-            <li><Link to="/cart"><img src={Bag} alt='Cart' />Cart</Link></li>
+            <li><Link to="/"><img src={FJ} alt='home' className="nav-icon"/>Home</Link></li>
+            <li><Link to="/"><img src={SearchIcon} alt='search' className="nav-icon"/>Search</Link></li>
+            <li><Link to="https://event.foodjam.in/" target='blank'><img src={Explorer} alt='event' className="nav-icon"/>Event</Link></li>
+            {/* <li><Link to="/explore"><img src={Explorer} alt='explorer'  className="nav-icon"/>Explore</Link></li> */}
+            <li><Link to="/shop"><img src={Bag} alt='Shop'  className="nav-icon"/>Shop</Link></li>
+            <li><Link to="/cart"><img src={Bag} alt='Cart'  className="nav-icon"/>Cart</Link></li>
             {isLoggedIn ? (
               <li ref={profileRef}>
-                <Link onClick={handleClick} ><img src={Profile} alt="Profile" /> Profile</Link>
+                <Link onClick={handleClick} className="profile-link"><img src={Profile} alt="Profile" className="nav-icon"/> Profile</Link>
                 <Popover
                   open={Boolean(anchorEl)}
                   anchorEl={anchorEl}
@@ -284,7 +284,7 @@ const Navbar = () => {
                 </Popover>
               </li>
             ) : (
-              <li><Link onClick={() => setShowSignInMenu(true)}><img src={Profile} alt='Signin' />SignIn</Link></li>
+              <li><Link onClick={() => setShowSignInMenu(true)} className="signin-link"><img src={Profile} alt='Signin' className="nav-icon" />SignIn</Link></li>
             )}
           </ul>
         </div>
@@ -305,8 +305,6 @@ const Navbar = () => {
           }
         </div>
       </div>
-      {/* <SimpleSnackbar /> */}
-
       <Dialog
         open={logoutDialogOpen}
         onClose={handleLogoutCancel}

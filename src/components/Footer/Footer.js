@@ -8,79 +8,82 @@ import { Facebook, Twitter, Google, Instagram, LinkedIn, Home, Email, Phone, Pri
 const Footer = () => {
   return (
     <>
-    <DownloadAppSection />
-    <footer className="footer">
-      <div className="footer-section">
-        <div variant="h6" fontWeight="bold"
-              component={Link} href="https://foodjam.in/"
-              className='footer-brand'>
-              <img src={FJLogo} alt="Logo" />
-            </div>
-        <p>
-          Welcome to Foodjam! The most comprehensive suite all in one for culinary creators.
-          Super easy to create your food vlog or upload HD version of those on the platform.
-        </p>
+      <DownloadAppSection />
+      <footer className="footer">
+        <div className="footer-section">
+          <div variant="h6" fontWeight="bold"
+            component={Link} href="https://foodjam.in/"
+            className='footer-brand'>
+            <img src={FJLogo} alt="Logo" />
+          </div>
+          <p>
+            Welcome to Foodjam! The most comprehensive suite all in one for culinary creators.
+            Super easy to create your food vlog or upload HD version of those on the platform.
+          </p>
 
-        <Grid item borderTop="1px solid gray" mt={2} container alignItems="center" justifyContent="center" gap={2}>
-          <IconButton component={Link} href="https://www.facebook.com/Foodjamapp/" color="inherit"  target="_blank" >
-            <Facebook />
-          </IconButton>
-          <IconButton component={Link} href="https://twitter.com/Commeat_" color="inherit"  target="_blank" >
-            <Twitter />
-          </IconButton>
-          <IconButton component={Link} href="https://foodjam.in/" color="inherit">
-            <Google />
-          </IconButton>
-          <IconButton component={Link} href="https://www.instagram.com/foodjamapp/" color="inherit"  target="_blank" >
-            <Instagram />
-          </IconButton>
-          <IconButton component={Link} href="https://www.linkedin.com/company/foodjam" color="inherit"  target="_blank" >
-            <LinkedIn />
-          </IconButton>
-        </Grid>
-      </div>
-      
-      <div className="footer-section">
-        <h3 className="footer-title">Products</h3>
-        <ul>
-        <ul>
-        <li>
-          <Link href="/best_sellers" variant="body2" display="block" >Best Sellers</Link>
-        </li>
-        <li>
-          <Link href="/top_offers" variant="body2" display="block" color="textPrimary">Top offers</Link>
-        </li>
-        <li>
-          <Link href="/contests" variant="body2" display="block" color="textPrimary">Upcoming Contests</Link>
-        </li>
-        <li>
-          <Link href="/top_foodjammers" variant="body2" display="block" color="textPrimary">Top Foodjammers</Link>
-        </li>
-      </ul>
+          <Grid item borderTop="1px solid gray" mt={2} container alignItems="center" justifyContent="center" gap={2}>
+            <IconButton component={Link} href="https://www.facebook.com/Foodjamapp/" color="inherit" target="_blank" >
+              <Facebook />
+            </IconButton>
+            <IconButton component={Link} href="https://twitter.com/Commeat_" color="inherit" target="_blank" >
+              <Twitter />
+            </IconButton>
+            <IconButton component={Link} href="https://foodjam.in/" color="inherit">
+              <Google />
+            </IconButton>
+            <IconButton component={Link} href="https://www.instagram.com/foodjamapp/" color="inherit" target="_blank" >
+              <Instagram />
+            </IconButton>
+            <IconButton component={Link} href="https://www.linkedin.com/company/foodjam" color="inherit" target="_blank" >
+              <LinkedIn />
+            </IconButton>
+          </Grid>
+        </div>
 
-        </ul>
-      </div>
-      <div className="footer-section">
-        <h3 className="footer-title">Useful links</h3>
-        <ul>
-          <li>
-            <Link href="https://event.foodjam.in/" variant="body2" display="block" color="textPrimary">New Events</Link>
-          </li>
-          <li>
-            <Link href="https://foodjam.in/blogs/" variant="body2" display="block" color="textPrimary">Our Blogs</Link>
-          </li>
-          <li>
-            <Link href="https://foodjam.in/termsAndConditions/" variant="body2" display="block" color="textPrimary">Terms & Conditions</Link>
-          </li>
-          <li>
-            <Link href="https://foodjam.in/privacy/" variant="body2" display="block" color="textPrimary">Privacy Policy</Link>
-          </li>
-          <li>
-            <Link href="https://foodjam.in/creator-earning-tnc/" variant="body2" display="block" color="textPrimary">Earning T&C</Link>
-          </li>
-        </ul>
-        
-        {/* 
+        <div className="footer-section">
+          <div className='footer-div'>
+            <h3 className="footer-title">Products</h3>
+            <ul>
+              <ul>
+                <li>
+                  <Link href="/best_sellers" variant="body2" display="block" >Best Sellers</Link>
+                </li>
+                <li>
+                  <Link href="/top_offers" variant="body2" display="block" color="textPrimary">Top offers</Link>
+                </li>
+                <li>
+                  <Link href="/contests" variant="body2" display="block" color="textPrimary">Upcoming Contests</Link>
+                </li>
+                <li>
+                  <Link href="/top_foodjammers" variant="body2" display="block" color="textPrimary">Top Foodjammers</Link>
+                </li>
+              </ul>
+
+            </ul>
+          </div>
+        </div>
+        <div className="footer-section">
+          <div className='footer-div'>
+            <h3 className="footer-title">Useful links</h3>
+            <ul>
+              <li>
+                <Link href="https://event.foodjam.in/" variant="body2" display="block" color="textPrimary">New Events</Link>
+              </li>
+              <li>
+                <Link href="https://foodjam.in/blogs/" variant="body2" display="block" color="textPrimary">Our Blogs</Link>
+              </li>
+              <li>
+                <Link href="https://foodjam.in/termsAndConditions/" variant="body2" display="block" color="textPrimary">Terms & Conditions</Link>
+              </li>
+              <li>
+                <Link href="https://foodjam.in/privacy/" variant="body2" display="block" color="textPrimary">Privacy Policy</Link>
+              </li>
+              <li>
+                <Link href="https://foodjam.in/creator-earning-tnc/" variant="body2" display="block" color="textPrimary">Earning T&C</Link>
+              </li>
+            </ul>
+          </div>
+          {/* 
         <h3 className="footer-title legal-title">Legal</h3>
         <ul>
           <li>Terms & Conditions</li>
@@ -89,8 +92,8 @@ const Footer = () => {
           <li>Investor Relations</li>
         </ul> */}
 
-      </div>
-      {/* <div className="footer-section">
+        </div>
+        {/* <div className="footer-section">
         <h3 className="footer-title">We deliver to:</h3>
         <ul>
           <li>Bangalore</li>
@@ -102,7 +105,7 @@ const Footer = () => {
           <li className="city-dropdown">589 cities</li>
         </ul>
       </div> */}
-    </footer>
+      </footer>
     </>
   );
 };
