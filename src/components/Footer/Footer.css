@@ -85,18 +85,7 @@
       grid-template-columns: repeat(2, 1fr); /* Two columns for tablets */
     }
   }
-  
-  @media (max-width: 768px) {
-    .footer {
-      grid-template-columns: 1fr;
-      padding: 20px 20px;
-    }
-  
-    .footer-section {
-      text-align: center;
-    }
-  }
-  
+
 
   /* download section */
 
@@ -143,8 +132,16 @@
     transform: scale(1.05); /* Slightly enlarge the button on hover */
   }
   
-  /* Responsive Styles */
   @media (max-width: 768px) {
+    .footer {
+      grid-template-columns: 1fr;
+      padding: 20px 20px;
+    }
+  
+    .footer-section {
+      text-align: center;
+    }
+
     .download-section {
       flex-direction: column;
       text-align: center;
