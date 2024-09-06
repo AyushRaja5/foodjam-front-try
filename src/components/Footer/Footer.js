@@ -28,9 +28,6 @@ const Footer = () => {
             <IconButton component={Link} href="https://twitter.com/Commeat_" color="inherit" target="_blank" >
               <Twitter />
             </IconButton>
-            <IconButton component={Link} href="https://foodjam.in/" color="inherit">
-              <Google />
-            </IconButton>
             <IconButton component={Link} href="https://www.instagram.com/foodjamapp/" color="inherit" target="_blank" >
               <Instagram />
             </IconButton>
