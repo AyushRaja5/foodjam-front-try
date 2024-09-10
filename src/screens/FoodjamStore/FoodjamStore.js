@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import './FoodjamStore.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchShopRequest } from '../../redux/actions/shopActions';
@@ -16,17 +16,62 @@ import NotFound from '../NotFound/NotFound';
 
 const FoodjamStore = () => {
   const dispatch = useDispatch();
-  const { shop, loading, error } = useSelector(state => state.shopData);
+  const { shop, loading, error: shopError } = useSelector(state => state.shopData);
   const { cartproducts, responseMessage, loading: cartLoading } = useSelector(state => state.cartProducts);
+  const [cachedShopData, setCachedShopData] = useState(null);
+
+  const CACHE_NAME = process.env.REACT_APP_FOODJAM_CACHE_NAME || 'foodjam-store-cache';
+  const CACHE_KEY = process.env.REACT_APP_FOODJAM_CACHE_KEY || 'foodjam-store-data';
+  const CACHE_DURATION = parseInt(process.env.REACT_APP_CACHE_DURATION, 10) || 10 * 60 * 1000; // 10 minutes
+
+  const getCachedData = async () => {
+    const cache = await caches.open(CACHE_NAME);
+    const cachedResponse = await cache.match(CACHE_KEY);
+
+    if (!cachedResponse) return null;
+
+    const data = await cachedResponse.json();
+    const now = new Date().getTime();
+
+    // Check if cache has expired
+    if (now - data.timestamp > CACHE_DURATION) {
+      await cache.delete(CACHE_KEY); // Clear expired cache
+      return null;
+    }
+
+    return data.payload; // Return cached data
+  };
+
+  const storeDataInCache = async (data) => {
+    const cache = await caches.open(CACHE_NAME);
+    const dataToCache = {
+      payload: data,
+      timestamp: new Date().getTime(), // Save the current timestamp
+    };
+    const response = new Response(JSON.stringify(dataToCache));
+    await cache.put(CACHE_KEY, response);
+  };
 
   useEffect(() => {
-    dispatch(fetchShopRequest());
+    const fetchData = async () => {
+      const cachedShopData = await getCachedData();
+
+      if (cachedShopData) {
+        setCachedShopData(cachedShopData);
+      } else {
+        dispatch(fetchShopRequest());
+      }
+    };
     dispatch(fetchCartProductsRequest(10, 1));
-  }, [dispatch]);
+    fetchData();
+  }, [dispatch, responseMessage]);
 
   useEffect(() => {
     if (shop && shop.data?.rows) {
       shop?.data.rows.sort((a, b) => a.sequence - b.sequence);
+
+      storeDataInCache(shop?.data);
+      setCachedShopData(shop?.data);
     }
   }, [shop]);
 
@@ -38,7 +83,7 @@ const FoodjamStore = () => {
     }
   }, [responseMessage, dispatch]);
 
-  if (loading || cartLoading) return (
+  if (loading && !cachedShopData || cartLoading) return (
     <div className='water'>
       <Stack spacing={1} sx={{ width: '100%', display: 'flex', alignItems: 'center' }}>
         <Skeleton variant="rounded" sx={{ fontSize: '1rem' }} width={'90%'} height={100} />
@@ -49,9 +94,9 @@ const FoodjamStore = () => {
     </div>
   );
 
-  if (error) return <NotFound/>;
+  if (shopError && !cachedShopData) return <NotFound/>;
 
-  const sortedRows = shop?.data?.rows?.slice().sort((a, b) => a.sequence - b.sequence);
+  const sortedRows = cachedShopData?.rows || shop?.data?.rows?.slice().sort((a, b) => a.sequence - b.sequence);
 
   return (
     <div className='foodjamstore-component'>
