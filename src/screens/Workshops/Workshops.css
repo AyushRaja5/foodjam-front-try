@@ -1,16 +1,426 @@
 
 .workshops-container {
-    display: flex;
-    height: 80vh;
-    align-self: center;
-    justify-content: center;
-    align-items: center;
+  width: 100%;
+  padding: 0 40px;
+  margin: 20px 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 10px;
   }
   
   .workshops-content {
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
     font-size: 28px;
   }
   
+  .no-workshop-image-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .no-workshop-img {
+    width: 200px;
+    height: auto;
+  }
+  
+  
+  .title-list {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+  }
+  
+  .workshop-type-btn {
+    margin: 0 10px;
+  }
+  
+  .selected-btn {
+    border-bottom: 2px solid #3f51b5;
+  }
+  
+  .tip-txt {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+  .search-box {
+    display: block;
+    margin: 0 auto 20px;
+    padding: 10px;
+    width: 80%;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+  }
+  
+  .workshop-per-page {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+  }
+  
+  .workshop-list {
+    width: 100%;
+    display: grid;
+    /* justify-content: flex; */
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 20px;
+    justify-items: start;
+  }
+  
+  .main-view {
+    max-width: 350px;
+    /* Set a max width for each card */
+    display: flex;
+    justify-content: space-between;
+    margin: 0 auto;
+    /* Center the card */
+    border: 1px solid lightgray;
+    border-radius: 10px;
+    padding: 0px;
+    background-color: white;
+    position: relative;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  .main-view:hover {
+    transform: scale(1.05); 
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5); 
+  }
+  
+  .main-view:hover .banner-img {
+    transform: scale(1.1); /* Slight zoom effect on image */
+  }
+  
+  .image-main-sec {
+    align-items: center;
+    justify-content: center;
+    position: relative;
+  }
+  
+  .title-text {
+    font-size: 1.5em;
+    margin-bottom: 10px;
+  }
+  
+  .item-btn {
+    cursor: pointer;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: -webkit-fill-available;
+    /* border: 1px solid #ccc; */
+    /* border-radius: 5px;  */
+  }
+  
+  /* .share-img{
+    position: relative;
+    height: 25px;
+    width: 25px;
+    top: 0;
+    right: 0;
+  } */
+  .share-banner-container {
+    position: relative;
+  }
+  
+  .share-img {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    z-index: 1;
+    width: 30px;
+    height: 30px;
+    padding: 5px;
+    border-radius: 50%;
+    background-color: white;
+  }
+  
+  .banner-sec {
+    position: relative;
+    height: auto;
+    overflow: hidden;
+    border-radius: 10px;
+    min-height: 210px;
+    max-height: 210px;
+  }
+  
+  .banner-img {
+    width: 100%;
+    height: 100%;
+    min-height: 210px;
+    object-fit:cover;
+    position: relative;
+  }
+  
+  .workshop-type {
+    width: fit-content;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 5px;
+    padding: 1px 7px;
+    gap: 5px;
+    margin-bottom: 7px;
+  }
+  
+  .type-icon {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background-color: white;
+  }
+  
+  .live {
+    font-size: 14px;
+    background-color: red;
+  }
+  
+  .expired-stripe {
+    position: absolute;
+    height: 100px;
+    width: 100px;
+    top: 0px;
+    left: 0px;
+  }
+  
+  .middle-part-workshop-card {
+    height: 100%;
+    padding: 15px;
+  }
+  
+  .details-top-sec {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+  }
+  
+  .left-sec {
+    display: flex;
+    align-items: center;
+  }
+  
+  .calendar-icon {
+    margin-right: 10px;
+    width: 20px;
+    height: 20px;
+  }
+  
+  .date-txt {
+    font-size: 13px;
+  }
+  
+  .price-txt {
+    /* font-weight: bold; */
+    color: #1890FF;
+  }
+  
+  .clock-upcoming-workshop {
+    height: 20px;
+    width: 20px;
+  }
+  
+  .arrow-join-workshop {
+    height: 10px;
+    width: 15px;
+  }
+  
+  .timeline-upcoming {
+    background-color: red;
+    padding: 5px;
+    font-size: 12px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    color: white;
+    width: 70%;
+    border-radius: 40px;
+    position: absolute;
+    top: -15px;
+    /* Move it further up */
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 1;
+  }
+  
+  .joined-sec {
+    background-color: lightgray;
+    padding: 5px 10px;
+    border-radius: 5px;
+  }
+  
+  .sub-txt {
+    margin-top: 8px;
+    font-size: 14px;
+  }
+  
+ 
+  .bottom-sec {
+    height: auto;
+    display: flex;
+    padding: 15px;
+    justify-content: space-between;
+    align-items: center;
+    /* margin-top: 10px; */
+    border-radius: 0 0 10px 10px;
+    position: relative;
+  }
+  .bottom-sec::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 90%; 
+    height: 2px;
+    background-color: #ccc;
+  }
+  .participants-sec {
+    display: flex;
+    align-items: center;
+  }
+  
+  
+  .label-txt {
+    font-size: 0.8em;
+  }
+  
+  .participate-txt {
+    font-size: 0.9em;
+    font-weight: 600;
+  }
+  
+  .join-btn {
+    background-color: #0dd790;
+    display: flex;
+    justify-content: space-between;
+    gap: 5px;
+    align-items: center;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .disabled {
+    background-color: lightgray;
+    cursor: not-allowed;
+  }
+  
+  .load-more-btn {
+    display: block;
+    margin: 20px auto;
+    padding: 10px 20px;
+    background-color: lightgray;
+    border: none;
+    cursor: pointer;
+  }
+  
+  .bottom-time-sec {
+    display: flex;
+    align-items: center;
+    background-color: red;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 20px;
+    position: relative;
+    top: -20px;
+  }
+  
+  .clock {
+    margin-right: 10px;
+  }
+  
+  .time-txt {
+    font-size: 0.9em;
+  }
+  
+  .loaderView {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+  }
+  
+  @media (max-width: 750px) {
+    .campaigns-container {
+      padding: 0 10px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      margin-top: 0;
+      margin-bottom: 30px;
+    }
+  
+    .css-19kzrtu {
+      padding: 0 10px !important;
+    }
+  
+    .tab-nav-workshop {
+      padding: 0 8px;
+      font-size: 10px;
+    }
+  
+    .workshop-list {
+      width: 100%;
+      display: grid;
+      justify-content: center;
+      margin-top: 20px;
+      grid-template-columns: repeat(auto-fit, minmax(310px, 1fr));
+    }
+  
+    .timeline-upcoming {
+      font-size: 10px;
+    }
+  
+    .banner-sec {
+      height: 170px;
+      object-fit: fill;
+    }
+  
+    .live{
+      font-size: 10px;
+      padding: 3px 5px;
+    }
+    .date-txt {
+      font-size: 0.6em;
+    }
+  
+    .tab-nav-workshop {
+      font-size: 10px !important;
+    }
+  
+    .tip-txt {
+      font-size: 14px;
+      text-align: left;
+      padding: 0 10px;
+    }
+  
+    .search-box {
+      display: block;
+      width: 90%;
+      border-radius: 4px;
+      margin: 0;
+      border: 1px solid #ccc;
+      margin-bottom: 10px;
+    }
+  }
+  @media (max-width: 350px) {
+    .css-19kzrtu {
+      padding: 0 !important;
+    }
+    .main-view{
+      max-width: 270px;
+    }
+  }

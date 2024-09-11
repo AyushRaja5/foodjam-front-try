@@ -31,6 +31,7 @@ const Workshops = lazy(() => import('../screens/Workshops/Workshops'));
 const Campaigns = lazy(() => import('../screens/Campaigns/Campaigns'));
 
 const CampaignDetail = lazy(() => import('../components/CampaignDetail/CampaignDetail'));
+const WorkshopDetail = lazy(() => import('../components/WorkshopDetail/WorkshopDetail'));
 const ViewAllCreators = lazy(() => import('../components/ViewAllCreators/ViewAllCreators'));
 const ViewAllAffiliates = lazy(() => import('../components/ViewAllAffiliates/ViewAllAffiliates'));
 const ViewAllVideos = lazy(() => import('../components/ViewAllVideos/ViewAllVideos'));
@@ -102,6 +103,7 @@ const AppRoutes = () => {
           <Route path="/rewardsInfo/:rewardId" element={<RewardDetail />} />
 
           <Route path="/workshops" element={<Workshops />} />
+          <Route path="/workshop_details/:workshopId" element={<WorkshopDetail />} />
 
           <Route path="/campaigns" element={<Campaigns />} />
           <Route path="/campaign_details/:campaignId" element={<CampaignDetail />} />
