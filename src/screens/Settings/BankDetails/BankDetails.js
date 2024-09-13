@@ -20,6 +20,7 @@ import AddIcon from '@mui/icons-material/Add';
 import BankImg from '../../../assets/imagespng/bankX.png';
 import UPIImg from '../../../assets/imagespng/upi.png';
 import { toast } from 'react-toastify';
+import NotFound from '../../NotFound/NotFound';
 
 const BankDetails = ({ onDefaultBankChange }) => {
   const dispatch = useDispatch();
@@ -154,17 +155,23 @@ const BankDetails = ({ onDefaultBankChange }) => {
   };
 
   useEffect(() => {
-    if (responseMessage){
-      toast.success(responseMessage.message)
+    dispatch(fetchBankUpiDetailsRequest(10, 1));
+  }, []); // Remove dispatch from the dependency array
+
+  
+  useEffect(() => {
+    if (responseMessage) {
+      toast.success(responseMessage.message);
       dispatch(fetchBankUpiDetailsRequest(10, 1));
-      dispatch(resetBankUpiDetailsResponseMessage()); 
+      dispatch(resetBankUpiDetailsResponseMessage());
     }
-    if(bankUpiDetailsError){
-      toast.error(bankUpiDetailsError.message)
+  
+    if (bankUpiDetailsError) {
+      toast.error(bankUpiDetailsError.message);
       dispatch(resetBankUpiDetailsError());
-      dispatch(fetchBankUpiDetailsRequest(10, 1));
     }
-  }, [dispatch, responseMessage, bankUpiDetailsError]);
+  }, [responseMessage, bankUpiDetailsError]);
+  
 
 
   const handleDeleteDetail = (id, mode) => {
@@ -219,6 +226,10 @@ const BankDetails = ({ onDefaultBankChange }) => {
         </Stack>
       </div>
     );
+
+  if (bankUpiDetailsError) {
+    return <NotFound/>;
+  }
 
   return (
     <div className="bank-details-container">
