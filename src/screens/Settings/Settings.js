@@ -33,7 +33,7 @@ const Settings = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const isMobile = useMediaQuery('(max-width:1024px)');
-  const [mobileTabIndex, setMobileTabIndex] = useState(null);
+  const [mobileTabIndex, setMobileTabIndex] = useState(0);
   const [deleteDialogOpen, setDeleteDialogOpen] = useState(false); // State for delete dialog box
   const [deactivateDialogOpen, setDeactivateDialogOpen] = useState(false); // State for deactivate dialog box
 
@@ -45,7 +45,8 @@ const Settings = () => {
       '/bank_details': 3,
       '/withdraw': 4,
     };
-    setMobileTabIndex(pathToIndex[location.pathname]);
+    const newIndex = pathToIndex[location.pathname] !== undefined ? pathToIndex[location.pathname] : 0;
+    setMobileTabIndex(newIndex);
   }, [location.pathname]);
 
   const handleChange = (event, newValue) => {
@@ -159,7 +160,7 @@ const Settings = () => {
         <div color="error">
           <NotAuthorized />
         </div>);
-    }
+  }
   return (
     <div className='setting-container'>
       <div className='profile-component'>

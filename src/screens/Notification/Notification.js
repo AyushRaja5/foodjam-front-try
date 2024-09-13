@@ -7,6 +7,7 @@ import placeholderprofile from '../../assets/imagespng/placeholder.png'
 import { Link } from 'react-router-dom';
 import NotAuthorized from '../NotAuthorized/NotAuthorized';
 import { toast } from 'react-toastify';
+import NotFound from '../NotFound/NotFound';
 const Notification = () => {
   const dispatch = useDispatch();
   const notifications = useSelector(state => state.userNotification.usernotification);
@@ -29,10 +30,10 @@ const Notification = () => {
   );
 
   if (error) {
-    { toast.error(error.response.data.message) }
+    { toast.error(error.response?.data?.message) }
     return (
       <div variant="h6" color="error">
-        <NotAuthorized />
+        <NotFound />
       </div>);
   }
 

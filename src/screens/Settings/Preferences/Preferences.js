@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { addUserPreferenceRequest, fetchUserPreferencesRequest } from '../../../redux/actions/userPreferencesActions';
 import { toast } from 'react-toastify';
 import './Preferences.css';
+import NotFound from '../../NotFound/NotFound';
 
 const Preferences = () => {
   const dispatch = useDispatch();
@@ -76,7 +77,9 @@ const Preferences = () => {
     </div>
   );
 
-  if (error) return <div>Error: {error}</div>;
+  if (error) {
+    return <NotFound/>;
+  }
 
   return (
     <div className='yourPreferences'>

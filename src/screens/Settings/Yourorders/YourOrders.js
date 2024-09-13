@@ -5,6 +5,7 @@ import { Skeleton, Stack } from '@mui/material';
 import forwardImg from '../../../assets/imagespng/forwardIcon@3x.png'
 import './YourOrders.css';
 import { useNavigate } from 'react-router-dom';
+import NotFound from '../../NotFound/NotFound';
 
 const YourOrders = () => {
   const navigate = useNavigate();
@@ -36,7 +37,10 @@ const YourOrders = () => {
     </div>
   );
 
-  if (error) return <div>Error: {error}</div>;
+  if (error) {
+    return <NotFound/>;
+  }
+  
 
   const myOrders = orders.data;
 
@@ -95,12 +99,12 @@ const YourOrders = () => {
   return (
     <div className='yourOrders'>
       {myOrders?.map((order) => {
-        const { textColor, backGroundColor } = getStatusStyles(order.order_status);
+        const { textColor, backGroundColor } = getStatusStyles(order?.order_status);
         return (
-          <div key={order.order_id} className='order' onClick={() => handleOrderClick(order.order_id)}>
+          <div key={order?.order_id} className='order' onClick={() => handleOrderClick(order?.order_id)}>
             <div className='order-header'>
-              <div>Order no:- {order.order_id}</div>
-              <div>Order placed on {new Date(order.date_added).toLocaleDateString('en-GB', {
+              <div>Order no:- {order?.order_id}</div>
+              <div>Order placed on {new Date(order?.date_added).toLocaleDateString('en-GB', {
                 day: 'numeric',
                 month: 'short',
                 year: 'numeric'
@@ -108,9 +112,9 @@ const YourOrders = () => {
             </div>
             <div className='order-details'>
               <div className='product'>
-                <img src={order.products_image} alt="Product" className='product-image' />
+                <img src={order?.products_image} alt="Product" className='product-image' />
                 <div className='product-info'>
-                  {truncateText(order.products)}
+                  {truncateText(order?.products)}
                 </div>
                 <img src={forwardImg} alt='forward' className='forward-image'/>
               </div>
@@ -119,7 +123,7 @@ const YourOrders = () => {
               <div className='order-status'
                 style={{ color: textColor, backgroundColor: backGroundColor }}
               >
-                {order.order_status}
+                {order?.order_status}
               </div>
               {/* <div className='reorder'>Re-order</div> */}
             </div>

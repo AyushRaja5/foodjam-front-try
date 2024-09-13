@@ -8,6 +8,7 @@ import deleteImg from '../../../assets/imagespng/delete@3x.png'
 import './AddressBook.css';
 import AddressDialogBox from './AddressDialogBox';
 import { toast } from 'react-toastify';
+import NotFound from '../../NotFound/NotFound';
 
 const AddressBook = () => {
   const dispatch = useDispatch();
@@ -74,7 +75,9 @@ const AddressBook = () => {
     </div>
   );
 
-  if (error) return <div>Error: {error}</div>;
+  if (error) {
+    return <NotFound/>;
+  }
 
   return (
     <div className="yourAddress">

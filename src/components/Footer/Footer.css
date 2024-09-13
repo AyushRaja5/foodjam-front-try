@@ -178,4 +178,17 @@
     .footer-section ul li {
       font-size: 13px;
     }
+
+    .footer {
+      grid-template-columns: 1fr; /* Single column for mobile */
+    }
+  
+    /* Products and Useful Links side by side */
+    .footer-section:nth-child(2),
+    .footer-section:nth-child(3) {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr); /* Two columns for these sections */
+      gap: 10px;
+      text-align: left;
+    }
   }
