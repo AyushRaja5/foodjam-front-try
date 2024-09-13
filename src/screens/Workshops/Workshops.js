@@ -8,11 +8,9 @@ import noContestImg from '../../assets/imagespng/noContest.png';
 import shareEmptyImg from '../../assets/imagespng/shareEmpty.png';
 import expiredImg from '../../assets/imagespng/expired.png';
 import contestCalenderIcon from '../../assets/imagespng/contestIcon.png';
-// import noContestImg from '../../assets/imagespng/noContest.png';
-import clockImg from '../../assets/imagespng/clock.png';
-import bigArrowImg from '../../assets/imagespng/bigArrow.png';
 import { Link } from 'react-router-dom';
 import { Box, Pagination, Skeleton, Stack } from '@mui/material';
+import NotFound from '../NotFound/NotFound';
 
 
 dayjs.extend(utc);
@@ -75,10 +73,9 @@ const Workshops = () => {
   );
 
   if (error) {
-    return <div>Error loading workshops: {error}</div>;
+    return <NotFound/>;
   }
 
-  // console.log(workshops, 'workshop')
   return (
     <div className="workshops-container">
       <input

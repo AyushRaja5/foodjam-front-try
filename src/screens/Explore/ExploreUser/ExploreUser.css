@@ -159,4 +159,7 @@
     font-size: 8px;
     font-weight: 500;
   }
+  .scroll-btn.left, .scroll-btn.right{
+    display: none;
+  }
 }
