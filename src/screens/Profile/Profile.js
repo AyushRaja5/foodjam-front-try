@@ -269,7 +269,7 @@ const Profile = () => {
                   <span onClick={handleClickOpenPopularityDialogBox}>Popularity</span>
                 </div>
                 <p className='fullname'>{userProfileInfo?.first_name} {userProfileInfo?.last_name}</p>
-                <p className='username'>{userProfileInfo?.username ? userProfileInfo?.username : "Ayush"}</p>
+                <p className='username'>{userProfileInfo?.username ? userProfileInfo?.username : "User Profile"}</p>
               </div>
             </div>
             <div className='follow-div'>
