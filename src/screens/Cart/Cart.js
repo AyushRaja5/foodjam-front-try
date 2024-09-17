@@ -179,10 +179,12 @@ const Cart = () => {
       {!cartProductsLoading && (
         <div className="order-detail cart-detail">
           <div className="order-detail-left">
-            {/* localCartProducts.length === 0 ? (
+            {localCartProducts.length === 0 && (
               <div className='empty-cart'>
                 <img src={emptyData} alt="Empty Cart" />
-              </div> */}
+              </div>
+            )}
+
             <div className='order-products'>
               {localCartProducts.map((product, index) => (
                 <React.Fragment key={index}>

@@ -36,6 +36,14 @@ const Notification = () => {
         <NotFound />
       </div>);
   }
+  if (notifications.length < 1) {
+    return (
+      <div style={{height:'80vh', display:'flex', justifyContent:'center', alignItems:'center'}}>
+          <span style={{fontSize:'24px'}}>
+            Empty Notification
+          </span>
+      </div>);
+  }
 
   const getTimeDifference = (createdAt) => {
     const timeDiffInDays = Math.floor((Date.now() - new Date(createdAt)) / (1000 * 60 * 60 * 24));

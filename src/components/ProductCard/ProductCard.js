@@ -45,7 +45,7 @@ export const ProductCard = ({ product, quantity }) => {
       {product.offer &&
         <div className='offer-ribbon'>
           <img src={OfferRibbon} alt='offer ribbon' />
-          <span className='product-card-offer'>10% off</span>
+          <span className='product-card-offer'>{product?.offer}</span>
         </div>
       }
       <Link to={`/product/${product?.product_id}`} className='link-product-detail'>
@@ -59,7 +59,7 @@ export const ProductCard = ({ product, quantity }) => {
             {product.offer ? (
               <div className='price-old-price'>
                <span className="line-through"> &#8377; {product.price}</span>
-               <span><strong> &#8377; {product.special}</strong></span>
+               <span><strong> &#8377; {product.special || (product?.price - product?.offer.slice(0,2)*0.01)}</strong></span>
               </div>
             ) : (
               <span>&#8377; {product.price}</span>
