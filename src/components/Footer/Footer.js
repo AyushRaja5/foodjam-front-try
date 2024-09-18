@@ -114,10 +114,10 @@ const DownloadAppSection = () => {
     <div className="download-section">
       <div>For better experience, download the Foodjam app now</div>
       <div className="app-buttons">
-        <a href="https://play.google.com/store/apps/details?id=com.commeat.androidapp">
+        <a href="https://play.google.com/store/apps/details?id=com.commeat.androidapp" target='_blank'>
           <img src={GPlayStore} alt="Google Play Store" />
         </a>
-        <a href="https://apps.apple.com/in/app/id1662431063">
+        <a href="https://apps.apple.com/in/app/id1662431063" target='_blank'>
           <img src={IOSstore} alt="Apple App Store" />
         </a>
       </div>
