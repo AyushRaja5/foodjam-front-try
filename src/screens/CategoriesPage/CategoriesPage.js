@@ -9,6 +9,7 @@ import './CategoriesPage.css'
 import { addToCartRequest, fetchCartProductsRequest, resetResponseMessage } from '../../redux/actions/cartActions';
 import RemoveIcon from '@mui/icons-material/Remove';
 import AddIcon from '@mui/icons-material/Add';
+import LoginDrawer from '../../config/LoginDrawer';
 
 const CategoriesPage = () => {
     const { categoriesId } = useParams();
@@ -17,6 +18,10 @@ const CategoriesPage = () => {
     const limit = 5;
     const { data, error, loading } = useSelector(state => state.categoriesData);
     const { cartproducts, responseMessage, loading: cartLoading } = useSelector(state => state.cartProducts);
+    const [drawerOpen, setDrawerOpen] = useState(false);
+    const toggleDrawer = (open) => (event) => {
+        setDrawerOpen(open);
+    };
 
     useEffect(() => {
         dispatch(getCategoriesProductRequest(categoriesId));
@@ -65,6 +70,8 @@ const CategoriesPage = () => {
         const user = JSON.parse(localStorage.getItem('foodjam-user'));
         if (!user || !user?.sessionToken) {
             toast.error("Please login to add products")
+            setDrawerOpen(true);
+            return;
         }
         dispatch(addToCartRequest(product?.product_id, "1"))
     };
@@ -136,6 +143,7 @@ const CategoriesPage = () => {
                     </div>
                 </div>
             ))}
+            <LoginDrawer open={drawerOpen} toggleDrawer={toggleDrawer} />
         </div>
     );
 };

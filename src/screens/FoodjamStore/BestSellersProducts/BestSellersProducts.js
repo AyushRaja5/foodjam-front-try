@@ -7,17 +7,22 @@ import { useNavigate } from 'react-router-dom';
 import { addToCartRequest } from '../../../redux/actions/cartActions';
 import { HorozontalProduct } from '../../CategoriesPage/CategoriesPage';
 import crownImg from '../../../assets/imagespng/crownImg.png'; 
+import LoginDrawer from '../../../config/LoginDrawer';
 
 const BestSellersProducts = ({ variant, columns, heading, display_limit, cartproducts, responseMessage }) => {
     const [displayData, setDisplayData] = useState(columns.slice(0, display_limit));
     const dispatch = useDispatch();
     const navigate = useNavigate();
-
+    const [drawerOpen, setDrawerOpen] = useState(false);
+    const toggleDrawer = (open) => (event) => {
+        setDrawerOpen(open);
+    };
    
     const handleAddToCart = (product) => {
         const user = JSON.parse(localStorage.getItem('foodjam-user'));
         if (!user || !user?.sessionToken) {
             toast.error("Please login to add products");
+            setDrawerOpen(true);
             return;
         }
         dispatch(addToCartRequest(product.product_id, "1"));
@@ -74,6 +79,7 @@ const BestSellersProducts = ({ variant, columns, heading, display_limit, cartpro
                     </div>
                 ))}
             </div>
+            <LoginDrawer open={drawerOpen} toggleDrawer={toggleDrawer} />
         </div>
     );
 };

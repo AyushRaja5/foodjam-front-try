@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchSingleProductRequest } from '../../redux/actions/productActions';
@@ -104,7 +104,6 @@ const ProductDetails = ({ data, handleAddToCart, handleQuantityChange, cartprodu
     offer,
     special
   } = data;
-  console.log(data,'data:')
   const CancellationPolicy = "Once the payment for your order is complete, the order cannot be cancelled.";
   const RefundPolicy = "This product cannot be returned, but incase you receive the product that is physicall damaged, has missing parts or accessries, defective or different from the description, \n Please reach out to our support team.";
 
@@ -116,6 +115,8 @@ const ProductDetails = ({ data, handleAddToCart, handleQuantityChange, cartprodu
   const [expanded, setExpanded] = useState('panel1');
   const [open, setOpen] = useState(false);
   const [selectedImage, setSelectedImage] = useState(null);
+  const similarProductsRef = useRef(null);
+  const moreFromCategoryRef = useRef(null);
 
   const handleChange = (panel) => (event, isExpanded) => {
     setExpanded(isExpanded ? panel : false);
@@ -129,6 +130,23 @@ const ProductDetails = ({ data, handleAddToCart, handleQuantityChange, cartprodu
   const handleClose = () => {
     setOpen(false);
     setSelectedImage(null);
+  };
+
+  // Separate scroll functions for both sections
+  const scrollLeftSimilar = () => {
+    similarProductsRef.current.scrollBy({ left: -300, behavior: 'smooth' });
+  };
+
+  const scrollRightSimilar = () => {
+    similarProductsRef.current.scrollBy({ left: 300, behavior: 'smooth' });
+  };
+
+  const scrollLeftCategory = () => {
+    moreFromCategoryRef.current.scrollBy({ left: -300, behavior: 'smooth' });
+  };
+
+  const scrollRightCategory = () => {
+    moreFromCategoryRef.current.scrollBy({ left: 300, behavior: 'smooth' });
   };
 
   return (
@@ -186,10 +204,10 @@ const ProductDetails = ({ data, handleAddToCart, handleQuantityChange, cartprodu
         {offer && <span className="offer-text">{offer || '10 % off'}</span>}
         <div className='shop-product-price-quantity'>
           <div className='product-price'>
-          {offer ? (
+            {offer ? (
               <div className='price-old-price'>
-               <span className="line-through"> &#8377; {price}</span>
-               <span><strong> &#8377; {special}</strong></span>
+                <span className="line-through"> &#8377; {price}</span>
+                <span><strong> &#8377; {special}</strong></span>
               </div>
             ) : (
               <span>&#8377; {price}</span>
@@ -240,8 +258,13 @@ const ProductDetails = ({ data, handleAddToCart, handleQuantityChange, cartprodu
             <AccordionSummary expandIcon={<ExpandMoreIcon />} aria-controls="panel2-content" id="panel2-header">
               <Typography><strong>Similar Product</strong></Typography>
             </AccordionSummary>
+            <div className="scroll-buttons">
+              <button className="scroll-button" onClick={scrollLeftSimilar}>{"<"}</button>
+              <button className="scroll-button" onClick={scrollRightSimilar}>{">"}</button>
+            </div>
+            <br />
             <AccordionDetails className='accordian-similar-product'>
-              <div className='product-details-similar-product'>
+              <div className='product-details-similar-product' ref={similarProductsRef}>
                 {similar_products.map((product, index) => (
                   <ProductCard key={index} product={product} quantity={getQuantityFromCart(product.product_id)} />
                 ))}
@@ -272,8 +295,12 @@ const ProductDetails = ({ data, handleAddToCart, handleQuantityChange, cartprodu
             <AccordionSummary expandIcon={<ExpandMoreIcon />} aria-controls="panel5-content" id="panel5-header">
               <Typography><strong>More from this Category</strong></Typography>
             </AccordionSummary>
+            <div className="scroll-buttons">
+              <button className="scroll-button" onClick={scrollLeftCategory}>{"<"}</button>
+              <button className="scroll-button" onClick={scrollRightCategory}>{">"}</button>
+            </div>
             <AccordionDetails>
-              <div className='product-details-similar-product'>
+              <div className='product-details-similar-product'  ref={moreFromCategoryRef} >
                 {similar_products.map((product, index) => (
                   <ProductCard key={index} product={product} quantity={getQuantityFromCart(product.product_id)} />
                 ))}
