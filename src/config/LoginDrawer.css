@@ -1,0 +1,100 @@
+.drawer-signin{
+    width: 450px;
+}
+.signmeny-heading-image{
+    display: flex;
+    justify-content: space-between;
+    padding: 0 10px;
+  }
+  .signmeny-heading-image  img{
+    width: 140px;
+    height: 90px; 
+  }
+  .signmeny-heading-image div{
+    display: flex;
+    flex-direction: column;
+    font-size: 28px;
+    justify-content: start;
+    margin-top: 2rem;
+  }
+  
+  .toggle-or{
+    font-size: 16px;
+  }
+  .toggle-text{
+    font-size: 16px;
+    cursor: pointer;
+    color: #f8a003;
+  }
+  .tnc-login{
+    display: flex;
+    flex-wrap: wrap;
+    font-size: 13px;
+    margin-top: 20px;
+  }
+  .tnc-login strong a{
+    text-decoration: none; 
+    color: black;
+    font-weight: bold;
+    margin-left: 5px;
+  }
+  
+  .tnc-login strong a:hover {
+    color: #f8a003; 
+  }
+
+  form{
+    width: 100%;
+    height: auto;
+    margin-top: 30px;
+  }
+
+  form input{
+    width: 100%;
+    height: 60px;
+    padding: 10px 20px;
+    font-size: 16px;
+    margin-top: -1px;
+  }
+  form button{
+    margin: 20px 0 0 0;
+    width: 100%;
+    height: 50px;
+    cursor: pointer;
+    background-color: #f8a003 !important;
+    border: none;
+    color: white;
+    font-size: 18px !important;
+    text-transform: uppercase !important;
+    line-height: 50px !important;
+    font-weight: 600 !important;
+    margin-top: 20px !important;
+    margin-bottom: 10px !important;
+  }
+  .otp-page-backlink{
+    color: #f8a003 !important;
+    font-size: 16px;
+  }
+  .resend-otp{
+    display: flex;
+    justify-content: center;
+  }
+  .resend-otp-link{
+    color: black;
+  }
+
+  @media screen and (max-width: 500px) {
+    .signmeny-heading-image{
+      flex-direction: column-reverse;
+      margin-left: -10px;
+    }
+    .signmeny-heading-image div{
+      margin-top: 0;
+    }
+    .drawer-signin{
+        width: 100%;
+    }
+    form{
+      margin-top: 10px;
+    }
+  }

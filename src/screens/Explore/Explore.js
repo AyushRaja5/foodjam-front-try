@@ -15,6 +15,7 @@ import Leaderboard from './Leaderboard/Leaderboard';
 import ButtonsCard from './Buttons/Buttons';
 import { toast } from 'react-toastify';
 import NotFound from '../NotFound/NotFound';
+import LoginDrawer from '../../config/LoginDrawer';
 
 const Explore = () => {
   const dispatch = useDispatch();
@@ -24,7 +25,11 @@ const Explore = () => {
   const CACHE_NAME = process.env.REACT_APP_EXPLORE_CACHE_NAME || 'explore-cache';
   const CACHE_KEY = process.env.REACT_APP_EXPLORE_CACHE_KEY || 'explore-data';
   const CACHE_DURATION = parseInt(process.env.REACT_APP_CACHE_DURATION, 10) || 10 * 60 * 1000; // 10 minutes default
+  const [drawerOpen, setDrawerOpen] = useState(false);
 
+  const toggleDrawer = (open) => (event) => {
+    setDrawerOpen(open);
+  };
   const getCachedData = async () => {
     const cache = await caches.open(CACHE_NAME);
     const cachedResponse = await cache.match(CACHE_KEY);
@@ -53,6 +58,11 @@ const Explore = () => {
     await cache.put(CACHE_KEY, response);
   };
 
+  const clearCache = async () => {
+    const cache = await caches.open(CACHE_NAME);
+    await cache.delete(CACHE_KEY);
+  };
+
   useEffect(() => {
     const fetchData = async () => {
       const cachedExploreData = await getCachedData();
@@ -78,12 +88,28 @@ const Explore = () => {
     }
   }, [exploredata]);
 
-  const handleFollow = (accountToFollow) => {
+  const handleFollow = async(accountToFollow) => {
     if (!accountToFollow) {
       toast.error("User Id invalid");
       return;
     }
-    dispatch(followUserRequest(accountToFollow));
+    const user = JSON.parse(localStorage.getItem('foodjam-user'));
+    if (!user || !user?.sessionToken) {
+      toast.error("Please login to to Follow User")
+      setDrawerOpen(true);
+      return;
+    }
+
+    try {
+      // Dispatch follow user request
+      await dispatch(followUserRequest(accountToFollow));
+  
+      // Clear cache and fetch updated data
+      await clearCache();
+      dispatch(fetchExploreRequest());
+    } catch (error) {
+      toast.error("Failed to follow user.");
+    }
   };
 
   if (exploreLoading && !cachedData) {
@@ -108,10 +134,10 @@ const Explore = () => {
       {sortedRows?.map((exploreItem, index) => (
         <RenderFunction key={index} data={exploreItem} handleFollow={handleFollow} />
       ))}
+      <LoginDrawer open={drawerOpen} toggleDrawer={toggleDrawer} />
     </div>
   );
 };
-
 const RenderFunction = ({ data, handleFollow }) => {
   if (!data.is_visible || !data.columns || data.columns.length === 0) {
     return null;

@@ -18,6 +18,12 @@
   flex-direction: column;
   padding: 20px;
 }
+.empty-cart {
+  display: flex;
+  align-items: start;
+  justify-content: center;
+  height: 100%;
+}
 .empty-cart img{
   max-height:80%;
   max-width: 90%;

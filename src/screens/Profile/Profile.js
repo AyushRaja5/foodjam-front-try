@@ -53,7 +53,7 @@ const CustomTabPanel = ({ children, value, index }) => {
   return (
     <div role="tabpanel" hidden={value !== index} style={{ width: '100%' }}>
       {value === index && (
-        <Box sx={{ p: 3, my: '5px' }}>
+        <Box sx={{ p: 3}}>
           {children}
         </Box>
       )}

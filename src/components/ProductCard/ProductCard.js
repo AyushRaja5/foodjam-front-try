@@ -10,9 +10,16 @@ import { addToCartRequest, fetchCartProductsRequest, resetResponseMessage } from
 import { Link } from 'react-router-dom';
 import CloseIcon from '@mui/icons-material/Close';
 import OfferRibbon from '../../assets/imagespng/offer-ribbon.png'
+import LoginDrawer from '../../config/LoginDrawer';
 export const ProductCard = ({ product, quantity }) => {
   const dispatch = useDispatch();
   const { loading: cartLoading } = useSelector(state => state.cartProducts);
+  const [drawerOpen, setDrawerOpen] = useState(false);
+    
+  const toggleDrawer = (open) => (event) => {
+      setDrawerOpen(open);
+  };
+
   const truncateText = (text, maxLength) => {
     if (text?.length > maxLength) {
       return text.substring(0, maxLength) + '...';
@@ -23,6 +30,8 @@ export const ProductCard = ({ product, quantity }) => {
     const user = JSON.parse(localStorage.getItem('foodjam-user'));
     if (!user || !user?.sessionToken) {
       toast.error("Please login to add products")
+      setDrawerOpen(true);
+      return;
     }
 
     if (product.id)
@@ -95,6 +104,7 @@ export const ProductCard = ({ product, quantity }) => {
           </div>
         </span>
       </div>
+      <LoginDrawer open={drawerOpen} toggleDrawer={toggleDrawer} />
     </div>
   );
 };

@@ -30,7 +30,6 @@ export const VerifyOTP = async (data) => {
   }
 }
 export const RegisterWithOTP = async (data) => {
-  console.log('Regiter from service backend', data)
   try {
     const response = await axios.post(
       'users/v1/user/register',

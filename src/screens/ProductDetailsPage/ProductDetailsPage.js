@@ -189,7 +189,7 @@ const ProductDetails = ({ data, handleAddToCart, handleQuantityChange, cartprodu
           {offer ? (
               <div className='price-old-price'>
                <span className="line-through"> &#8377; {price}</span>
-               <span><strong> &#8377; {price}</strong></span>
+               <span><strong> &#8377; {special}</strong></span>
               </div>
             ) : (
               <span>&#8377; {price}</span>
