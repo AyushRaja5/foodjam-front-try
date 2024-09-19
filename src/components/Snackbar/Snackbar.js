@@ -3,8 +3,11 @@ import { IconButton, Button, Snackbar } from '@mui/material';
 import { Close as CloseIcon } from '@mui/icons-material';
 import './Snackbar.css';
 
-const SimpleSnackbar = () => {
-  const [open, setOpen] = React.useState(true); // Show Snackbar by default
+const SimpleSnackbar = ({ open: propsOpen, setOpen: propsSetOpen }) => {
+  const [localOpen, setLocalOpen] = React.useState(true);
+
+  const open = propsOpen !== undefined ? propsOpen : localOpen;
+  const setOpen = propsSetOpen || setLocalOpen;
 
   const handleClose = (event, reason) => {
     if (reason === 'clickaway') {

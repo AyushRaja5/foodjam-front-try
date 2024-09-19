@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { addUserAddressRequest, deleteUserAddressRequest, editUserAddressRequest, fetchUserAddresssRequest } from '../../../redux/actions/userAddressActions';
-import { Skeleton, Stack } from '@mui/material';
-import locationImg from '../../../assets/imagespng/location@3x.png'
-import penImg from '../../../assets/imagespng/pen@3x.png'
-import deleteImg from '../../../assets/imagespng/delete@3x.png'
+import { Skeleton, Stack, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Button } from '@mui/material';
+import locationImg from '../../../assets/imagespng/location@3x.png';
+import penImg from '../../../assets/imagespng/pen@3x.png';
+import deleteImg from '../../../assets/imagespng/delete@3x.png';
 import './AddressBook.css';
 import AddressDialogBox from './AddressDialogBox';
 import { toast } from 'react-toastify';
@@ -16,7 +16,9 @@ const AddressBook = () => {
   const loading = useSelector((state) => state.userAddress?.loading);
   const error = useSelector((state) => state.userAddress?.error);
   const [dialogOpen, setDialogOpen] = useState(false);
+  const [deleteDialogOpen, setDeleteDialogOpen] = useState(false); // State for delete confirmation dialog
   const [currentAddress, setCurrentAddress] = useState(null);
+  const [addressToDelete, setAddressToDelete] = useState(null); // Store the address to be deleted
   const responseMessage = useSelector((state) => state.userAddress?.response);
   const responseError = useSelector((state) => state.userAddress?.error);
 
@@ -25,8 +27,25 @@ const AddressBook = () => {
     setDialogOpen(true);
   };
 
-  const handleDelete = (addressid) => {
-    dispatch(deleteUserAddressRequest(addressid));
+  const handleDelete = (addressId) => {
+    setAddressToDelete(addressId); // Store the address ID for deletion
+    setDeleteDialogOpen(true); // Open the delete confirmation dialog
+  };
+
+  const confirmDelete = () => {
+    if(userAddresses.length < 2){
+      toast.error("You need to have one address")
+    }
+    else{
+      dispatch(deleteUserAddressRequest(addressToDelete)); // Dispatch delete action
+    }
+    setDeleteDialogOpen(false); // Close the confirmation dialog
+    setAddressToDelete(null); // Reset the address to be deleted
+  };
+
+  const cancelDelete = () => {
+    setDeleteDialogOpen(false);
+    setAddressToDelete(null);
   };
 
   const handleAdd = () => {
@@ -49,22 +68,20 @@ const AddressBook = () => {
     setCurrentAddress(null);
   };
 
-  // Fetch addresses on component mount
   useEffect(() => {
     dispatch(fetchUserAddresssRequest(10, 1));
   }, [dispatch]);
 
-  // Handle success or error messages, with conditions to avoid infinite re-fetches
   useEffect(() => {
     if (responseMessage && responseMessage.success) {
       toast.success(responseMessage.success);
       dispatch(fetchUserAddresssRequest(10, 1));
-      dispatch({ type: 'CLEAR_USER_ADDRESS_RESPONSE' }); // Clear response after processing
+      dispatch({ type: 'CLEAR_USER_ADDRESS_RESPONSE' });
     }
 
     if (responseError) {
       toast.error(responseError.message);
-      dispatch({ type: 'CLEAR_USER_ADDRESS_ERROR' }); // Clear error after processing
+      dispatch({ type: 'CLEAR_USER_ADDRESS_ERROR' });
     }
   }, [dispatch, responseMessage, responseError]);
 
@@ -81,7 +98,10 @@ const AddressBook = () => {
   }
 
   if (error) {
-    return <NotFound />;
+    toast.error(error)
+    return(
+      <NotFound/>
+    )
   }
 
   return (
@@ -102,8 +122,8 @@ const AddressBook = () => {
                 <div className="right">
                   <img src={penImg} alt="edit" onClick={() => handleEdit(address)} />
                   <img src={deleteImg} alt="delete" onClick={() => handleDelete(address.address_id)} />
-                  </div>
                 </div>
+              </div>
               <div className="row details">
                 <div>{address.address_1}, {address.address_2}</div>
                 <div>{address.city}, {address.postcode}</div>
@@ -123,6 +143,23 @@ const AddressBook = () => {
         setDialogOpen={setDialogOpen}
         initialData={currentAddress}
       />
+
+      {/* Confirmation Dialog for Delete */}
+      <Dialog
+        open={deleteDialogOpen}
+        onClose={cancelDelete}
+      >
+        <DialogTitle>Confirm Delete</DialogTitle>
+        <DialogContent>
+          <DialogContentText>
+            Are you sure you want to delete this address? This action cannot be undone.
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={cancelDelete} color="primary">Cancel</Button>
+          <Button onClick={confirmDelete} color="secondary">Delete</Button>
+        </DialogActions>
+      </Dialog>
     </div>
   );
 };

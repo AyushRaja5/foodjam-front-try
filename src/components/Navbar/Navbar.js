@@ -50,13 +50,13 @@ const Navbar = () => {
     setDrawerOpen(false)
   }, [navigate]);
 
-  const handleCartClick = (e) => {
+  const handleRestrictedClick = (e, path) => {
     e.preventDefault();
     if (!isLoggedIn) {
-      toast.error("You are not logged In.")
+      toast.error("You are not logged In.");
       setDrawerOpen(true);
     } else {
-      navigate('/cart')
+      navigate(path);
     }
   };
 
@@ -144,7 +144,7 @@ const Navbar = () => {
             <li><Link to="https://event.foodjam.in/" target='blank'><img src={Explorer} alt='event' className="nav-icon" />Event</Link></li>
             {/* <li><Link to="/explore"><img src={Explorer} alt='explorer'  className="nav-icon"/>Explore</Link></li> */}
             <li><Link to="/shop"><img src={Bag} alt='Shop' className="nav-icon" />Shop</Link></li>
-            <li><Link onClick={handleCartClick}><img src={Bag} alt='Cart' className="nav-icon" />Cart</Link></li>
+            <li><Link onClick={(e) => handleRestrictedClick(e, '/cart')}><img src={Bag} alt='Cart' className="nav-icon" />Cart</Link></li>
             {isLoggedIn ? (
               <li ref={profileRef}>
                 <Link onClick={handleClick} className="profile-link"><img src={Profile} alt="Profile" className="nav-icon" /> Profile</Link>
@@ -218,12 +218,12 @@ const Navbar = () => {
         {getPageName().length < 10 && <img src={FJLogo} className='fj-logo' />}
         <div className="mobile-icons">
           <img src={SearchIcon} alt='search' />
-          <Link to={`/notifications`}><img src={notificationimg} alt='bell' /></Link>
+          <Link onClick={(e) => handleRestrictedClick(e, '/notifications')}><img src={notificationimg} alt='bell' /></Link>
           {
             location.pathname.includes('/profile') || location.pathname.includes('/setting') ? (
-              <Link to='/setting'><img src={settingsimg} alt='settings' /></Link>
+              <Link onClick={(e) => handleRestrictedClick(e, '/setting')}><img src={settingsimg} alt='settings' /></Link>
             ) : (
-              <Link to='/cart'><img src={cartimg} alt='cart' /></Link>
+              <Link onClick={(e) => handleRestrictedClick(e, '/cart')}><img src={cartimg} alt='cart' /></Link>
             )
           }
         </div>

@@ -5,11 +5,12 @@ import './Withdrawal.css'
 import BankDetails from '../BankDetails/BankDetails';
 import { Button } from '@mui/material';
 import { toast } from 'react-toastify';
+import SimpleSnackbar from '../../../components/Snackbar/Snackbar';
 const WithdrawBalance = () => {
   const dispatch = useDispatch();
   const { payoutHistory, payoutLoading, error: payoutHistoryError, responseMessage, withdrawError } = useSelector((state) => state.bankDetails);
   const [defaultBankDetail, setDefaultBankDetail] = useState('');
-  const state = useSelector((state) => state)
+  const [snackbarOpen, setSnackbarOpen] = useState(false);
   const handleDefaultBankChange = (defaultDetail) => {
     setDefaultBankDetail(defaultDetail);
   };
@@ -23,7 +24,7 @@ const WithdrawBalance = () => {
   }, [dispatch]);
   // console.log(payoutHistory?.payout_details)
   const handleWithdrawSubmit = () => {
-
+    setSnackbarOpen(true);
     const withdrawBankDetail = {
       beneficiary_id: defaultBankDetail?.detail?.bank_beneficiary_id,
       type: defaultBankDetail?.detail?.bank_details?.type,
@@ -78,6 +79,7 @@ const WithdrawBalance = () => {
       <div className='withdraw-balance-submit'>
         <Button onClick={handleWithdrawSubmit}>Withdraw</Button>
       </div>
+      <SimpleSnackbar open={snackbarOpen} setOpen={setSnackbarOpen} />
     </div>
   )
 }

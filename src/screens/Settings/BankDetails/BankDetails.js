@@ -21,6 +21,7 @@ import BankImg from '../../../assets/imagespng/bankX.png';
 import UPIImg from '../../../assets/imagespng/upi.png';
 import { toast } from 'react-toastify';
 import NotFound from '../../NotFound/NotFound';
+import SimpleSnackbar from '../../../components/Snackbar/Snackbar';
 
 const BankDetails = ({ onDefaultBankChange }) => {
   const dispatch = useDispatch();
@@ -29,6 +30,10 @@ const BankDetails = ({ onDefaultBankChange }) => {
   const [bankDialogOpen, setBankDialogOpen] = useState(false);
   const [upiDialogOpen, setUpiDialogOpen] = useState(false);
   const [defaultBankDetail, setDefaultBankDetail] = useState('');
+  const [deleteConfirmDialogOpen, setDeleteConfirmDialogOpen] = useState(false); 
+  const [deleteTarget, setDeleteTarget] = useState({ id: null, mode: null });
+  const [snackbarOpen, setSnackbarOpen] = useState(false);
+
   // console.log(state,'state')
   const [bankAddNewDetail, setBankAddNewDetail] = useState({
     user_bank_name: '',
@@ -174,11 +179,12 @@ const BankDetails = ({ onDefaultBankChange }) => {
   
 
 
-  const handleDeleteDetail = (id, mode) => {
-    dispatch(deleteBankUpiDetailsRequest(id, mode));
-  };
+  // const handleDeleteDetail = (id, mode) => {
+  //   dispatch(deleteBankUpiDetailsRequest(id, mode));
+  // };
 
   const handleBankDialogOpen = () => {
+    setSnackbarOpen(true);
     setBankDialogOpen(true);
   };
 
@@ -187,6 +193,7 @@ const BankDetails = ({ onDefaultBankChange }) => {
   };
 
   const handleUpiDialogOpen = () => {
+    setSnackbarOpen(true);
     setUpiDialogOpen(true);
   };
 
@@ -214,7 +221,21 @@ const BankDetails = ({ onDefaultBankChange }) => {
     }
     console.log(selectedBankDetail, 'bank details');
   };
-  
+
+  const handleDeleteDetail = (id, mode) => {
+    setDeleteTarget({ id, mode }); // Set the id and mode for deletion
+    setDeleteConfirmDialogOpen(true); // Open the confirmation dialog
+  };
+
+  const confirmDeleteDetail = () => {
+    // Dispatch delete action
+    dispatch(deleteBankUpiDetailsRequest(deleteTarget.id, deleteTarget.mode));
+    setDeleteConfirmDialogOpen(false); // Close the confirmation dialog
+  };
+
+  const cancelDelete = () => {
+    setDeleteConfirmDialogOpen(false); // Close the dialog without deleting
+  };
 
   if (bankUpiDetailsLoading)
     return (
@@ -469,6 +490,20 @@ const BankDetails = ({ onDefaultBankChange }) => {
           </button>
         </div>
       </Dialog>
+
+      {/* Delete Confirmation Dialog */}
+      <Dialog open={deleteConfirmDialogOpen} onClose={cancelDelete}>
+        <DialogTitle>Confirm Deletion</DialogTitle>
+        <DialogContent>
+          <span>Are you sure you want to delete this bank/UPI detail?</span>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={cancelDelete} color="primary">Cancel</Button>
+          <Button onClick={confirmDeleteDetail} color="secondary">Delete</Button>
+        </DialogActions>
+      </Dialog>
+
+      <SimpleSnackbar open={snackbarOpen} setOpen={setSnackbarOpen} />
     </div>
   );
 };

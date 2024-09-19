@@ -124,8 +124,8 @@
     margin-top: 20px;
 }
 .withdraw-balance-submit button{
-    background-color: #f8ad33;
-    color: white;
+    background-color: #ccc;
+    color: black;
     width: 30%;
 }
 .withdraw-balance-submit button:hover{
