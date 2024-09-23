@@ -5,6 +5,10 @@
     padding: 20px;
     margin: 0 10%;
   }
+  .leader-board-dialog-box{
+    width: 70%;
+    justify-self: center;
+  }
   .lps-date-box{
     display: flex;
     justify-content: space-between;
@@ -106,6 +110,12 @@
       flex-direction: column;
       gap: 10px;
     }
+    .leader-board-dialog-box{
+      width: 100%;
+    }
+    .css-ypiqx9-MuiDialogContent-root {
+      padding: 0;
+  }
     .list-leaderboard-header{
       padding: 10px 45px;
     }

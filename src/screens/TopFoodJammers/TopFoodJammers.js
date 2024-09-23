@@ -1,11 +1,54 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchLeaderboardRequest } from '../../redux/actions/ExploreActions';
-import { Box, Button, Typography, List, ListItem, ListItemAvatar, Avatar, ListItemText, Dialog, DialogTitle, DialogContent, CircularProgress, Skeleton, Stack, Menu, MenuItem, TextField, IconButton } from '@mui/material';
+import {Box, Button, Typography, List, ListItem, ListItemAvatar, Avatar, 
+  ListItemText, Dialog, DialogTitle, DialogContent, CircularProgress, 
+  Skeleton, Stack, Menu, MenuItem, TextField, IconButton, Accordion, 
+  AccordionSummary, AccordionDetails  } from '@mui/material';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import './TopFoodJammers.css';
-import { ArrowForwardIos } from '@mui/icons-material';
 import { Link } from 'react-router-dom';
 import forwardIcon from '../../assets/imagespng/forwardIcon@3x.png'
+
+// Points system data
+const pointsSystemData = [
+  {
+    title: 'Video / Post',
+    id: 1,
+    pointsData: [
+      { title: 'Upload video with products', subTitle: '', points: '+20' },
+      { title: 'Upload video without products', subTitle: '', points: '+15' },
+      { title: 'Share post', subTitle: '10 points to user, who has uploaded that video', points: '+5' },
+      { title: 'Comment on post', subTitle: '5 points to user, who has uploaded that video', points: '+2' },
+      { title: 'Like post', subTitle: '5 points to user, who has uploaded that video', points: '+2' },
+      { title: 'View post', subTitle: '5 points to user, who has uploaded that video', points: '+2' },
+    ],
+  },
+  {
+    title: 'Explore',
+    id: 2,
+    pointsData: [{ title: 'Join contest', subTitle: '', points: '+20' }],
+  },
+  {
+    title: 'Shop',
+    id: 3,
+    pointsData: [{ title: 'Place order', subTitle: '30 points to user, whose product is sold', points: '+20' }],
+  },
+  {
+    title: 'Login',
+    id: 4,
+    pointsData: [{ title: 'Login', subTitle: '', points: '+20' }, { title: 'Register', subTitle: '', points: '+30' }],
+  },
+  {
+    title: 'Profile',
+    id: 5,
+    pointsData: [
+      { title: 'When your follower increased', subTitle: '5 points to user, whose followers increased', points: '+2' },
+      { title: 'When your follower decreased', subTitle: '-5 points to user, whose followers decreased', points: '-2' },
+    ],
+  },
+];
+
 
 const months = [
   "January", "February", "March", "April", "May", "June",
@@ -161,10 +204,10 @@ const TopFoodJammers = () => {
           </ListItem>
         )) : <Typography variant="body2" color="textSecondary">No data found!</Typography>}
       </List>
-      <Dialog open={isModalOpen} onClose={closeModal}>
+      <Dialog open={isModalOpen} onClose={closeModal}  maxWidth="lg" fullWidth className='leader-board-dialog-box' >
         <DialogTitle>Leaderboard Points System (LPS)</DialogTitle>
         <DialogContent>
-          {/* Add your points system data here */}
+        {renderPointsSystem()}
         </DialogContent>
         <Button onClick={closeModal}>Close</Button>
       </Dialog>
@@ -173,3 +216,57 @@ const TopFoodJammers = () => {
 };
 
 export default TopFoodJammers;
+
+const isPositive = (points) => parseInt(points) > 0;
+
+const renderPointsSystem = () => (
+  <div style={{ padding: '16px' }}>
+    {pointsSystemData.map((category) => (
+      <Accordion key={category.id}>
+        <AccordionSummary
+          expandIcon={<ExpandMoreIcon />}
+          aria-controls={`${category.id}-content`}
+          id={`${category.id}-header`}
+        >
+          <Typography>{category.title}</Typography>
+        </AccordionSummary>
+        <AccordionDetails>
+          <List>
+            {category.pointsData.map((item, index) => {
+              const positive = isPositive(item.points);
+              return (
+                <ListItem key={index}>
+                  <Box 
+                    display="flex" 
+                    justifyContent="space-between" 
+                    width="100%" 
+                    sx={{
+                      backgroundColor: positive ? 'rgba(0, 255, 0, 0.1)' : 'rgba(255, 0, 0, 0.1)',
+                      padding: '8px',
+                      borderRadius: '8px',
+                      alignItems:'center'
+                    }}
+                  >
+                    <Box>
+                      <ListItemText primary={item.title} secondary={item.subTitle} />
+                    </Box>
+                    <Typography
+                      variant="body2"
+                      sx={{
+                        color: positive ? 'green' : 'red',
+                        fontWeight: 'bold',
+                        fontSize: '18px'
+                      }}
+                    >
+                      {item.points}
+                    </Typography>
+                  </Box>
+                </ListItem>
+              );
+            })}
+          </List>
+        </AccordionDetails>
+      </Accordion>
+    ))}
+  </div>
+);

@@ -6,7 +6,7 @@ import './NotFound.css'
 import emptyImg from '../../assets/imagespng/empty-data-img.jpg'
 const NotFound = () => {
   return (
-    <div style={{ textAlign: 'center', padding: '20px 50px' }}>
+    <div style={{ textAlign: 'center', }}>
        <main className="not-found-main">
         <h1>Oops, Wrong Turn...</h1>
         <p>

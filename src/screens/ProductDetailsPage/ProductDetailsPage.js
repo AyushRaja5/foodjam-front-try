@@ -258,6 +258,7 @@ const ProductDetails = ({ data, handleAddToCart, handleQuantityChange, cartprodu
             <AccordionSummary expandIcon={<ExpandMoreIcon />} aria-controls="panel2-content" id="panel2-header">
               <Typography><strong>Similar Product</strong></Typography>
             </AccordionSummary>
+            <br/>
             <div className="scroll-buttons">
               <button className="scroll-button" onClick={scrollLeftSimilar}>{"<"}</button>
               <button className="scroll-button" onClick={scrollRightSimilar}>{">"}</button>
@@ -295,6 +296,7 @@ const ProductDetails = ({ data, handleAddToCart, handleQuantityChange, cartprodu
             <AccordionSummary expandIcon={<ExpandMoreIcon />} aria-controls="panel5-content" id="panel5-header">
               <Typography><strong>More from this Category</strong></Typography>
             </AccordionSummary>
+            <br/>
             <div className="scroll-buttons">
               <button className="scroll-button" onClick={scrollLeftCategory}>{"<"}</button>
               <button className="scroll-button" onClick={scrollRightCategory}>{">"}</button>

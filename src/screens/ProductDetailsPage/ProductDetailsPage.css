@@ -75,6 +75,7 @@
     padding: 0 40px;
     overflow-y: auto;
     scrollbar-width: none;
+    height: 100vh;
   }
   
   .product-info h1 {
