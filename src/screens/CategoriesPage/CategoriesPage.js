@@ -3,7 +3,7 @@ import { Link, useNavigate, useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { getCategoriesProductRequest } from '../../redux/actions/categoriesActions';
 import { setBreadcrumbTitle, clearBreadcrumbTitle } from '../../redux/actions/breadcrumbActions';
-import { Button, ButtonGroup, CircularProgress, Skeleton, Stack, Typography } from '@mui/material';
+import { Button, ButtonGroup, Card, CircularProgress, Skeleton, Stack, Typography } from '@mui/material';
 import { toast } from 'react-toastify';
 import './CategoriesPage.css'
 import { addToCartRequest, fetchCartProductsRequest, resetResponseMessage } from '../../redux/actions/cartActions';
@@ -251,7 +251,9 @@ export const HorozontalProduct = ({ product, cartLoading, quantity, responseMess
     const textMaxLength = screenWidth > 750 ? 30 : 20;
 
     return (
-        <div className='link-shop-brand'>
+        <>
+        <Link to={`/product/${product.product_id}`} className='link-product-detail'>
+        <Card className='link-shop-brand'>
             <div className='categories-product-container'>
                 {product.special_price && (
                     <div className='discount-badge'>
@@ -262,9 +264,9 @@ export const HorozontalProduct = ({ product, cartLoading, quantity, responseMess
                     <img src={product.product_image} alt='Product' className='product-image' />
                 </div>
                 <div className='categories-product-details'>
-                    <Link to={`/product/${product.product_id}`} className='product-name'>
+                    <div className='product-name'>
                         {truncateText(product.product_name, textMaxLength)}
-                    </Link>
+                    </div>
                     <div className='product-brand'>
                         {product.manufacturer_name || 'Restaurant Mamih'}
                     </div>
@@ -298,6 +300,8 @@ export const HorozontalProduct = ({ product, cartLoading, quantity, responseMess
                                 </div>
                                 : <button className='saved-product-add-button'
                                     onClick={(e) => {
+                                        e.preventDefault();
+                                        e.stopPropagation();
                                         handleAddToCart(product);
                                     }}> {cartLoading ? <CircularProgress size={15} color='primary' /> : 'Add'}</button>
                             }
@@ -305,7 +309,9 @@ export const HorozontalProduct = ({ product, cartLoading, quantity, responseMess
                     </div>
                 </div>
             </div>
-        </div>
+        </Card>
+        </Link>
+        </>
     );
 };
 

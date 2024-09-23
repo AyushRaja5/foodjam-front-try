@@ -3,7 +3,7 @@ import placeholder from '../../assets/imagespng/placeholder.png';
 import './ProductCard.css';
 import { addProductToCart } from '../../services/Cart/UserCart';
 import { toast } from 'react-toastify';
-import { Button, ButtonGroup, CircularProgress, Drawer, IconButton } from '@mui/material';
+import { Button, ButtonGroup, CircularProgress, Drawer, IconButton, Card } from '@mui/material';
 import RemoveIcon from '@mui/icons-material/Remove';
 import AddIcon from '@mui/icons-material/Add';
 import { useDispatch, useSelector } from 'react-redux';
@@ -68,72 +68,85 @@ export const ProductCard = ({ product, quantity }) => {
   };
 
   return (
-    <div className='product-card-container'>
-      {product.offer &&
-        <div className='offer-ribbon'>
-          <img src={OfferRibbon} alt='offer ribbon' />
-          <span className='product-card-offer'>{product?.offer}</span>
-        </div>
-      }
+    <>
       <Link to={`/product/${product?.product_id || product.id}`} className='link-product-detail'>
-        <img 
-          src={imageSrc} 
-          alt='Product Thumbnail' 
-          className='product-image'
-          style={{ opacity: imageLoaded ? 1 : 0.5 }} // Add visual feedback while loading
-        />
-      </Link>
+        <Card className='product-card-container'>
+          {product.offer &&
+            <div className='offer-ribbon'>
+              <img src={OfferRibbon} alt='offer ribbon' />
+              <span className='product-card-offer'>{product?.offer}</span>
+            </div>
+          }
+          <img
+            src={imageSrc}
+            alt='Product Thumbnail'
+            className='product-image'
+            style={{ opacity: imageLoaded ? 1 : 0.5 }} // Add visual feedback while loading
+          />
 
-      <div className='saved-productinfo'>
-        <span className='product-text'>{truncateText(product.text, 50) || truncateText(product.name, 50)}</span>
-        <span className='bottom-text'>
-          <div className='saved-product-price'>
-            {product.offer ? (
-              <div className='price-old-price'>
-                <span className="line-through"> &#8377; {product.price}</span>
-                <span><strong> &#8377; {product.special || (product?.price - product?.offer.slice(0, 2) * 0.01)}</strong></span>
-              </div>
-            ) : (
-              <span>&#8377; {product.price}</span>
-            )}
+          <div className='saved-productinfo'>
+            <span className='product-text'>{truncateText(product.text, 50) || truncateText(product.name, 50)}</span>
+            <span className='bottom-text'>
+              <div className='saved-product-price'>
+                {product.offer ? (
+                  <div className='price-old-price'>
+                    <span className="line-through"> &#8377; {product.price}</span>
+                    <span><strong> &#8377; {product.special || (product?.price - product?.offer.slice(0, 2) * 0.01)}</strong></span>
+                  </div>
+                ) : (
+                  <span>&#8377; {product.price}</span>
+                )}
 
-            {quantity || product?.quantity ? (
-              <div className="product-price">
-                <ButtonGroup>
+                {quantity || product?.quantity ? (
+                  <div className="product-price">
+                    <ButtonGroup>
+                      <Button
+                        className='quantity-btn'
+                        aria-label="reduce"
+                        sx={{ borderRadius: '10px' }}
+                        onClick={(event) => {handleQuantityChange(product.product_id || product.id, parseInt(quantity || product.quantity) - 1)
+                          event.preventDefault();
+                          event.stopPropagation(); 
+                        }}
+                      >
+                        <RemoveIcon fontSize="small" />
+                      </Button>
+                      <Button className='quantity-btn' sx={{ borderLeft: 'none', borderRight: 'none' }}>
+                        {cartLoading ? <CircularProgress size={15} color='primary' sx={{ display: 'flex', textAlign: 'center' }} /> : parseInt(quantity || product.quantity)}
+                      </Button>
+                      <Button
+                        className='quantity-btn'
+                        sx={{ borderLeft: 'none', borderRadius: '10px' }}
+                        aria-label="increase"
+                        onClick={(event) => {handleQuantityChange(product.product_id || product.id, parseInt(quantity || product.quantity) + 1)
+                        event.preventDefault();
+                        event.stopPropagation(); 
+                        }}
+                      >
+                        <AddIcon fontSize="small" />
+                      </Button>
+                    </ButtonGroup>
+                  </div>
+                ) : (
                   <Button
-                    className='quantity-btn'
-                    aria-label="reduce"
-                    sx={{ borderRadius: '10px' }}
-                    onClick={() => handleQuantityChange(product.product_id || product.id, parseInt(quantity || product.quantity) - 1)}
+                    className='saved-product-add-button'
+                    onClick={(event) => {
+                      event.preventDefault();
+                      event.stopPropagation(); // Prevent navigation
+                      handleAddToCart(product);
+                    }}
+
                   >
-                    <RemoveIcon fontSize="small" />
+                    {cartLoading ? <CircularProgress size={15} color='primary' /> : 'Add'}
                   </Button>
-                  <Button className='quantity-btn' sx={{ borderLeft: 'none', borderRight: 'none' }}>
-                    {cartLoading ? <CircularProgress size={15} color='primary' sx={{ display: 'flex', textAlign: 'center' }} /> : parseInt(quantity || product.quantity)}
-                  </Button>
-                  <Button
-                    className='quantity-btn'
-                    sx={{ borderLeft: 'none', borderRadius: '10px' }}
-                    aria-label="increase"
-                    onClick={() => handleQuantityChange(product.product_id || product.id, parseInt(quantity || product.quantity) + 1)}
-                  >
-                    <AddIcon fontSize="small" />
-                  </Button>
-                </ButtonGroup>
+                )}
               </div>
-            ) : (
-              <button
-                className='saved-product-add-button'
-                onClick={() => handleAddToCart(product)}
-              >
-                {cartLoading ? <CircularProgress size={15} color='primary' /> : 'Add'}
-              </button>
-            )}
+            </span>
           </div>
-        </span>
-      </div>
+        </Card>
+      </Link>
       <LoginDrawer open={drawerOpen} toggleDrawer={toggleDrawer} />
-    </div>
+    </>
   );
 };
 

@@ -56,6 +56,13 @@
     overflow: hidden;
 }
 
+.link-product-detail {
+    text-decoration: none;
+    color: inherit;
+    display: flex;
+    justify-content: center;
+}
+
 .link-shop-brand{
     text-decoration: none;
     color: inherit;
