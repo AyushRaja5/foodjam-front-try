@@ -4,7 +4,7 @@
     display: grid;
     grid-template-columns: repeat(3, 1fr); /* Four columns */
     gap: 20px;
-    padding: 3% 160px 10%;
+    padding: 3% 160px 6%;
     font-family: 'Arial', sans-serif;
     font-size: 14px;
   }

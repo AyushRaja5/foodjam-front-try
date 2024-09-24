@@ -20,12 +20,13 @@ import { addToCartRequest } from '../../redux/actions/cartActions';
 import CloseIcon from '@mui/icons-material/Close';
 import BookmarkBorderIcon from '@mui/icons-material/BookmarkBorder';
 import mailIcon from '../../assets/imagespng/mailIcon.png';
-import { MailLockOutlined } from '@mui/icons-material';
+import placeholder from '../../assets/imagespng/placeholder.png';
 const ProductDetailsPage = () => {
   const { productId } = useParams();
   const dispatch = useDispatch();
   const { product, loading, error } = useSelector(state => state.productData);
   const { cartproducts, responseMessage, loading: cartLoading } = useSelector(state => state.cartProducts);
+  const [selectedImage, setSelectedImage] = useState(placeholder);
 
   useEffect(() => {
     dispatch(fetchSingleProductRequest(productId));
@@ -114,7 +115,7 @@ const ProductDetails = ({ data, handleAddToCart, handleQuantityChange, cartprodu
 
   const [expanded, setExpanded] = useState('panel1');
   const [open, setOpen] = useState(false);
-  const [selectedImage, setSelectedImage] = useState(null);
+  const [selectedImage, setSelectedImage] = useState(placeholder);
   const similarProductsRef = useRef(null);
   const moreFromCategoryRef = useRef(null);
 
@@ -155,7 +156,11 @@ const ProductDetails = ({ data, handleAddToCart, handleQuantityChange, cartprodu
         <Carousel emulateTouch>
           {images.map((image, index) => (
             <div key={index} className="product-carousel-img-wrapper" onClick={() => handleClickOpen(image.popup)}>
-              <img src={image.popup} alt={`Product image ${index + 1}`} className='product-carousel-img' />
+              <img   src={image?.popup || placeholder} 
+                alt={`Product image ${index + 1}`}
+                className='product-carousel-img'
+                // onLoad={() => setSelectedImage(image.popup)}
+                onError={(e) => e.target.src = placeholder}/>
             </div>
           ))}
         </Carousel>
