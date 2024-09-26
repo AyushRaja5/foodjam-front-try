@@ -223,7 +223,7 @@
     grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
   }
   .css-19kzrtu {
-    padding: 10px !important;
+    padding: 0 !important;
   }
  .saved-product-price{
   font-size: 16px;

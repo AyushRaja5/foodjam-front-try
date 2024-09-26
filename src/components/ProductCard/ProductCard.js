@@ -85,7 +85,7 @@ export const ProductCard = ({ product, quantity }) => {
           />
 
           <div className='saved-productinfo'>
-            <span className='product-text'>{truncateText(product.text, 50) || truncateText(product.name, 50)}</span>
+            <span className='product-text'>{truncateText(product.text, 40) || truncateText(product.name, 40)}</span>
             <span className='bottom-text'>
               <div className='saved-product-price'>
                 {product.offer ? (

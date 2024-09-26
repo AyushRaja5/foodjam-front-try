@@ -930,7 +930,7 @@ const SavedCustomTabPanel = ({ savedPosts, savedPostsLoading, limit }) => {
             </div>
             <Stack spacing={2} className="pagination-stack">
               <Pagination
-                count={Math.ceil(savedPosts?.metadata?.total_posts / limit) || 2}
+                count={Math.ceil(savedPosts?.metadata?.total_posts / limit) || 1}
                 page={1}
                 // onChange={handleStoreMyProductsPagination}
                 size="small"
@@ -945,11 +945,12 @@ const SavedCustomTabPanel = ({ savedPosts, savedPostsLoading, limit }) => {
             <div
               style={{
                 display: 'grid',
-                gridTemplateColumns: 'repeat(auto-fill, minmax(200px, 1fr))', // Adjust column width as needed
+                gridTemplateColumns: 'repeat(auto-fill, minmax(200px, 1fr))',
                 gap: '10px',
                 marginTop: '10px',
                 justifyItems: 'center'
               }}
+              className='custom-grid'
             >
               {savedPosts.saved?.categoryData[1].videos.map((post) => (
                 <VideoCard post={post} key={post.id} />
