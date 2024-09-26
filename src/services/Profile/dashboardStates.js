@@ -45,27 +45,17 @@ export const GetDashboardStatesService = async (token, accountId)  => {
     }
   }
 
-  export const EditUserProfileService = async (token, accountId, editProfile)  => {
-    console.log(editProfile, 'edit Profile in service')
+  export const UploadUserProfile = async (token, accountId, formData) => {
+    console.log(formData, 'edit Profile in service');
     try {
-      const response = await axios.patch(
-        `users/v1/user/profile`,
-        {
-          first_name: editProfile.name.split(' ')[0] || '',
-          middle_name: '',
-          last_name: editProfile.name.split(' ')[1] || '',
-          user_name: editProfile.username,
-          phone: editProfile.phone,
-          profile_picture: editProfile.profile_picture || '',
-          email: editProfile.email,
-          facebook: editProfile.facebook,
-          instagram: editProfile.instagram,
-          youtube: editProfile.youtube,
-        },
+      const response = await axios.put(
+        `users/v1/user/profilePicture`,
+        formData, 
         {
           headers: {
             'x-access-token': token,
             'x-access-user': accountId,
+            'Content-Type': 'multipart/form-data',  // Ensure this header is set for file uploads
           },
         }
       );
@@ -73,4 +63,34 @@ export const GetDashboardStatesService = async (token, accountId)  => {
     } catch (error) {
       throw error;
     }
+  };
+  
+  export const EditUserProfileService = async (token, accountId, editProfile)  => {
+    console.log(editProfile, 'edit Profile in service')
+    // try {
+    //   const response = await axios.patch(
+    //     `users/v1/user/profile`,
+    //     {
+    //       first_name: editProfile.name.split(' ')[0] || '',
+    //       middle_name: '',
+    //       last_name: editProfile.name.split(' ')[1] || '',
+    //       user_name: editProfile.username,
+    //       phone: editProfile.phone,
+    //       profile_picture: editProfile.profile_picture || '',
+    //       email: editProfile.email,
+    //       facebook: editProfile.facebook,
+    //       instagram: editProfile.instagram,
+    //       youtube: editProfile.youtube,
+    //     },
+    //     {
+    //       headers: {
+    //         'x-access-token': token,
+    //         'x-access-user': accountId,
+    //       },
+    //     }
+    //   );
+    //   return response.data;
+    // } catch (error) {
+    //   throw error;
+    // }
   }

@@ -45,15 +45,16 @@ import exclusiveLite from '../../assets/imagespng/ecLite.png'
 import menuLite from '../../assets/imagespng/sellingLite.png'
 import userPlaceholder from '../../assets/imagespng/user.png'
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
-import { Button, DialogActions, Divider, Skeleton, TextField } from '@mui/material';
+import { Avatar, Button, DialogActions, Divider, Skeleton, TextField } from '@mui/material';
 import { toast } from 'react-toastify';
-
+import CloudUploadIcon from '@mui/icons-material/CloudUpload';
+import { UploadUserProfile } from '../../services/Profile/dashboardStates';
 
 const CustomTabPanel = ({ children, value, index }) => {
   return (
     <div role="tabpanel" hidden={value !== index} style={{ width: '100%' }}>
       {value === index && (
-        <Box sx={{ p: 3}}>
+        <Box sx={{ p: 3 }}>
           {children}
         </Box>
       )}
@@ -89,6 +90,19 @@ const CustomTab = ({ icon, label, ...other }) => {
   );
 };
 
+const VisuallyHiddenInput = styled('input')({
+  clip: 'rect(0 0 0 0)',
+  clipPath: 'inset(50%)',
+  height: 1,
+  overflow: 'hidden',
+  position: 'absolute',
+  bottom: 0,
+  left: 0,
+  whiteSpace: 'nowrap',
+  width: 1,
+});
+
+
 const Profile = () => {
   const dispatch = useDispatch();
   const location = useLocation();
@@ -100,8 +114,8 @@ const Profile = () => {
   };
 
   const cdnBaseURL = 'https://cdn.commeat.com/'
-  const loggedInAccountId = JSON.parse(localStorage.getItem('foodjam-user'))?.account_id;
-  const isOwnProfile = id === loggedInAccountId;
+  const loggedInAccountId = JSON.parse(localStorage.getItem('foodjam-user'));
+  const isOwnProfile = id === loggedInAccountId?.account_id;
   const [currentPage, setCurrentPage] = useState(1);
   const [currentStoreMyProductsPage, setCurrentStoreMyProductsPage] = useState(1);
   const [value, setValue] = React.useState(initialTab());
@@ -109,6 +123,7 @@ const Profile = () => {
   const [openPopularityDialogBox, setOpenPopularityDialogBox] = React.useState(false);
   const [openEditProfileDialogBox, setOpenEditProfileDialogBox] = useState(false);
   const [formValues, setFormValues] = useState({
+    profile_picture: '',
     name: '',
     username: '',
     email: '',
@@ -203,7 +218,30 @@ const Profile = () => {
       [name]: value,
     }));
   };
-
+// console.log(loggedInAccountId,'logged')
+  const handleImageChange = async (event) => {
+    const file = event.target.files[0];
+    if (file) {
+      const formData = new FormData();
+      formData.append('profilePicture', file);
+  
+      try {
+        const response = await UploadUserProfile(loggedInAccountId?.sessionToken, loggedInAccountId?.account_id, formData);
+        console.log(response,'response')
+        const imageUrl = response?.data
+  
+        setFormValues((prevValues) => ({
+          ...prevValues,
+          profile_picture: imageUrl,
+        }));
+  
+        // setProfileImage(imageUrl);
+      } catch (error) {
+        console.error('Error uploading image:', error);
+      }
+    }
+  };
+  
   const handleSaveProfile = () => {
     dispatch(saveEditProfileRequest(formValues));
     setOpenEditProfileDialogBox(false);
@@ -220,6 +258,9 @@ const Profile = () => {
         facebook: userProfileInfo?.facebook_link || '',
         instagram: userProfileInfo?.instagram_link || '',
         youtube: userProfileInfo?.youtube_link || '',
+        profile_picture: userProfileInfo?.profile_picture?.startsWith('https://')
+        ? userProfileInfo.profile_picture
+        : cdnBaseURL + userProfileInfo?.profile_picture || ''
       });
     }
   }, [userProfileInfo]);
@@ -247,7 +288,7 @@ const Profile = () => {
             <Skeleton variant="rounded" sx={{ fontSize: '1rem' }} width={'320px'} height={280} />
           </Stack>
         )}
-        
+
         {!userProfileInfoLoading &&
           <div className='profileInfo'>
             <div className='profile-pic-name-info'>
@@ -308,7 +349,7 @@ const Profile = () => {
             }}
             className='follow-btn-profile'
           >{(userProfileInfo?.following === '1') ? 'Following' : '+ Follow'}</Button>}
-        </div> 
+        </div>
       </div>
       <BootstrapDialog
         onClose={handleClosePopularityDialogBox}
@@ -361,6 +402,26 @@ const Profile = () => {
         </DialogTitle>
         <DialogContent dividers>
           <Stack spacing={2}>
+            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column', gap:'20px' }}>
+              <Avatar src={
+                formValues.profile_picture?.startsWith('https://')
+                ? formValues.profile_picture
+                : cdnBaseURL + formValues.profile_picture
+              } alt="Profile Image" sx={{ width: 100, height: 100 }} />
+              <Button
+                component="label"
+                role={undefined}
+                variant="contained"
+                tabIndex={-1}
+                startIcon={<CloudUploadIcon />}
+              >
+                Upload files
+                <VisuallyHiddenInput
+                  type="file"
+                  onChange={handleImageChange}
+                />
+              </Button>
+            </div>
             <TextField
               name="name"
               label="Name"
@@ -422,7 +483,7 @@ const Profile = () => {
         </DialogActions>
       </BootstrapDialog>
 
-      <Divider sx={{ marginLeft: '20px', borderWidth: '1px', color: 'red', height:'90vh' }} orientation="vertical" variant="fullWidth" className='vertical-line' flexItem />
+      <Divider sx={{ marginLeft: '20px', borderWidth: '1px', color: 'red', height: '90vh' }} orientation="vertical" variant="fullWidth" className='vertical-line' flexItem />
       <div className='dashboardInfo'>
         <Box sx={{ width: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
           <div className='tabs-mobile'>
@@ -667,15 +728,15 @@ const ChannelCustomTabPanel = ({ channelTabValue, handleChannelChange, userPosts
       )}
       {!userPostsInfoLoading && (
         <CustomTabPanel value={channelTabValue} index="1">
-          <div 
-          style={{
-                  display: 'grid',
-                  gridTemplateColumns: 'repeat(auto-fill, minmax(200px, 1fr))', // Adjust column width as needed
-                  gap: '10px',
-                  marginTop: '10px',
-                  justifyItems:'center'
-                }}
-                className='custom-grid'
+          <div
+            style={{
+              display: 'grid',
+              gridTemplateColumns: 'repeat(auto-fill, minmax(200px, 1fr))', // Adjust column width as needed
+              gap: '10px',
+              marginTop: '10px',
+              justifyItems: 'center'
+            }}
+            className='custom-grid'
           >
             {userPosts?.data?.map((post) => (
               <VideoCard post={post} key={post.id} />
@@ -745,50 +806,50 @@ const StoreCustomTabPanel = ({ storeProducts, storeProductsLoading, currentStore
               display: 'flex',
               flexWrap: 'wrap',
               gap: '10px',
-              marginTop:'10px'
+              marginTop: '10px'
               // justifyContent:'start'
             }}
           >
             <CustomTabPanel value={storeTabValue} index="1">
-            { storeProducts?.data?.store?.categoryData[0]?.products.length > 0 ? (
-              <>
-              <div
-                // style={{
-                //   display: 'grid',
-                //   gridTemplateColumns: 'repeat(auto-fill, minmax(200px, 1fr))', // Adjust column width as needed
-                //   gap: '10px',
-                //   marginTop: '10px',
-                //   justifyItems:'center'
-                // }}
-                className='custom-store-grid'
-              >
-                {storeProducts?.data?.store?.categoryData[0]?.products.map((product) => (
-                  <StoreMyProductCard myProduct={product} key={product.id} />
-                ))}
-              </div>
-              
-                <Stack spacing={2} className="pagination-stack">
-                  <Pagination
-                    count={Math.ceil(storeProducts.metadata.total_posts / limit)}
-                    page={currentStoreMyProductsPage}
-                    onChange={handleStoreMyProductsPagination}
-                    size="small"
-                  />
-                </Stack>
-                </>
-                ) : (
+              {storeProducts?.data?.store?.categoryData[0]?.products.length > 0 ? (
+                <>
                   <div
-                    style={{
-                      minHeight: '350px',
-                      height: 'auto',
-                      display: 'flex',
-                      flexDirection: 'column',
-                      justifyContent: 'center',
-                      alignItems: 'center'
-                    }}
+                    // style={{
+                    //   display: 'grid',
+                    //   gridTemplateColumns: 'repeat(auto-fill, minmax(200px, 1fr))', // Adjust column width as needed
+                    //   gap: '10px',
+                    //   marginTop: '10px',
+                    //   justifyItems:'center'
+                    // }}
+                    className='custom-store-grid'
                   >
-                    <h2>NO DATA</h2>
+                    {storeProducts?.data?.store?.categoryData[0]?.products.map((product) => (
+                      <StoreMyProductCard myProduct={product} key={product.id} />
+                    ))}
                   </div>
+
+                  <Stack spacing={2} className="pagination-stack">
+                    <Pagination
+                      count={Math.ceil(storeProducts.metadata.total_posts / limit)}
+                      page={currentStoreMyProductsPage}
+                      onChange={handleStoreMyProductsPagination}
+                      size="small"
+                    />
+                  </Stack>
+                </>
+              ) : (
+                <div
+                  style={{
+                    minHeight: '350px',
+                    height: 'auto',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    justifyContent: 'center',
+                    alignItems: 'center'
+                  }}
+                >
+                  <h2>NO DATA</h2>
+                </div>
               )}
             </CustomTabPanel>
           </div>
@@ -803,7 +864,7 @@ const StoreCustomTabPanel = ({ storeProducts, storeProductsLoading, currentStore
               display: 'flex',
               flexDirection: 'column',
               justifyContent: 'center',
-              alignItems:'center'
+              alignItems: 'center'
             }}
           >
             <h2>COMING SOON</h2>
@@ -818,7 +879,7 @@ const StoreCustomTabPanel = ({ storeProducts, storeProductsLoading, currentStore
               display: 'flex',
               flexDirection: 'column',
               justifyContent: 'center',
-              alignItems:'center'
+              alignItems: 'center'
             }}>
             <h2>COMING SOON</h2>
           </div>
@@ -859,8 +920,8 @@ const SavedCustomTabPanel = ({ savedPosts, savedPostsLoading, limit }) => {
               gridTemplateColumns: 'repeat(auto-fill, minmax(200px, 1fr))', // Adjust column width as needed
               gap: '10px',
               marginTop: '10px',
-              justifyItems:'center'
-              }}
+              justifyItems: 'center'
+            }}
               className='custom-grid'
             >
               {savedPosts.saved?.categoryData[0].videos.map((post) => (
@@ -887,7 +948,7 @@ const SavedCustomTabPanel = ({ savedPosts, savedPostsLoading, limit }) => {
                 gridTemplateColumns: 'repeat(auto-fill, minmax(200px, 1fr))', // Adjust column width as needed
                 gap: '10px',
                 marginTop: '10px',
-                justifyItems:'center'
+                justifyItems: 'center'
               }}
             >
               {savedPosts.saved?.categoryData[1].videos.map((post) => (

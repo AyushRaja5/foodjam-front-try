@@ -15,7 +15,12 @@ const ExploreUser = ({ variant, columns, dataSource, heading, display_limit, han
   };
 
   const formatUsername = (username) => {
-    return username.length > 15 ? `${username.slice(0, 15)}...` : username;
+    if(username.length > 15){
+      const nameParts = username.split(" ");
+      return nameParts.slice(0, 2).join(" ");
+    }else{
+      return username.length > 15 ? `${username.slice(0, 15)}...` : username;
+    }
   };
 
   const scrollLeft = () => {
