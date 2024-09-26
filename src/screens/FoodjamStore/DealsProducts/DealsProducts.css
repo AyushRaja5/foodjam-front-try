@@ -191,8 +191,10 @@
 }
 .deal-product-price-old-price{
     display: flex;
-    flex-direction: column;
+    /* flex-direction: column; */
     justify-content: start;
+    align-items: end;
+    gap: 5px;
 }
 .new-product-price{
     font-size: 20px;
