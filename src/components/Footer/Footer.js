@@ -17,8 +17,7 @@ const Footer = () => {
             <img src={FJLogo} alt="Logo" />
           </div>
           <p>
-            Welcome to Foodjam! The most comprehensive suite all in one for culinary creators.
-            Super easy to create your food vlog or upload HD version of those on the platform.
+            Welcome to the Foodjam! India's first discovery platform in Food & Beverages through content
           </p>
 
           <Grid item borderTop="1px solid gray" mt={2} container alignItems="center" justifyContent="center" gap={2}>
@@ -64,19 +63,19 @@ const Footer = () => {
             <h3 className="footer-title">Useful links</h3>
             <ul>
               <li>
-                <Link href="https://event.foodjam.in/" variant="body2" display="block" color="textPrimary">New Events</Link>
+                <Link href="https://event.foodjam.in/" variant="body2" display="block" color="textPrimary" target="_blank">New Events</Link>
               </li>
               <li>
-                <Link href="https://foodjam.in/blogs/" variant="body2" display="block" color="textPrimary">Our Blogs</Link>
+                <Link href="https://foodjam.in/blogs/" variant="body2" display="block" color="textPrimary" target="_blank">Foodjam Blogs</Link>
               </li>
               <li>
-                <Link href="https://foodjam.in/termsAndConditions/" variant="body2" display="block" color="textPrimary">Terms & Conditions</Link>
+                <Link href="https://foodjam.in/termsAndConditions/" variant="body2" display="block" color="textPrimary" target="_blank">Terms & Conditions</Link>
               </li>
               <li>
-                <Link href="https://foodjam.in/privacy/" variant="body2" display="block" color="textPrimary">Privacy Policy</Link>
+                <Link href="https://foodjam.in/privacy/" variant="body2" display="block" color="textPrimary" target="_blank">Privacy Policy</Link>
               </li>
               <li>
-                <Link href="https://foodjam.in/creator-earning-tnc/" variant="body2" display="block" color="textPrimary">Earning T&C</Link>
+                <Link href="https://foodjam.in/creator-earning-tnc/" variant="body2" display="block" color="textPrimary" target="_blank">Earning T&C</Link>
               </li>
             </ul>
           </div>

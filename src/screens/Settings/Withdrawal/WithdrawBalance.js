@@ -77,7 +77,7 @@ const WithdrawBalance = () => {
       </div>
       <BankDetails onDefaultBankChange={handleDefaultBankChange} />
       <div className='withdraw-balance-submit'>
-        <Button onClick={handleWithdrawSubmit}>Withdraw</Button>
+        <Button onClick={handleWithdrawSubmit} disabled>Withdraw</Button>
       </div>
       <SimpleSnackbar open={snackbarOpen} setOpen={setSnackbarOpen} />
     </div>
