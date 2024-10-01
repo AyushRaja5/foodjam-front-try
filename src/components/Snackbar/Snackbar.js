@@ -17,7 +17,7 @@ const SimpleSnackbar = ({ open: propsOpen, setOpen: propsSetOpen }) => {
   };
 
   const handleOpenApp = () => {
-    window.open('https://play.google.com/store/apps/details?id=com.commeat.androidapp', '_blank');
+    window.open('https://onelink.to/bvmva5', '_blank');
   };
 
   return (
