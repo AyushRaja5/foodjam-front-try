@@ -207,7 +207,6 @@
   }
   .cart-detail  .order-detail-right{
     padding: 0;
-    margin-bottom: 40px;
   }
     .date {
       min-width:60px ;
@@ -227,6 +226,7 @@
     }
     .cart-detail .product-info{
       margin-right: 10px;
+      height: auto;
     }
     .css-edsu1d-MuiButtonGroup-root .MuiButtonGroup-grouped{
       min-width: 1px !important;

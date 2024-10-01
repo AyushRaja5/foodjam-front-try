@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import './Explore.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchExploreRequest, followUserRequest } from '../../redux/actions/ExploreActions';
@@ -17,20 +17,11 @@ import { toast } from 'react-toastify';
 import NotFound from '../NotFound/NotFound';
 import LoginDrawer from '../../config/LoginDrawer';
 
-const Explore = () => {
-  const dispatch = useDispatch();
-  const { exploredata, loading: exploreLoading, error: exploreError, successMessage } = useSelector(state => state.exploreData);
+// Custom hook for handling cache operations
+const useCache = (CACHE_NAME, CACHE_KEY, CACHE_DURATION) => {
   const [cachedData, setCachedData] = useState(null);
 
-  const CACHE_NAME = process.env.REACT_APP_EXPLORE_CACHE_NAME || 'explore-cache';
-  const CACHE_KEY = process.env.REACT_APP_EXPLORE_CACHE_KEY || 'explore-data';
-  const CACHE_DURATION = parseInt(process.env.REACT_APP_CACHE_DURATION, 10) || 10 * 60 * 1000; // 10 minutes default
-  const [drawerOpen, setDrawerOpen] = useState(false);
-
-  const toggleDrawer = (open) => (event) => {
-    setDrawerOpen(open);
-  };
-  const getCachedData = async () => {
+  const getCachedData = useCallback(async () => {
     const cache = await caches.open(CACHE_NAME);
     const cachedResponse = await cache.match(CACHE_KEY);
 
@@ -39,21 +30,17 @@ const Explore = () => {
     const data = await cachedResponse.json();
     const now = new Date().getTime();
 
-    // Check if cache has expired
     if (now - data.timestamp > CACHE_DURATION) {
       await cache.delete(CACHE_KEY); // Clear expired cache
       return null;
     }
 
-    return data.payload; // Return cached data
-  };
+    return data.payload;
+  }, [CACHE_NAME, CACHE_KEY, CACHE_DURATION]);
 
   const storeDataInCache = async (data) => {
     const cache = await caches.open(CACHE_NAME);
-    const dataToCache = {
-      payload: data,
-      timestamp: new Date().getTime(), // Save the current timestamp
-    };
+    const dataToCache = { payload: data, timestamp: new Date().getTime() };
     const response = new Response(JSON.stringify(dataToCache));
     await cache.put(CACHE_KEY, response);
   };
@@ -63,6 +50,22 @@ const Explore = () => {
     await cache.delete(CACHE_KEY);
   };
 
+  return { cachedData, setCachedData, getCachedData, storeDataInCache, clearCache };
+};
+
+const Explore = () => {
+  const dispatch = useDispatch();
+  const { exploredata, loading: exploreLoading, error: exploreError, successMessage } = useSelector((state) => state.exploreData);
+  const [drawerOpen, setDrawerOpen] = useState(false);
+
+  // Cache Configuration
+  const CACHE_NAME = process.env.REACT_APP_EXPLORE_CACHE_NAME || 'explore-cache';
+  const CACHE_KEY = process.env.REACT_APP_EXPLORE_CACHE_KEY || 'explore-data';
+  const CACHE_DURATION = parseInt(process.env.REACT_APP_CACHE_DURATION, 10) || 10 * 60 * 1000; // 10 minutes default
+  const { cachedData, setCachedData, getCachedData, storeDataInCache, clearCache } = useCache(CACHE_NAME, CACHE_KEY, CACHE_DURATION);
+
+  const toggleDrawer = (open) => () => setDrawerOpen(open);
+
   useEffect(() => {
     const fetchData = async () => {
       const cachedExploreData = await getCachedData();
@@ -70,49 +73,44 @@ const Explore = () => {
       if (cachedExploreData) {
         setCachedData(cachedExploreData);
       } else {
-        // If no valid cache, fetch from API
         dispatch(fetchExploreRequest());
       }
     };
 
     fetchData();
-  }, [dispatch, successMessage]);
+  }, [dispatch, getCachedData, setCachedData]);
 
   useEffect(() => {
     if (exploredata && exploredata.rows) {
       exploredata.rows.sort((a, b) => a.sequence - b.sequence);
-
-      // Cache the data after a successful fetch
       storeDataInCache(exploredata);
       setCachedData(exploredata);
     }
-  }, [exploredata]);
+  }, [exploredata, storeDataInCache]);
 
-  const handleFollow = async(accountToFollow) => {
+  const handleFollow = async (accountToFollow) => {
     if (!accountToFollow) {
-      toast.error("User Id invalid");
+      toast.error('User Id invalid');
       return;
     }
     const user = JSON.parse(localStorage.getItem('foodjam-user'));
     if (!user || !user?.sessionToken) {
-      toast.error("Please login to to Follow User")
+      toast.error('Please login to Follow User');
       setDrawerOpen(true);
       return;
     }
 
     try {
-      // Dispatch follow user request
-      await dispatch(followUserRequest(accountToFollow));
-  
-      // Clear cache and fetch updated data
       await clearCache();
+      await dispatch(followUserRequest(accountToFollow));
       dispatch(fetchExploreRequest());
+      setCachedData(exploredata);
     } catch (error) {
-      toast.error("Failed to follow user.");
+      toast.error('Failed to follow user.');
     }
   };
 
-  if (exploreLoading && !cachedData) {
+  if (exploreLoading || !cachedData) {
     return (
       <div className='water'>
         <Stack spacing={1} sx={{ width: '100%', display: 'flex', alignItems: 'center' }}>
@@ -130,7 +128,7 @@ const Explore = () => {
   const sortedRows = cachedData?.rows || exploredata?.rows;
 
   return (
-    <div className='explore-component'>
+    <div className="explore-component">
       {sortedRows?.map((exploreItem, index) => (
         <RenderFunction key={index} data={exploreItem} handleFollow={handleFollow} />
       ))}
@@ -138,31 +136,32 @@ const Explore = () => {
     </div>
   );
 };
+
 const RenderFunction = ({ data, handleFollow }) => {
   if (!data.is_visible || !data.columns || data.columns.length === 0) {
     return null;
   }
 
   switch (data.type) {
-    case "banner":
+    case 'banner':
       return <Banner {...data} />;
-    case "users":
+    case 'users':
       return <ExploreUser {...data} handleFollow={handleFollow} />;
-    case "curation":
+    case 'curation':
       return <Curation {...data} />;
-    case "explore_brands":
+    case 'explore_brands':
       return <ExploreBrands {...data} />;
-    case "blog":
+    case 'blog':
       return <Blog {...data} />;
-    case "brands":
+    case 'brands':
       return <Brand {...data} />;
-    case "videos":
+    case 'videos':
       return <ExploreVideos {...data} />;
-    case "explore_food_links":
+    case 'explore_food_links':
       return <Affliate {...data} />;
-    case "leaderboard":
+    case 'leaderboard':
       return <Leaderboard {...data} handleFollow={handleFollow} />;
-    case "buttons":
+    case 'buttons':
       return <ButtonsCard {...data} />;
     default:
       return null;

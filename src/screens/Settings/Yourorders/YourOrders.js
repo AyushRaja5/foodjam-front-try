@@ -54,7 +54,7 @@ const YourOrders = () => {
       maxLength = 80;
     }
     if (screenWidth <= 450) {
-      maxLength = 30; 
+      maxLength = 50; 
     }
 
     if (text?.length > maxLength) {

@@ -243,7 +243,7 @@ const ProductDetails = ({ data, handleAddToCart, handleQuantityChange, cartprodu
               </ButtonGroup>
             ) : (
               <Button className='shop-product-add-button' onClick={() => handleAddToCart(data)}>
-                Add
+                Add to cart
               </Button>
             )}
           </div>
@@ -252,7 +252,7 @@ const ProductDetails = ({ data, handleAddToCart, handleQuantityChange, cartprodu
         <div>
           <Accordion expanded={expanded === 'panel1'} onChange={handleChange('panel1')}>
             <AccordionSummary expandIcon={<ExpandMoreIcon />} aria-controls="panel1-content" id="panel1-header">
-              <Typography><strong>Product description</strong></Typography>
+              <Typography className='accordian-header'><strong>Product description</strong></Typography>
             </AccordionSummary>
             <AccordionDetails>
               <Typography dangerouslySetInnerHTML={{ __html: description }} />
@@ -261,7 +261,7 @@ const ProductDetails = ({ data, handleAddToCart, handleQuantityChange, cartprodu
 
           <Accordion expanded={expanded === 'panel2'} onChange={handleChange('panel2')}>
             <AccordionSummary expandIcon={<ExpandMoreIcon />} aria-controls="panel2-content" id="panel2-header">
-              <Typography><strong>Similar Product</strong></Typography>
+              <Typography className='accordian-header'><strong>Similar Product</strong></Typography>
             </AccordionSummary>
             <br/>
             <div className="scroll-buttons">
@@ -280,7 +280,7 @@ const ProductDetails = ({ data, handleAddToCart, handleQuantityChange, cartprodu
 
           <Accordion expanded={expanded === 'panel3'} onChange={handleChange('panel3')}>
             <AccordionSummary expandIcon={<ExpandMoreIcon />} aria-controls="panel3-content" id="panel3-header">
-              <Typography><strong>Cancellation Policy</strong></Typography>
+              <Typography className='accordian-header'><strong>Cancellation Policy</strong></Typography>
             </AccordionSummary>
             <AccordionDetails>
               <Typography>{CancellationPolicy}</Typography>
@@ -289,7 +289,7 @@ const ProductDetails = ({ data, handleAddToCart, handleQuantityChange, cartprodu
 
           <Accordion expanded={expanded === 'panel4'} onChange={handleChange('panel4')}>
             <AccordionSummary expandIcon={<ExpandMoreIcon />} aria-controls="panel4-content" id="panel4-header">
-              <Typography><strong>Refund Policy</strong></Typography>
+              <Typography className='accordian-header'><strong>Refund Policy</strong></Typography>
             </AccordionSummary>
             <AccordionDetails>
               <Typography>{RefundPolicy}</Typography>
@@ -299,7 +299,7 @@ const ProductDetails = ({ data, handleAddToCart, handleQuantityChange, cartprodu
 
           <Accordion expanded={expanded === 'panel5'} onChange={handleChange('panel5')}>
             <AccordionSummary expandIcon={<ExpandMoreIcon />} aria-controls="panel5-content" id="panel5-header">
-              <Typography><strong>More from this Category</strong></Typography>
+              <Typography className='accordian-header'><strong>More from this Category</strong></Typography>
             </AccordionSummary>
             <br/>
             <div className="scroll-buttons">

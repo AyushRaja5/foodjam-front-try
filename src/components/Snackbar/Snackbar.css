@@ -2,7 +2,11 @@
     display: none;
 }
  .snackbar-download-button{
-    background-color : #f8a003;
+    background-color : #f8a003 !important;
+    width: 120px !important;
+ }
+ .snackbar-download-button :hover{
+    background-color : #f8a003 !important;
     width: 120px !important;
  }
  .snackbar-download-content{

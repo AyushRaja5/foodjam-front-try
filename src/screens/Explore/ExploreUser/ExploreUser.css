@@ -20,13 +20,13 @@
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.4);
 }
 
-.scroll-container {
+.explore-user-section .scroll-container {
   position: relative;
   display: flex;
   align-items: center;
 }
 
-.videos-container {
+.explore-user-section .videos-container {
   /* display: flex;
   overflow-x: auto;
   overflow-y: hidden; 
