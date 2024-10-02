@@ -21,7 +21,7 @@
 .view-btn {
   width: 150px;
   height: 45px;
-  border: 1px solid #f8a003;
+  border: 1px solid #f8a003 !important;
 }
 
 .videos-conatiner::-webkit-scrollbar {
