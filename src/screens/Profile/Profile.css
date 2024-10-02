@@ -607,10 +607,6 @@
     .dashboard-third {
         margin: 10px 0;
     }
-
-    .profile-component {
-        margin-bottom: 40px;
-    }
 }
 
 @media screen and (max-width: 450px) {

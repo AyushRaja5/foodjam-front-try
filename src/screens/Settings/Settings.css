@@ -96,7 +96,6 @@
   display: flex;
   padding: 20px 15px;
   margin-top: 10px;
-  margin-bottom: 40px;
 }
 
 .invite-frnds-left img {
@@ -150,11 +149,5 @@
     padding: 10px 20px;
     display: flex;
     justify-content: space-between;
-  }
-}
-
-@media screen and (max-width: 750px) {
-  .profile-component {
-    margin-bottom: 40px;
   }
 }

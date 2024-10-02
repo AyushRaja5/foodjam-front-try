@@ -327,6 +327,8 @@
     .shop-product-add-button{
       padding: 0px 10px;
       border-radius: 5px;
+      min-height: 30px;
+      font-weight: 600 !important;
     }  
   }
   
