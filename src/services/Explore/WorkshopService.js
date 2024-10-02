@@ -9,7 +9,7 @@ export const getWorkshopList = async (token, accountId, offset, limit) => {
     }
     else {
       const response = await axios.get(
-        `workshops/v2/workshops/auth?limit=${limit}&offset=${offset}`,
+        `workshops/v2/workshops?limit=${limit}&offset=${offset}`,
         {
           headers: {
             'x-access-token': token,
