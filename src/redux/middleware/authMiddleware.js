@@ -11,7 +11,7 @@ const authMiddleware = () => next => action => {
     VerifyOTP({ phone, otp })
       .then((response) => {
         console.log(response?.data,'token value')
-        const token = response?.data.sessionToken;
+        const token = response?.data?.sessionToken;
         // {otp : 737590}
         // const accountid = response.data.account_id;
         // const sessionUserName =  response.data.first_name || response.data.username
@@ -27,7 +27,7 @@ const authMiddleware = () => next => action => {
       })
       .finally(() => {
         next(loginRequest({ loading: false })); // Dispatch login request with loading state set to false after the request completes
-      });;
+      });
   } else {
     return next(action);
   }

@@ -3,7 +3,6 @@
 import axios from 'axios';
 
 export const LoginUser = async (data) => {
-  console.log('from backend', data)
   try {
     const response = await axios.post(
       `users/v2/user/login`,

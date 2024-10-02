@@ -84,7 +84,6 @@ const LoginDrawer = ({ open, toggleDrawer }) => {
                 setShowOTPForm(false);
                 setotpText('');
                 setLoginNumber('');
-                toast.success("Login Successful");
             }
         } else if (otpRecievedFromAPI.error) {
             toast.error(otpRecievedFromAPI.error);

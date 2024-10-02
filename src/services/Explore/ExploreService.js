@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { toast } from 'react-toastify';
 
 export const getExploreSequenceService = async (token, accountId) => {
   // console.log(token, accountId,'ayush cjeck')
@@ -57,6 +58,8 @@ export const followUser = async (token, accountId, account_to_follow) => {
         },
       }
     );
+    if(response?.data?.message) 
+      toast.success(response?.data?.message)
     return response.data;
   } catch (error) {
     throw error.response?.data || error;

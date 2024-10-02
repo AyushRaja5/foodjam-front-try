@@ -3,6 +3,7 @@
 import { call, put, takeLatest } from 'redux-saga/effects';
 import { LOGIN_REQUEST, loginSuccess, loginFailure, SIGNUP_REQUEST, signupSuccess, signupFailure } from '../actions/authActions';
 import { VerifyOTP, RegisterWithOTP } from '../../services/LoginService';
+import { toast } from 'react-toastify';
 
 function* loginUser(action) {
   try {
@@ -14,6 +15,10 @@ function* loginUser(action) {
     // console.log(userData, 'data from response authSaga')
     // Store user information in localStorage
     yield call([localStorage, 'setItem'], 'foodjam-user',  JSON.stringify(userData));
+    
+    if(localStorage.getItem('foodjam-user'))
+      toast.success("Login Successful");
+
     // yield call([localStorage, 'setItem'], 'account_id', userData.account_id);
     // yield call([localStorage, 'setItem'], 'email', userData.email);
     // yield call([localStorage, 'setItem'], 'phone', userData.phone);
