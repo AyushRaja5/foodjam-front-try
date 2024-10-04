@@ -31,11 +31,11 @@ function* fetchContestsSaga(action) {
 
 function* fetchSingleContestSaga(action) {
   try {
-    const { contestId, limit } = action.payload;
+    const { contestId, offset, limit } = action.payload;
     const user = JSON.parse(localStorage.getItem('foodjam-user'));
     const token = user ? user.sessionToken : null;
     const accountId = user ? user.account_id : null;
-    const contest = yield call(getSingleContests, token, accountId, contestId, limit);
+    const contest = yield call(getSingleContests, token, accountId, contestId, offset, limit);
     yield put(fetchSingleContestSuccess(contest));
   } catch (error) {
     yield put(fetchSingleContestFailure(error.message));

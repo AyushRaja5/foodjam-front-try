@@ -1,5 +1,12 @@
+.blogs{
+ display: flex;
+ width: 100%;
+ flex-wrap: wrap;
+ justify-content: space-between;
+}
+
 .blog-container {
-    width: 45%;
+    width: 48%;
     position: relative;
     margin-bottom: 20px;
     transition: transform 0.2s ease-in-out;

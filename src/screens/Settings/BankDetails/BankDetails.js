@@ -185,7 +185,7 @@ const BankDetails = ({ onDefaultBankChange }) => {
 
   const handleBankDialogOpen = () => {
     setSnackbarOpen(true);
-    toast.success("You can add bank details in Foodjam app only")
+    toast.warn("You can add bank details in Foodjam app only")
     // setBankDialogOpen(true);
   };
 
@@ -195,7 +195,7 @@ const BankDetails = ({ onDefaultBankChange }) => {
 
   const handleUpiDialogOpen = () => {
     setSnackbarOpen(true);
-    toast.success("You can add UPI details in Foodjam app only")
+    toast.warn("You can add UPI details in Foodjam app only")
     // setUpiDialogOpen(true);
   };
 

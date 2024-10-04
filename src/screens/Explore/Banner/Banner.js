@@ -20,11 +20,11 @@ const Banner = ({ variant, columns, dataSource, heading, limit }) => {
         >
           {columns.map((data, index) => (
             <div key={index} className="carousel-item">
-              <img src={data.image} alt={data.title} />
-              {/* <div className="carousel-caption">
+              <img src={data.image} alt={data.title || 'Banner Image'} />
+              <div className="banner-caption">
                 <h4>{data.title}</h4>
                 <p>{data.description}</p>
-              </div> */}
+              </div>
             </div>
           ))}
         </Carousel>

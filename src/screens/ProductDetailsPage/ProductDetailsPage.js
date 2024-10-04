@@ -220,27 +220,7 @@ const ProductDetails = ({ data, handleAddToCart, handleQuantityChange, cartprodu
           </div>
           <div className='shop-product-quantity'>
             {quantity > 0 ? (
-              <ButtonGroup>
-                <Button
-                  className='shop-product-quantity-btn'
-                  aria-label="reduce"
-                  sx={{ borderRadius: '10px' }}
-                  onClick={() => handleQuantityChange(data.product_id, parseInt(quantity) - 1)}
-                >
-                  <RemoveIcon fontSize="medium" />
-                </Button>
-                <Button className='shop-product-quantity-btn' sx={{ borderLeft: 'none', borderRight: 'none', color: 'black' }}>
-                  {parseInt(quantity)}
-                </Button>
-                <Button
-                  className='shop-product-quantity-btn'
-                  sx={{ borderLeft: 'none', borderRadius: '10px' }}
-                  aria-label="increase"
-                  onClick={() => handleQuantityChange(data.product_id, parseInt(quantity) + 1)}
-                >
-                  <AddIcon fontSize="medium" />
-                </Button>
-              </ButtonGroup>
+              <Link to='/cart'><Button className='view-cart-btn'>View Cart</Button></Link>
             ) : (
               <Button className='shop-product-add-button' onClick={() => handleAddToCart(data)}>
                 Add to cart
@@ -268,7 +248,6 @@ const ProductDetails = ({ data, handleAddToCart, handleQuantityChange, cartprodu
               <button className="scroll-button" onClick={scrollLeftSimilar}>{"<"}</button>
               <button className="scroll-button" onClick={scrollRightSimilar}>{">"}</button>
             </div>
-            <br />
             <AccordionDetails className='accordian-similar-product'>
               <div className='product-details-similar-product' ref={similarProductsRef}>
                 {similar_products.map((product, index) => (
@@ -284,6 +263,7 @@ const ProductDetails = ({ data, handleAddToCart, handleQuantityChange, cartprodu
             </AccordionSummary>
             <AccordionDetails>
               <Typography>{CancellationPolicy}</Typography>
+              <SupportCard />
             </AccordionDetails>
           </Accordion>
 

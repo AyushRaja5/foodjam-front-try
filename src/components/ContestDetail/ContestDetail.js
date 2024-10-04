@@ -35,7 +35,7 @@ const ContestDetail = () => {
   const [poster, setPoster] = useState("");
   const BUCKET_URL = "https://cdn.commeat.com/";
   const { singleContest, loading, error, participantsList, successMessage } = useSelector(state => state.contestData);
-  const [limitCnt, setLimitCnt] = useState(10);
+  const [limitCnt, setLimitCnt] = useState(5);
 
   useEffect(() => {
     if (contestId) {

@@ -8,14 +8,14 @@
     text-align: center;
     color: white;
     display: flex;
-    /* height: 400px; */
+    height: 300px;
     overflow: hidden;
   }
   .css-1f8sh1y{
-    height: 250px;
+    height: 270px;
   }
   .carousel-item img {
-    width: 400px;
+    width: 100%;
     height: auto;
     /* min-height: 420px; */
     object-fit: cover;
@@ -24,13 +24,23 @@
   .carousel .MuiCarousel-indicators {
     display: none;
   }
-  .carousel-caption {
-    position: absolute;
-    bottom: 8px;
-    left: 16px;
-    color: #000;
-  }
 
+  .banner-caption {
+    position: absolute;
+    bottom: 16px;
+    left: 16px;
+    color: #fff;
+    background: rgba(0, 0, 0, 0.5); 
+    padding: 10px;
+    border-radius: 5px;
+    opacity: 0;
+    font-size: 20px;
+    transition: opacity 0.3s ease; 
+  }
+  
+  .carousel-item:hover .banner-caption {
+    opacity: 1; /* Show on hover */
+  }
 
 
   @media (max-width: 750px) {
@@ -41,7 +51,7 @@
       object-fit: contain;
     }
     .css-1f8sh1y{
-      height: 200px;
+      height: 180px !important;
     }
     .carousel-item {
        height: auto; 
@@ -58,7 +68,10 @@
 
 
   @media (max-width: 400px) {
-    .css-1f8sh1y {
+    .carousel-item{
       height: 160px;
+    }
+    .css-1f8sh1y {
+      height: 160px !important;
     }
   }

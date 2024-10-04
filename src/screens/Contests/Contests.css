@@ -49,6 +49,7 @@
   /* display: flex;
   justify-content: center;
   align-items: center; */
+  width: 100%;
   display: grid;
   justify-items: center;
   grid-template-columns: repeat(auto-fill, minmax(auto, 1fr));
