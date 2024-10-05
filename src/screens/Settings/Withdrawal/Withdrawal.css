@@ -52,6 +52,13 @@
     cursor: pointer;
     text-decoration: none;
 }
+.withdraw-text-disabled{
+    color: #aaa;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    cursor: pointer;
+}
 
 .css-j204z7-MuiFormControlLabel-root .MuiFormControlLabel-label{
     display: contents !important;

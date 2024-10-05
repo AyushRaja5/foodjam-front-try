@@ -99,3 +99,30 @@
         font-size: 10px;
     }
 }
+
+@media (max-width: 450px) {
+    .top-brands-container {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
+        gap: 10px;
+        justify-items: center;
+        text-align: center;
+    }
+    .top-brands-card {
+      height: 100px;
+      width: 80px;
+      padding: 15px 5px;
+    }
+    .top-brands-img {
+        width: 50px;
+        height: 50px;
+        margin: 0;
+        padding: 0;
+    }
+    .top-brands-text,
+    .link-top-brands-profile {
+        text-decoration: none;
+        font-weight: 600;
+        font-size: 9px;
+    }
+}

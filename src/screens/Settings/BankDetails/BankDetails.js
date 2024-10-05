@@ -159,9 +159,6 @@ const BankDetails = ({ onDefaultBankChange }) => {
     });
   };
 
-  useEffect(() => {
-    dispatch(fetchBankUpiDetailsRequest(10, 1));
-  }, []); // Remove dispatch from the dependency array
 
   
   useEffect(() => {
@@ -185,7 +182,7 @@ const BankDetails = ({ onDefaultBankChange }) => {
 
   const handleBankDialogOpen = () => {
     setSnackbarOpen(true);
-    toast.warn("You can add bank details in Foodjam app only")
+    toast.warn("Download Foodjam app to add bank details")
     // setBankDialogOpen(true);
   };
 
@@ -195,7 +192,7 @@ const BankDetails = ({ onDefaultBankChange }) => {
 
   const handleUpiDialogOpen = () => {
     setSnackbarOpen(true);
-    toast.warn("You can add UPI details in Foodjam app only")
+    toast.warn("Download Foodjam app to add UPI details")
     // setUpiDialogOpen(true);
   };
 
@@ -266,7 +263,7 @@ const BankDetails = ({ onDefaultBankChange }) => {
         </div>
       </div>
       <div className="select-default-text">
-        {(bankUpiDetails?.bank_details?.length|| bankUpiDetails?.upi_details?.length )&& <strong>Select default method to receive money</strong>}
+        {/* {(bankUpiDetails?.bank_details?.length|| bankUpiDetails?.upi_details?.length )&& <strong>Select default method to receive money</strong>} */}
       </div>
       <RadioGroup value={defaultBankDetail} onChange={handleDefaultChange}>
         <div className="bank-grid">

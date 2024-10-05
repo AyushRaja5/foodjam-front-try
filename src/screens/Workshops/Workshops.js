@@ -90,6 +90,7 @@ const Workshops = () => {
 
           <div className='workshop-list'>
             {getWorkshopListData()?.map((item, index) => (
+                <Link to={`/workshop_details/${item?.id}`} className='link-user-profile'>
               <div key={item?.id} className="main-view">
                 <div className="item-btn">
                   <div className="share-banner-container">
@@ -141,8 +142,8 @@ const Workshops = () => {
                     </Link>
                   </div>
                 </div>
-
               </div>
+                </Link>
             ))}
           </div>
         ) : (

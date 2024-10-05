@@ -14,12 +14,14 @@ import {
   FormControlLabel,
 } from '@mui/material';
 import { Link } from 'react-router-dom';
+import { toast } from 'react-toastify';
+import SimpleSnackbar from '../../../components/Snackbar/Snackbar';
 const Withdrawal = () => {
   const dispatch = useDispatch();
   const [openWithdrawalFilterDialog, setOpenWithdrawalFilterDialog] = useState(false);
   const [selectedWithdrawalFilterOption, setSelectedWithdrawalFilterOption] = useState('last3Months');
-  const state = useSelector((state) => state)
   const { payoutHistory, payoutLoading, error: payoutHistoryError, responseMessage } = useSelector((state) => state.bankDetails);
+  const [snackbarOpen, setSnackbarOpen] = useState(false);
 
   useEffect(() => {
     const currentDate = new Date();
@@ -133,8 +135,26 @@ const Withdrawal = () => {
           <Typography variant="body2" className='typography'><span>Withdrawalable Balance</span> <span>&#8377; {payoutHistory?.payout_details?.withdrawalable_balance}</span></Typography>
           <Divider />
           <div className='withdrawal-summary-bottom'>
-          <Link to="/withdraw/tobewithdraw" className='typography withdraw-text'>{"Withdraw >"} <span> &#8377; {payoutHistory?.withdrawalable_balance}</span></Link>
-            <Typography variant="body2" className='withdrawal-summary-remark'>Remarks: {payoutHistory?.payout_details?.remarks}</Typography>
+            {payoutHistory?.withdrawalable_balance == 0 ? (
+              // For navigating to withdrawal page
+              // <Link to="/withdraw/tobewithdraw" className='typography withdraw-text'>
+              //   {"Withdraw >"} <span> &#8377; {payoutHistory?.withdrawalable_balance}</span>
+              // </Link>
+              <span className='withdraw-text-disabled'>
+                <span onClick={()=> {
+                  toast.warn('Download the app to withdraw money')
+                  setSnackbarOpen(true)
+                }}>{"Withdraw >"}</span>
+                 <span> &#8377; {payoutHistory?.withdrawalable_balance}</span>
+              </span>
+            ) : (
+              <span className='withdraw-text-disabled'>
+                {"Withdraw >"} <span> &#8377; {payoutHistory?.withdrawalable_balance}</span>
+              </span>
+            )}
+            <Typography variant="body2" className='withdrawal-summary-remark'>
+              Remarks: {payoutHistory?.payout_details?.remarks}
+            </Typography>
           </div>
         </div>
       </div>
@@ -158,6 +178,7 @@ const Withdrawal = () => {
           <Button onClick={handleWithdrawalFilterSubmit}>Submit</Button>
         </DialogActions>
       </Dialog>
+      <SimpleSnackbar open={snackbarOpen} setOpen={setSnackbarOpen} />
     </div>
   )
 }

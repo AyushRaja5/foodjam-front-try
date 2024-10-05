@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { toast } from 'react-toastify';
 
 export const getBankDetailsService = async ( token, accountId )  => {
 
@@ -50,6 +51,7 @@ export const getBankDetailsService = async ( token, accountId )  => {
           },
         }
       );
+      console.log(response,'response')
       return response.data;
     } catch (error) {
       throw error;

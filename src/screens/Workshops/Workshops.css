@@ -184,7 +184,7 @@
     background-color: red;
   }
   
-  .expired-stripe {
+  .workshop-list .expired-stripe {
     position: absolute;
     height: 100px;
     width: 100px;

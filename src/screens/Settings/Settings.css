@@ -130,6 +130,7 @@
 @media screen and (max-width: 1024px) {
   .profile-component .mobile-view {
     display: block;
+    width: 100%;
   }
 
   .web-view {
