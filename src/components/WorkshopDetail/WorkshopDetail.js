@@ -163,7 +163,7 @@ const WorkshopDetail = () => {
         <div className='workshop-detail-hashtags'>{workshopData?.data?.additional_data}</div>
         <br />
         <div className='workshop-detail-long-info' dangerouslySetInnerHTML={{ __html: workshopData?.data?.session_details }} />
-
+        <br/>
         {workshopData?.data?.pdf_link && (
           <>
             <div className='workshop-detail-hashtags'><strong>Pdf Notes:</strong></div>
