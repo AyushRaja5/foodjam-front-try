@@ -18,7 +18,7 @@ import AddressBook from './AddressBook/AddressBook';
 import BankDetails from './BankDetails/BankDetails';
 import Withdrawal from './Withdrawal/Withdrawal';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { Divider, useMediaQuery } from '@mui/material';
+import { Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Divider, useMediaQuery } from '@mui/material';
 import DeleteAccountDialogBox from './DeleteNDeactivate/DeleteAccountDialogBox'; // Import the dialog box
 import DeactivateAccountDialogBox from './DeleteNDeactivate/DeactivateAccountDialogBox'; // Import the dialog box
 import { toast } from 'react-toastify';
@@ -228,6 +228,22 @@ const MobileView = ({ tabLabels, tabIcons, handleTabClick, mobileTabIndex }) => 
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { pathname } = useLocation();
+  const [logoutDialogOpen, setLogoutDialogOpen] = useState(false);
+  const handleSignOut = () => {
+    setLogoutDialogOpen(true);
+  };
+  const handleLogoutConfirm = () => {
+    toast.success("Logged Out Successfully")
+    dispatch(clearAuthToken());
+    localStorage.removeItem('foodjam-user');
+    navigate('/');
+    setLogoutDialogOpen(false);
+  };
+
+  const handleLogoutCancel = () => {
+    setLogoutDialogOpen(false);
+  };
+
   const handleLogout = () => {
     toast.success("Logged Out Successfully");
     dispatch(clearAuthToken());
@@ -249,7 +265,7 @@ const MobileView = ({ tabLabels, tabIcons, handleTabClick, mobileTabIndex }) => 
           ))}
         </ul>
         <div className={pathname !== '/setting' ? 'setting-botton-hide' : 'setting-botton'}>
-          <button onClick={handleLogout}>Log Out</button>
+          <button onClick={handleSignOut}>Log Out</button>
           <div className='invite-frnds-div'>
             <div className='invite-frnds-left'>
               <h3>Refer a Friend</h3>
@@ -273,6 +289,20 @@ const MobileView = ({ tabLabels, tabIcons, handleTabClick, mobileTabIndex }) => 
           </>
         )}
       </div>
+      
+      <Dialog
+        open={logoutDialogOpen}
+        onClose={handleLogoutCancel}
+      >
+        <DialogTitle>Confirm Logout</DialogTitle>
+        <DialogContent>
+          <DialogContentText>Are you sure you want to log out?</DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleLogoutCancel} color="primary">Cancel</Button>
+          <Button onClick={handleLogoutConfirm} color="primary">Logout</Button>
+        </DialogActions>
+      </Dialog>
     </>
   );
 };

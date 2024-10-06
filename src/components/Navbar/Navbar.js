@@ -140,9 +140,9 @@ const Navbar = () => {
         <div className="navbar-collapse">
           <ul className="navMenu">
             <li><Link to="/"><img src={FJ} alt='home' className="nav-icon" />Home</Link></li>
-            <li><Link to="/"><img src={SearchIcon} alt='search' className="nav-icon" />Search</Link></li>
+            {/* <li><Link to="/"><img src={SearchIcon} alt='search' className="nav-icon" />Search</Link></li> */}
+            <li><Link to="/explore"><img src={Explorer} alt='explorer'  className="nav-icon"/>Explore</Link></li>
             <li><Link to="https://event.foodjam.in/" target='blank'><img src={Explorer} alt='event' className="nav-icon" />Event</Link></li>
-            {/* <li><Link to="/explore"><img src={Explorer} alt='explorer'  className="nav-icon"/>Explore</Link></li> */}
             <li><Link to="/shop"><img src={Bag} alt='Shop' className="nav-icon" />Shop</Link></li>
             <li><Link onClick={(e) => handleRestrictedClick(e, '/cart')}><img src={Bag} alt='Cart' className="nav-icon" />Cart</Link></li>
             {isLoggedIn ? (
@@ -217,7 +217,7 @@ const Navbar = () => {
         <div className="page-name">{getPageName()}</div>
         {getPageName().length < 10 && <img src={FJLogo} className='fj-logo' />}
         <div className="mobile-icons">
-          <img src={SearchIcon} alt='search' />
+          {/* <img src={SearchIcon} alt='search' /> */}
           <Link onClick={(e) => handleRestrictedClick(e, '/notifications')}><img src={notificationimg} alt='bell' /></Link>
           {
             location.pathname.includes('/profile') || location.pathname.includes('/setting') ? (
