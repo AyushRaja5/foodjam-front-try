@@ -194,15 +194,15 @@
 .product-view-cart-bookmark-section button, .view-cart-btn{
     width: 100%;
     min-height: 50px;
-    background-color: #00ae88;
-    color: white;
+    background-color: #00ae88 !important;
+    color: white !important;
     font-weight: 600;
 }
 .product-view-cart-bookmark-section button:hover, .view-cart-btn:hover{
   width: 100%;
   min-height: 50px;
-  color: white;
-  background-color: #00ae88;
+  color: white !important;
+  background-color: #00ae88 !important;
   font-weight: 600;
 }
 .product-details-similar-product{
