@@ -228,13 +228,13 @@
       margin-right: 10px;
       height: auto;
     }
-    .css-edsu1d-MuiButtonGroup-root .MuiButtonGroup-grouped{
+    .order-products .css-edsu1d-MuiButtonGroup-root .MuiButtonGroup-grouped{
       min-width: 1px !important;
     }
-    .css-pv2iat-MuiButtonBase-root-MuiButton-root, .css-s1vzaf-MuiButtonBase-root-MuiButton-root {
+    .order-products .css-pv2iat-MuiButtonBase-root-MuiButton-root, .css-s1vzaf-MuiButtonBase-root-MuiButton-root {
       padding: 7px !important;
     }
-    .css-qdv0wz-MuiButtonBase-root-MuiButton-root {
+    .order-products .css-qdv0wz-MuiButtonBase-root-MuiButton-root {
       padding: 5px 0 !important;
     }
     .cart-payment-btn button{
