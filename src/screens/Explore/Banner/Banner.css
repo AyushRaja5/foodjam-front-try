@@ -2,23 +2,29 @@
   width: 100%;
   height: auto;
   padding: 0 40px;
+  display: flex;
+  justify-content: center;
 }
 .carousel-item {
    position: relative;
     text-align: center;
     color: white;
     display: flex;
-    height: 300px;
+    height: 350px;
     overflow: hidden;
   }
   .css-1f8sh1y{
-    height: 270px;
+    height: 350px;
+  }
+  .css-1l7c0cy {
+    position:relative !important;
+    height: 100%;
   }
   .carousel-item img {
     width: 100%;
     height: auto;
-    /* min-height: 420px; */
-    object-fit: cover;
+    min-height: 350px;
+    object-fit: fill;
     border-radius: 15px;
   }
   .carousel .MuiCarousel-indicators {
