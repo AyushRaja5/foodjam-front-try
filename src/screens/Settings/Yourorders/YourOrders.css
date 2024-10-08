@@ -27,6 +27,7 @@
   .order-details {
     display: flex;
     flex-wrap: wrap;
+    max-height: 70px;
   }
   
   .product {
