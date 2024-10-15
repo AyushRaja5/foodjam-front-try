@@ -21,6 +21,7 @@ dayjs.extend(customParseFormat);
 const WorkshopDetail = () => {
   const { workshopId } = useParams();
   const dispatch = useDispatch();
+  const BUCKET_URL = "https://cdn.commeat.com/";
 
   // State management
   const [loading, setLoading] = useState(true);
@@ -62,11 +63,11 @@ const WorkshopDetail = () => {
     };
   }, [dispatch, workshopId]);
 
-    // Handler to open dialog and set selected image
-    const handleImageClick = (imageUrl) => {
-      setSelectedImage(imageUrl);
-      setOpenDialog(true);
-    };
+  // Handler to open dialog and set selected image
+  const handleImageClick = (imageUrl) => {
+    setSelectedImage(imageUrl);
+    setOpenDialog(true);
+  };
 
   // Loading state
   if (loading) {
@@ -112,14 +113,14 @@ const WorkshopDetail = () => {
           }
         </div>
         <img
-            src={workshopData?.data?.image ? workshopData?.data?.image?.includes("https://") ? workshopData?.data?.image : `https://cdn.commeat.com/${workshopData?.data?.image}` : ""}
-            alt='Contest cover'
-            className="info-img" 
-            onClick={() => handleImageClick(
-              workshopData?.data?.image?.includes("https://")
-                ? workshopData?.data?.image
-                : `https://cdn.commeat.com/${workshopData?.data?.image}`
-            )} />
+          src={workshopData?.data?.image ? workshopData?.data?.image?.includes("https://") ? workshopData?.data?.image : `https://cdn.commeat.com/${workshopData?.data?.image}` : ""}
+          alt='Contest cover'
+          className="info-img"
+          onClick={() => handleImageClick(
+            workshopData?.data?.image?.includes("https://")
+              ? workshopData?.data?.image
+              : `https://cdn.commeat.com/${workshopData?.data?.image}`
+          )} />
       </div>
 
       <div className='workshop-detail-middle'>
@@ -163,11 +164,15 @@ const WorkshopDetail = () => {
         <div className='workshop-detail-hashtags'>{workshopData?.data?.additional_data}</div>
         <br />
         <div className='workshop-detail-long-info' dangerouslySetInnerHTML={{ __html: workshopData?.data?.session_details }} />
-        <br/>
+        <br />
         {workshopData?.data?.pdf_link && (
           <>
             <div className='workshop-detail-hashtags'><strong>Pdf Notes:</strong></div>
-            <div className='workshop-detail-hashtags'>{workshopData?.data?.pdf_link}</div>
+            <div className='workshop-detail-hashtags'>
+              <a href={BUCKET_URL + workshopData?.data?.pdf_link} target="_blank" rel="noopener noreferrer">
+                Open Pdf
+              </a>
+            </div>
           </>
         )}
 
@@ -192,7 +197,7 @@ const WorkshopDetail = () => {
           </div>
         </div>
       )}
-      
+
       <Dialog open={openDialog} onClose={() => setOpenDialog(false)} maxWidth="lg">
         <DialogContent>
           <img src={selectedImage} alt="Large View" style={{ width: '100%', height: 'auto' }} />

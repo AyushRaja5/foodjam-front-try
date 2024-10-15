@@ -21,6 +21,7 @@ import CloseIcon from '@mui/icons-material/Close';
 import BookmarkBorderIcon from '@mui/icons-material/BookmarkBorder';
 import mailIcon from '../../assets/imagespng/mailIcon.png';
 import placeholder from '../../assets/imagespng/placeholder.png';
+import VideoCard from '../../components/videocard/VideoCard';
 const ProductDetailsPage = () => {
   const { productId } = useParams();
   const dispatch = useDispatch();
@@ -103,7 +104,8 @@ const ProductDetails = ({ data, handleAddToCart, handleQuantityChange, cartprodu
     images,
     similar_products,
     offer,
-    special
+    special,
+    user_follow_video
   } = data;
   const CancellationPolicy = "Once the payment for your order is complete, the order cannot be cancelled.";
   const RefundPolicy = "This product cannot be returned, but incase you receive the product that is physicall damaged, has missing parts or accessries, defective or different from the description, \n Please reach out to our support team.";
@@ -156,11 +158,11 @@ const ProductDetails = ({ data, handleAddToCart, handleQuantityChange, cartprodu
         <Carousel emulateTouch>
           {images.map((image, index) => (
             <div key={index} className="product-carousel-img-wrapper" onClick={() => handleClickOpen(image.popup)}>
-              <img   src={image?.popup || placeholder} 
+              <img src={image?.popup || placeholder}
                 alt={`Product image ${index + 1}`}
                 className='product-carousel-img'
                 // onLoad={() => setSelectedImage(image.popup)}
-                onError={(e) => e.target.src = placeholder}/>
+                onError={(e) => e.target.src = placeholder} />
             </div>
           ))}
         </Carousel>
@@ -243,7 +245,7 @@ const ProductDetails = ({ data, handleAddToCart, handleQuantityChange, cartprodu
             <AccordionSummary expandIcon={<ExpandMoreIcon />} aria-controls="panel2-content" id="panel2-header">
               <Typography className='accordian-header'><strong>Similar Product</strong></Typography>
             </AccordionSummary>
-            <br/>
+            <br />
             <div className="scroll-buttons">
               <button className="scroll-button" onClick={scrollLeftSimilar}>{"<"}</button>
               <button className="scroll-button" onClick={scrollRightSimilar}>{">"}</button>
@@ -266,7 +268,25 @@ const ProductDetails = ({ data, handleAddToCart, handleQuantityChange, cartprodu
               <SupportCard />
             </AccordionDetails>
           </Accordion>
-
+          {
+            user_follow_video &&
+            <Accordion expanded={expanded === 'panel6'} onChange={handleChange('panel6')}>
+              <AccordionSummary expandIcon={<ExpandMoreIcon />} aria-controls="panel6-content" id="panel6-header">
+                <Typography className='accordian-header'><strong>Related Videos</strong></Typography>
+              </AccordionSummary>
+              <div className="scroll-buttons">
+                <button className="scroll-button" onClick={scrollLeftCategory}>{"<"}</button>
+                <button className="scroll-button" onClick={scrollRightCategory}>{">"}</button>
+              </div>
+              <AccordionDetails>
+                <div className='product-details-similar-product' ref={moreFromCategoryRef} >
+                  {user_follow_video?.map((video, index) => (
+                    <VideoCard post={video} />
+                  ))}
+                </div>
+              </AccordionDetails>
+            </Accordion>
+          }
           <Accordion expanded={expanded === 'panel4'} onChange={handleChange('panel4')}>
             <AccordionSummary expandIcon={<ExpandMoreIcon />} aria-controls="panel4-content" id="panel4-header">
               <Typography className='accordian-header'><strong>Refund Policy</strong></Typography>
@@ -281,13 +301,13 @@ const ProductDetails = ({ data, handleAddToCart, handleQuantityChange, cartprodu
             <AccordionSummary expandIcon={<ExpandMoreIcon />} aria-controls="panel5-content" id="panel5-header">
               <Typography className='accordian-header'><strong>More from this Category</strong></Typography>
             </AccordionSummary>
-            <br/>
+            <br />
             <div className="scroll-buttons">
               <button className="scroll-button" onClick={scrollLeftCategory}>{"<"}</button>
               <button className="scroll-button" onClick={scrollRightCategory}>{">"}</button>
             </div>
             <AccordionDetails>
-              <div className='product-details-similar-product'  ref={moreFromCategoryRef} >
+              <div className='product-details-similar-product' ref={moreFromCategoryRef} >
                 {similar_products.map((product, index) => (
                   <ProductCard key={index} product={product} quantity={getQuantityFromCart(product.product_id)} />
                 ))}
