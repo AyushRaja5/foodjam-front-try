@@ -166,7 +166,8 @@
   
   @media (max-width: 480px) {
     .footer {
-      padding: 10px 10px;
+      padding: 10px 20px;
+      margin-bottom: 40px;
     }
     .download-section div {
        width: 100%;
@@ -182,13 +183,19 @@
     .footer {
       grid-template-columns: 1fr; /* Single column for mobile */
     }
+    .footer-section {
+      text-align: center;
+    }
+    .footer-section:nth-child(1) {
+      grid-column: 1 / span 2;
+      text-align: center;
+    }
   
-    /* Products and Useful Links side by side */
     .footer-section:nth-child(2),
     .footer-section:nth-child(3) {
       display: grid;
-      grid-template-columns: repeat(2, 1fr); /* Two columns for these sections */
+      grid-template-columns: repeat(1, 1fr);
       gap: 10px;
-      text-align: left;
+      align-items: start;
     }
   }

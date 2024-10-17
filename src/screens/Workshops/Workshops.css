@@ -353,7 +353,7 @@
   }
   
   @media (max-width: 750px) {
-    .campaigns-container {
+    .workshops-container {
       padding: 0 10px;
       display: flex;
       flex-direction: column;
@@ -385,7 +385,7 @@
     }
   
     .banner-sec {
-      height: 170px;
+      height: 200px;
       object-fit: fill;
     }
   

@@ -35,7 +35,7 @@
     align-items: center;
     justify-content: space-around;
     flex-direction: column;
-    background-color: #fff0dd;
+    background-color: #fff0dd !important;
     padding: 20px;
     text-align: center;
     border-radius: 15px;
@@ -95,27 +95,29 @@
     .top-brands-view-btn {
         width: 100px;
         height: 25px;
-        padding: 5px;
-        font-size: 10px;
+        padding: 5px !important;
+        font-size: 10px !important;
+        border: 1px solid #f8a003 !important;
     }
 }
 
 @media (max-width: 450px) {
     .top-brands-container {
         display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
-        gap: 10px;
+        grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+        gap: 5px;
         justify-items: center;
         text-align: center;
     }
     .top-brands-card {
-      height: 100px;
-      width: 80px;
+      height: 120px;
+      width: 100px;
       padding: 15px 5px;
+      background-color: #fff0dd !important;
     }
     .top-brands-img {
-        width: 50px;
-        height: 50px;
+        width: 60px;
+        height: 60px;
         margin: 0;
         padding: 0;
     }
@@ -123,6 +125,6 @@
     .link-top-brands-profile {
         text-decoration: none;
         font-weight: 600;
-        font-size: 9px;
+        font-size: 10px;
     }
 }
